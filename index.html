@@ -50,14 +50,11 @@
         .task-actions .btn-icon { position: relative; }
         .task-progress { width: 100%; background-color: var(--border-color); border-radius: 4px; height: 6px; margin-top: 10px; }
         .progress-bar { background-color: var(--accent-color); height: 100%; border-radius: 4px; transition: width 0.3s ease; }
-        /* Drag and Drop styles */
         .task-item.dragging { opacity: 0.5; background: var(--accent-color); }
-        /* Animation styles */
         @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes slideOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.9); } }
         .task-item.slide-in { animation: slideIn 0.4s ease forwards; }
         .task-item.slide-out { animation: slideOut 0.3s ease forwards; }
-        /* Other styles from before, condensed */
         h1{font-size:2.5rem}label{font-weight:600;color:var(--text-muted);margin-bottom:5px}.form-row,.stats{display:grid}.stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;padding:30px;background:var(--bg-secondary)}.stat-card{background:var(--bg-card);padding:20px;border-radius:15px;text-align:center;box-shadow:0 4px 15px var(--shadow-light);transition:all .3s ease}.stat-card:hover{transform:translateY(-5px)}.stat-number{font-size:2.5rem;font-weight:700;color:var(--accent-color)}.stat-label{color:var(--text-muted);font-size:.9rem}.task-section,.sidebar>div{background:var(--bg-card);border-radius:15px;padding:25px;box-shadow:0 4px 15px var(--shadow-light)}.section-title{font-size:1.5rem;color:var(--text-dark);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--border-color)}.notification{background:linear-gradient(135deg,var(--notification-grad-start) 0%,var(--notification-grad-end) 100%);color:var(--text-light);padding:15px;border-radius:10px;margin-bottom:10px;text-align:center}.task-form{display:grid;gap:15px;margin-bottom:25px}.form-row{grid-template-columns:1fr 1fr;gap:15px}.time-picker-group{display:flex;gap:8px}.time-picker-group select{flex:1}.form-group{display:flex;flex-direction:column}.form-group.full-width{grid-column:1/-1}.task-item{background:var(--bg-secondary);padding:20px;border-radius:12px;margin-bottom:15px;border-left:4px solid #cbd5e0}.task-item:hover{transform:translateX(5px);box-shadow:0 4px 15px var(--shadow-heavy)}.task-header,.task-actions{display:flex;align-items:flex-start}.task-header{justify-content:space-between;margin-bottom:10px}.task-title{font-size:1.1rem;font-weight:600;color:var(--text-dark);margin-bottom:5px}.task-meta{display:flex;gap:15px;align-items:center;font-size:.9rem;color:var(--text-muted);flex-wrap:wrap}.task-actions{gap:5px}.btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:600;transition:all .3s ease;font-size:.9rem}.btn-primary{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%);color:#fff}.btn-icon{width:35px;height:35px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background-color:transparent;color:var(--text-muted)}.btn-icon:hover{background-color:var(--border-color)}.sidebar{display:flex;flex-direction:column;gap:25px}.pomodoro-timer{font-size:2.5rem;font-weight:700;text-align:center;color:#e53e3e;margin:20px 0}.pomodoro-controls{display:flex;justify-content:center;gap:10px;margin-top:20px}.pomodoro-btn{width:50px;height:50px;border-radius:50%;border:none;font-size:1.2rem;cursor:pointer;color:#fff;transition:all .3s ease;display:flex;align-items:center;justify-content:center}.pomodoro-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px var(--shadow-heavy)}.play-btn{background:#48bb78}.pause-btn{background:#ed8936}.reset-btn{background:#e53e3e}.skip-btn{background:#4facfe}.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);backdrop-filter:blur(5px);z-index:1000;animation:fadeIn .3s ease}.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg-card);color:var(--text-dark);border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.2);max-width:500px;width:90%;overflow:hidden;animation:slideIn .3s ease}.modal-header{background:linear-gradient(135deg,#f56565 0%,#e53e3e 100%);color:#fff;padding:20px;text-align:center}.modal-header.settings,.modal-header.edit{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%)}.modal-body{padding:25px;max-height:60vh;overflow-y:auto}.modal-body p{color:var(--text-muted);font-size:1rem;margin-bottom:25px;line-height:1.5;text-align:center}.modal-actions{display:flex;gap:10px;justify-content:flex-end;padding:20px 25px;border-top:1px solid var(--border-color)}.modal-btn{min-width:100px}.completed .task-title{text-decoration:line-through}.empty-state{text-align:center;padding:40px;color:var(--text-muted)}.empty-state svg{width:64px;height:64px;margin-bottom:20px;opacity:.5}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes slideIn{from{opacity:0;transform:translate(-50%,-60%)}to{opacity:1;transform:translate(-50%,-50%)}}#settingsBtn{position:absolute;top:20px;right:20px;background:rgba(255,255,255,.2);color:#fff;border:none;width:45px;height:45px;border-radius:50%;font-size:1.5rem;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center}#settingsBtn:hover{background:rgba(255,255,255,.3);transform:rotate(45deg)}
     </style>
 </head>
@@ -71,25 +68,23 @@
         </div>
 
         <!-- STATS -->
-        <div class="stats">
-            <!-- Stats cards will be generated here -->
+        <div class="stats" id="statsContainer">
+            <!-- Stats cards will be generated here by JS -->
         </div>
 
         <!-- MAIN CONTENT -->
         <div class="main-content">
             <div class="task-section">
                 <!-- ADD TASK FORM -->
-                <h2 class="section-title" data-translate-key="form_title">¿Qué necesitas hacer hoy?</h2>
-                <form id="taskForm" class="task-form">
-                    <!-- Form content here -->
-                </form>
+                <div id="taskFormContainer">
+                    <!-- Form will be generated here by JS -->
+                </div>
 
                 <!-- TASK CONTROLS (SEARCH AND FILTER) -->
                 <div class="task-controls">
                     <input type="search" id="searchInput" data-translate-key-placeholder="placeholder_search" placeholder="Buscar tareas...">
                     <select id="filterCategory">
-                        <option value="all" data-translate-key="filter_all">Todas las categorías</option>
-                        <!-- Categories will be populated here -->
+                        <!-- Options generated by JS -->
                     </select>
                 </div>
                 
@@ -122,72 +117,508 @@
     <!-- Delete Modal -->
     <div class="modal-overlay" id="deleteModal">
         <div class="modal">
-            <div class="modal-header"><h3>⚠️ Confirmar eliminación</h3></div>
-            <div class="modal-body"><p>¿Estás seguro de que quieres eliminar esta tarea?</p></div>
+            <div class="modal-header"><h3 data-translate-key="delete_modal_title">⚠️ Confirmar eliminación</h3></div>
+            <div class="modal-body"><p data-translate-key="delete_modal_text">¿Estás seguro de que quieres eliminar esta tarea?</p></div>
             <div class="modal-actions">
-                <button id="cancelDelete" class="modal-btn">Cancelar</button>
-                <button id="confirmDelete" class="modal-btn" style="background-color: #e53e3e; color: white;">Eliminar</button>
+                <button id="cancelDelete" class="modal-btn" data-translate-key="btn_cancel">Cancelar</button>
+                <button id="confirmDelete" class="modal-btn" style="background-color: #e53e3e; color: white;" data-translate-key="btn_delete">Eliminar</button>
             </div>
         </div>
     </div>
     <!-- Edit Task Modal -->
     <div class="modal-overlay" id="editTaskModal">
         <div class="modal">
-            <div class="modal-header edit"><h3>✏️ Editar Tarea</h3></div>
+            <div class="modal-header edit"><h3 data-translate-key="edit_modal_title">✏️ Editar Tarea</h3></div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Título de la Tarea</label>
+                    <label data-translate-key="label_task">Título de la Tarea</label>
                     <input type="text" id="editTaskTitle">
                 </div>
                 <div class="form-group">
-                    <label>Sub-tareas</label>
+                    <label data-translate-key="label_subtasks">Sub-tareas</label>
                     <div id="editSubtaskList"></div>
-                    <input type="text" id="newSubtaskInput" placeholder="Añadir nueva sub-tarea y presionar Enter">
+                    <input type="text" id="newSubtaskInput" data-translate-key-placeholder="placeholder_subtask" placeholder="Añadir nueva sub-tarea y presionar Enter">
                 </div>
             </div>
             <div class="modal-actions">
-                <button id="cancelEdit" class="modal-btn">Cancelar</button>
-                <button id="saveEdit" class="modal-btn" style="background-color: var(--accent-color); color: white;">Guardar Cambios</button>
+                <button id="cancelEdit" class="modal-btn" data-translate-key="btn_cancel">Cancelar</button>
+                <button id="saveEdit" class="modal-btn" style="background-color: var(--accent-color); color: white;" data-translate-key="btn_save_changes">Guardar</button>
             </div>
         </div>
     </div>
     <!-- Settings Modal -->
     <div class="modal-overlay" id="settingsModal">
          <div class="modal">
-            <div class="modal-header settings"><h3>⚙️ Configuración</h3></div>
-            <div class="modal-body">
+            <div class="modal-header settings"><h3 data-translate-key="settings_title">⚙️ Configuración</h3></div>
+            <div class="modal-body" style="text-align: left;">
                 <div class="form-group">
-                    <label for="themeSelector">Tema</label>
+                    <label for="themeSelector" data-translate-key="settings_theme">Tema</label>
                     <select id="themeSelector">
-                        <option value="light">Claro</option>
-                        <option value="dark">Oscuro</option>
-                        <option value="ocean">Océano</option>
-                        <option value="forest">Bosque</option>
+                        <option value="light" data-translate-key="theme_light">Claro</option>
+                        <option value="dark" data-translate-key="theme_dark">Oscuro</option>
+                        <option value="ocean" data-translate-key="theme_ocean">Océano</option>
+                        <option value="forest" data-translate-key="theme_forest">Bosque</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="languageSelector">Idioma</label>
+                    <label for="languageSelector" data-translate-key="settings_language">Idioma</label>
                     <select id="languageSelector"><option value="es">Español</option><option value="en">English</option></select>
                 </div>
                 <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 10px;">
-                    <label>Datos de la Aplicación</label>
+                    <label data-translate-key="settings_data">Datos de la Aplicación</label>
                     <div style="display: flex; gap: 10px; margin-top: 10px;">
-                        <button id="exportBtn" class="modal-btn" style="width: 100%;">Exportar Datos</button>
-                        <label for="importFile" class="modal-btn" style="width: 100%; text-align: center; cursor: pointer;">Importar Datos</label>
+                        <button id="exportBtn" class="modal-btn" style="width: 100%;" data-translate-key="btn_export">Exportar</button>
+                        <label for="importFile" class="modal-btn" style="width: 100%; text-align: center; cursor: pointer; display: flex; align-items: center; justify-content: center;" data-translate-key="btn_import">Importar</label>
                         <input type="file" id="importFile" accept=".json" style="display: none;">
                     </div>
                 </div>
             </div>
             <div class="modal-actions">
-                <button id="closeSettings" class="modal-btn" style="background-color: var(--accent-color); color: white;">Cerrar</button>
+                <button id="closeSettings" class="modal-btn" data-translate-key="btn_close">Cerrar</button>
             </div>
         </div>
     </div>
 
     <script>
-        // All JavaScript will go here
-        // This is a placeholder for the full script which is too long to display inline.
-        // The script logic is described in the implementation details.
+        const translations = {
+            es: { title: "🎯 TaskMaster Pro", subtitle: "Organiza tu día con inteligencia", stat_total: "Total", stat_completed: "Completadas", stat_pending: "Pendientes", stat_overdue: "Vencidas", form_title: "¿Qué necesitas hacer hoy?", label_task: "Tarea", placeholder_task: "Describe tu tarea...", label_category: "Categoría", cat_work: "💼 Trabajo", cat_personal: "👤 Personal", cat_health: "🏃 Salud", cat_study: "📚 Estudio", cat_other: "📋 Otros", label_priority: "Prioridad", prio_low: "🟢 Baja", prio_medium: "🟡 Media", prio_high: "🔴 Alta", label_date: "Fecha Límite", label_time: "Hora", btn_add_task: "➕ Agregar Tarea", placeholder_search: "Buscar tareas...", filter_all: "Todas las categorías", empty_state_title: "No hay tareas aquí", empty_state_text: "Agrega una nueva tarea o ajusta tus filtros.", title_notifications: "🔔 Notificaciones", welcome_notification: "¡Bienvenido a TaskMaster Pro! 🎉", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirmar eliminación", delete_modal_text: "¿Estás seguro de que quieres eliminar esta tarea?", btn_delete: "Eliminar", btn_cancel: "Cancelar", edit_modal_title: "✏️ Editar Tarea", label_subtasks: "Sub-tareas", placeholder_subtask: "Añadir nueva sub-tarea y presionar Enter", settings_title: "⚙️ Configuración", settings_theme: "Tema", theme_light: "Claro", theme_dark: "Oscuro", theme_ocean: "Océano", theme_forest: "Bosque", settings_language: "Idioma", settings_data: "Datos de la Aplicación", btn_export: "Exportar", btn_import: "Importar", btn_save_changes: "Guardar", btn_close: "Cerrar", feedback_imported: "¡Datos importados con éxito!", feedback_error_import: "Error al importar el archivo." },
+            en: { title: "🎯 TaskMaster Pro", subtitle: "Organize your day with intelligence", stat_total: "Total", stat_completed: "Completed", stat_pending: "Pending", stat_overdue: "Overdue", form_title: "What do you need to do today?", label_task: "Task", placeholder_task: "Describe your task...", label_category: "Category", cat_work: "💼 Work", cat_personal: "👤 Personal", cat_health: "🏃 Health", cat_study: "📚 Study", cat_other: "📋 Other", label_priority: "Priority", prio_low: "🟢 Low", prio_medium: "🟡 Medium", prio_high: "🔴 High", label_date: "Due Date", label_time: "Time", btn_add_task: "➕ Add Task", placeholder_search: "Search tasks...", filter_all: "All categories", empty_state_title: "No tasks here", empty_state_text: "Add a new task or adjust your filters.", title_notifications: "🔔 Notifications", welcome_notification: "Welcome to TaskMaster Pro! 🎉", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirm Deletion", delete_modal_text: "Are you sure you want to delete this task?", btn_delete: "Delete", btn_cancel: "Cancel", edit_modal_title: "✏️ Edit Task", label_subtasks: "Sub-tasks", placeholder_subtask: "Add new sub-task and press Enter", settings_title: "⚙️ Settings", settings_theme: "Theme", theme_light: "Light", theme_dark: "Dark", theme_ocean: "Ocean", theme_forest: "Forest", settings_language: "Language", settings_data: "Application Data", btn_export: "Export", btn_import: "Import", btn_save_changes: "Save", btn_close: "Close", feedback_imported: "Data imported successfully!", feedback_error_import: "Error importing file." }
+        };
+
+        class TaskMaster {
+            constructor() {
+                this.tasks = this.loadData('tasks', []);
+                this.settings = this.loadData('settings', { theme: 'light', language: 'es' });
+                this.currentPomodoroTask = null;
+                this.isPomodoroRunning = false;
+                this.pomodoroTime = 25 * 60;
+                this.pomodoroInterval = null;
+                this.draggedTask = null;
+                this.currentEditingTask = null;
+
+                this.renderAll();
+                this.applySettings();
+                this.initializeEventListeners();
+            }
+
+            // --- DATA & SETTINGS ---
+            loadData(key, defaultValue) {
+                try {
+                    const data = localStorage.getItem(`taskmaster-${key}`);
+                    return data ? JSON.parse(data) : defaultValue;
+                } catch (e) {
+                    return defaultValue;
+                }
+            }
+            saveData(key, data) {
+                localStorage.setItem(`taskmaster-${key}`, JSON.stringify(data));
+            }
+            applySettings() {
+                document.documentElement.setAttribute('data-theme', this.settings.theme);
+                document.documentElement.lang = this.settings.language;
+                this.renderAll();
+            }
+
+            // --- CORE RENDERING ---
+            renderAll() {
+                const lang = this.settings.language;
+                document.querySelectorAll('[data-translate-key]').forEach(el => {
+                    const key = el.getAttribute('data-translate-key');
+                    if (translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
+                });
+                document.querySelectorAll('[data-translate-key-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-translate-key-placeholder');
+                    if (translations[lang] && translations[lang][key]) el.placeholder = translations[lang][key];
+                });
+                
+                this.renderStats();
+                this.renderTaskForm();
+                this.renderFilterOptions();
+                this.renderTasks();
+                this.checkWelcomeNotification();
+            }
+
+            renderStats() {
+                const container = document.getElementById('statsContainer');
+                const lang = this.settings.language;
+
+                const total = this.tasks.length;
+                const completed = this.tasks.filter(t => t.completed).length;
+                const pending = total - completed;
+                const overdue = this.tasks.filter(t => t.date && new Date(t.date + 'T' + (t.time || '23:59:59')) < new Date() && !t.completed).length;
+
+                const stats = [
+                    { key: 'stat_total', value: total },
+                    { key: 'stat_completed', value: completed },
+                    { key: 'stat_pending', value: pending },
+                    { key: 'stat_overdue', value: overdue }
+                ];
+                
+                container.innerHTML = stats.map(stat => `
+                    <div class="stat-card">
+                        <div class="stat-number">${stat.value}</div>
+                        <div class="stat-label" data-translate-key="${stat.key}">${translations[lang][stat.key]}</div>
+                    </div>
+                `).join('');
+            }
+
+            renderTaskForm() {
+                const container = document.getElementById('taskFormContainer');
+                const lang = this.settings.language;
+                container.innerHTML = `
+                    <h2 class="section-title" data-translate-key="form_title">${translations[lang].form_title}</h2>
+                    <form id="taskForm" class="task-form">
+                        <div class="form-group full-width">
+                            <label data-translate-key="label_task">${translations[lang].label_task}</label>
+                            <input type="text" name="title" data-translate-key-placeholder="placeholder_task" placeholder="${translations[lang].placeholder_task}" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-translate-key="label_category">${translations[lang].label_category}</label>
+                                <select name="category">
+                                    ${Object.entries(translations.es).filter(([k]) => k.startsWith('cat_')).map(([k, v]) => `<option value="${k.replace('cat_', '')}" data-translate-key="${k}">${translations[lang][k]}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label data-translate-key="label_priority">${translations[lang].label_priority}</label>
+                                <select name="priority">
+                                    ${Object.entries(translations.es).filter(([k]) => k.startsWith('prio_')).map(([k, v]) => `<option value="${k.replace('prio_', '')}" data-translate-key="${k}">${translations[lang][k]}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-translate-key="label_date">${translations[lang].label_date}</label>
+                                <input type="date" name="date">
+                            </div>
+                            <div class="form-group">
+                                <label data-translate-key="label_time">${translations[lang].label_time}</label>
+                                <div class="time-picker-group">
+                                    <select name="hour">
+                                        ${Array.from({length: 12}, (_, i) => `<option value="${i+1}">${(i+1).toString().padStart(2,'0')}</option>`).join('')}
+                                    </select>
+                                    <select name="minute">
+                                        ${['00','15','30','45'].map(m => `<option value="${m}">${m}</option>`).join('')}
+                                    </select>
+                                    <select name="ampm">
+                                        <option value="AM">AM</option><option value="PM">PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-translate-key="btn_add_task">${translations[lang].btn_add_task}</button>
+                    </form>
+                `;
+                document.getElementById('taskForm').addEventListener('submit', this.handleAddTask.bind(this));
+            }
+
+            renderFilterOptions() {
+                const filter = document.getElementById('filterCategory');
+                const lang = this.settings.language;
+                const categories = [...new Set(this.tasks.map(t => t.category))];
+                filter.innerHTML = `<option value="all" data-translate-key="filter_all">${translations[lang].filter_all}</option>`;
+                categories.forEach(cat => {
+                    const catKey = `cat_${cat}`;
+                    filter.innerHTML += `<option value="${cat}" data-translate-key="${catKey}">${translations[lang][catKey]}</option>`;
+                });
+            }
+
+            renderTasks() {
+                const tasksList = document.getElementById('tasksList');
+                tasksList.innerHTML = '';
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                const filterCat = document.getElementById('filterCategory').value;
+
+                const filteredTasks = this.tasks.filter(task => 
+                    (task.title.toLowerCase().includes(searchTerm) || (task.subtasks && task.subtasks.some(st => st.title.toLowerCase().includes(searchTerm)))) &&
+                    (filterCat === 'all' || task.category === filterCat)
+                );
+
+                if (filteredTasks.length === 0) {
+                    tasksList.innerHTML = `<div class="empty-state"><h3>${translations[this.settings.language].empty_state_title}</h3><p>${translations[this.settings.language].empty_state_text}</p></div>`;
+                    return;
+                }
+
+                filteredTasks.forEach(task => tasksList.appendChild(this.createTaskElement(task)));
+            }
+
+            createTaskElement(task) {
+                const taskEl = document.createElement('div');
+                const lang = this.settings.language;
+                const completedSubtasks = task.subtasks ? task.subtasks.filter(st => st.completed).length : 0;
+                const progress = task.subtasks && task.subtasks.length > 0 ? (completedSubtasks / task.subtasks.length) * 100 : (task.completed ? 100 : 0);
+
+                taskEl.className = `task-item slide-in ${task.completed ? 'completed' : ''} priority-${task.priority}`;
+                if(task.id === this.currentPomodoroTask) taskEl.classList.add('pomodoro-active');
+                taskEl.dataset.id = task.id;
+                taskEl.draggable = true;
+                
+                let dateTimeDisplay = '';
+                if(task.date) {
+                    dateTimeDisplay = new Date(task.date + 'T00:00:00').toLocaleDateString(lang);
+                    if(task.time) {
+                        const [h, m] = task.time.split(':');
+                        const ampm = h >= 12 ? 'PM' : 'AM';
+                        const h12 = h % 12 || 12;
+                        dateTimeDisplay += ` ${h12}:${m} ${ampm}`;
+                    }
+                }
+
+                taskEl.innerHTML = `
+                    <div class="task-header">
+                        <div>
+                            <div class="task-title">${task.title}</div>
+                            <div class="task-meta">
+                                <span>${translations[lang]['cat_'+task.category].split(' ')[0]}</span>
+                                ${dateTimeDisplay ? `<span>📅 ${dateTimeDisplay}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn-icon pomodoro-start-btn">🍅</button>
+                            <button class="btn-icon edit-btn">✏️</button>
+                            <button class="btn-icon complete-btn">${task.completed ? '↩️' : '✅'}</button>
+                            <button class="btn-icon delete-btn">🗑️</button>
+                        </div>
+                    </div>
+                    ${task.subtasks && task.subtasks.length > 0 ? `<div class="subtask-list">${task.subtasks.map(st => `
+                        <div class="subtask-item" data-subtask-id="${st.id}">
+                            <input type="checkbox" ${st.completed ? 'checked' : ''}>
+                            <label class="${st.completed ? 'completed' : ''}">${st.title}</label>
+                        </div>`).join('')}</div>` : ''}
+                    <div class="task-progress"><div class="progress-bar" style="width: ${progress}%;"></div></div>
+                `;
+                return taskEl;
+            }
+
+            checkWelcomeNotification() {
+                document.getElementById('welcomeNotification').style.display = this.tasks.length > 0 ? 'none' : 'block';
+            }
+
+            // --- EVENT LISTENERS ---
+            initializeEventListeners() {
+                document.getElementById('searchInput').addEventListener('input', () => this.renderTasks());
+                document.getElementById('filterCategory').addEventListener('change', () => this.renderTasks());
+                document.getElementById('settingsBtn').addEventListener('click', () => this.showModal('settingsModal'));
+                document.getElementById('closeSettings').addEventListener('click', () => this.hideModal('settingsModal'));
+                document.getElementById('themeSelector').addEventListener('change', (e) => { this.settings.theme = e.target.value; this.applySettings(); this.saveData('settings', this.settings); });
+                document.getElementById('languageSelector').addEventListener('change', (e) => { this.settings.language = e.target.value; this.applySettings(); this.saveData('settings', this.settings); });
+                document.getElementById('exportBtn').addEventListener('click', this.exportData.bind(this));
+                document.getElementById('importFile').addEventListener('change', this.importData.bind(this));
+                document.getElementById('playBtn').addEventListener('click', () => this.startPomodoro());
+                document.getElementById('pauseBtn').addEventListener('click', () => this.pausePomodoro());
+                document.getElementById('resetBtn').addEventListener('click', () => this.resetPomodoro());
+                document.getElementById('tasksList').addEventListener('click', this.handleTaskListClick.bind(this));
+                document.getElementById('tasksList').addEventListener('dragstart', e => { this.draggedTask = e.target; e.target.classList.add('dragging'); });
+                document.getElementById('tasksList').addEventListener('dragover', e => { e.preventDefault(); const afterElement = this.getDragAfterElement(e.clientY); if (afterElement == null) { tasksList.appendChild(this.draggedTask); } else { tasksList.insertBefore(this.draggedTask, afterElement); } });
+                document.getElementById('tasksList').addEventListener('drop', e => { e.target.closest('.task-item').classList.remove('dragging'); const newOrderIds = [...document.getElementById('tasksList').children].map(el => el.dataset.id); this.tasks.sort((a,b) => newOrderIds.indexOf(a.id) - newOrderIds.indexOf(b.id)); this.saveData('tasks', this.tasks); });
+            }
+
+            getDragAfterElement(y) {
+                const draggableElements = [...document.getElementById('tasksList').querySelectorAll('.task-item:not(.dragging)')];
+                return draggableElements.reduce((closest, child) => {
+                    const box = child.getBoundingClientRect();
+                    const offset = y - box.top - box.height / 2;
+                    return (offset < 0 && offset > closest.offset) ? { offset: offset, element: child } : closest;
+                }, { offset: Number.NEGATIVE_INFINITY }).element;
+            }
+
+            handleTaskListClick(e) {
+                const target = e.target;
+                const taskEl = target.closest('.task-item');
+                if(!taskEl) return;
+                const taskId = taskEl.dataset.id;
+                
+                if(target.closest('.delete-btn')) this.showDeleteModal(taskId);
+                else if(target.closest('.complete-btn')) this.toggleTaskCompletion(taskId);
+                else if(target.closest('.edit-btn')) this.showEditModal(taskId);
+                else if(target.closest('.pomodoro-start-btn')) this.startPomodoroForTask(taskId);
+                else if(target.closest('.subtask-item')) {
+                    const subtaskId = target.closest('.subtask-item').dataset.subtaskId;
+                    if(target.matches('input[type="checkbox"]')) this.toggleSubtask(taskId, subtaskId);
+                }
+            }
+
+            // --- TASK ACTIONS ---
+            handleAddTask(e) {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const title = formData.get('title').trim();
+                if (!title) return;
+                
+                let timeString = null;
+                if(formData.get('date')) {
+                    let h24 = parseInt(formData.get('hour'));
+                    if (formData.get('ampm') === 'PM' && h24 < 12) h24 += 12;
+                    if (formData.get('ampm') === 'AM' && h24 === 12) h24 = 0;
+                    timeString = `${h24.toString().padStart(2,'0')}:${formData.get('minute')}`;
+                }
+
+                this.tasks.unshift({
+                    id: `task-${Date.now()}`,
+                    title,
+                    category: formData.get('category'),
+                    priority: formData.get('priority'),
+                    date: formData.get('date') || null,
+                    time: timeString,
+                    completed: false,
+                    subtasks: []
+                });
+                this.saveData('tasks', this.tasks);
+                this.renderAll();
+                e.target.reset();
+            }
+
+            toggleTaskCompletion(taskId) {
+                const task = this.tasks.find(t => t.id === taskId);
+                if(task) {
+                    task.completed = !task.completed;
+                    this.saveData('tasks', this.tasks);
+                    this.renderAll();
+                }
+            }
+
+            showDeleteModal(taskId) {
+                this.showModal('deleteModal');
+                document.getElementById('confirmDelete').onclick = () => {
+                    this.tasks = this.tasks.filter(t => t.id !== taskId);
+                    this.saveData('tasks', this.tasks);
+                    this.renderAll();
+                    this.hideModal('deleteModal');
+                };
+                document.getElementById('cancelDelete').onclick = () => this.hideModal('deleteModal');
+            }
+            
+            showEditModal(taskId) {
+                this.currentEditingTask = this.tasks.find(t => t.id === taskId);
+                if(!this.currentEditingTask) return;
+
+                document.getElementById('editTaskTitle').value = this.currentEditingTask.title;
+                const subtaskListEl = document.getElementById('editSubtaskList');
+                subtaskListEl.innerHTML = this.currentEditingTask.subtasks.map(st => `
+                    <div class="subtask-item">${st.title} <button class="delete-subtask-btn" data-subtask-id="${st.id}">🗑️</button></div>
+                `).join('');
+
+                subtaskListEl.querySelectorAll('.delete-subtask-btn').forEach(btn => btn.onclick = () => this.deleteSubtask(btn.dataset.subtaskId));
+                
+                const newSubtaskInput = document.getElementById('newSubtaskInput');
+                newSubtaskInput.onkeyup = (e) => { if(e.key === 'Enter') this.addSubtask(e.target.value.trim()); };
+
+                this.showModal('editTaskModal');
+
+                document.getElementById('saveEdit').onclick = () => this.saveEditedTask();
+                document.getElementById('cancelEdit').onclick = () => this.hideModal('editTaskModal');
+            }
+            
+            saveEditedTask() {
+                this.currentEditingTask.title = document.getElementById('editTaskTitle').value.trim();
+                this.saveData('tasks', this.tasks);
+                this.hideModal('editTaskModal');
+                this.renderAll();
+            }
+
+            addSubtask(title) {
+                if(title && this.currentEditingTask) {
+                    this.currentEditingTask.subtasks.push({ id: `sub-${Date.now()}`, title, completed: false });
+                    document.getElementById('newSubtaskInput').value = '';
+                    this.showEditModal(this.currentEditingTask.id); // Re-render modal content
+                }
+            }
+            
+            deleteSubtask(subtaskId) {
+                if (this.currentEditingTask) {
+                    this.currentEditingTask.subtasks = this.currentEditingTask.subtasks.filter(st => st.id !== subtaskId);
+                    this.showEditModal(this.currentEditingTask.id); // Re-render modal content
+                }
+            }
+            
+            toggleSubtask(taskId, subtaskId) {
+                const task = this.tasks.find(t => t.id === taskId);
+                const subtask = task.subtasks.find(st => st.id === subtaskId);
+                if(subtask) {
+                    subtask.completed = !subtask.completed;
+                    this.saveData('tasks', this.tasks);
+                    this.renderAll();
+                }
+            }
+            
+            exportData() {
+                const data = JSON.stringify({ tasks: this.tasks, settings: this.settings });
+                const blob = new Blob([data], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `taskmaster-backup-${new Date().toISOString().slice(0,10)}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+
+            importData(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (data.tasks && data.settings) {
+                            this.tasks = data.tasks;
+                            this.settings = data.settings;
+                            this.saveData('tasks', this.tasks);
+                            this.saveData('settings', this.settings);
+                            this.applySettings();
+                            alert(translations[this.settings.language].feedback_imported);
+                        } else { throw new Error("Invalid file structure"); }
+                    } catch (err) {
+                        alert(translations[this.settings.language].feedback_error_import);
+                    }
+                };
+                reader.readAsText(file);
+            }
+
+            // --- POMODORO ---
+            startPomodoroForTask(taskId) {
+                this.currentPomodoroTask = taskId;
+                this.renderTasks();
+                this.startPomodoro();
+            }
+            startPomodoro() {
+                if(this.isPomodoroRunning) return;
+                this.isPomodoroRunning = true;
+                this.pomodoroInterval = setInterval(() => {
+                    this.pomodoroTime--;
+                    if(this.pomodoroTime < 0) this.resetPomodoro();
+                    else this.updatePomodoroDisplay();
+                }, 1000);
+            }
+            pausePomodoro() {
+                clearInterval(this.pomodoroInterval);
+                this.isPomodoroRunning = false;
+            }
+            resetPomodoro() {
+                this.pausePomodoro();
+                this.pomodoroTime = 25 * 60;
+                this.currentPomodoroTask = null;
+                this.updatePomodoroDisplay();
+                this.renderTasks();
+            }
+            updatePomodoroDisplay() {
+                const minutes = Math.floor(this.pomodoroTime / 60);
+                const seconds = this.pomodoroTime % 60;
+                document.getElementById('pomodoroTimer').textContent = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+            }
+
+            showModal(id) { document.getElementById(id).style.display = 'block'; }
+            hideModal(id) { document.getElementById(id).style.display = 'none'; }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new TaskMaster();
+        });
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js').catch(err => console.log('ServiceWorker registration failed: ', err));
+            });
+        }
     </script>
 </body>
 </html>
