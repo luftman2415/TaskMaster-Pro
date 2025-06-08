@@ -1,61 +1,31 @@
 // service-worker.js
 
-// Usamos un nombre de caché para la versión actual. Cambiarlo forzará la actualización.
-const CACHE_NAME = 'taskmaster-pro-cache-v2'; 
+const CACHE_NAME = 'taskmaster-pro-cache-v4'; // Versión incrementada
 const urlsToCache = [
-  './', // Representa el directorio raíz del proyecto
+  './',
   './index.html',
-  // Nombres de archivo corregidos según tu descripción
+  './manifest.json',
   './icons/android-launchericon-192-192.png',
-  './icons/android-launchericon-512-512.png',
-  './manifest.json' // Es buena idea cachear el manifest también
+  './icons/android-launchericon-512-512.png'
 ];
 
 self.addEventListener('install', event => {
-  // Realiza la instalación: abre un caché y añade todos los recursos especificados.
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Service Worker: Cache abierto y listo para añadir archivos.');
+        console.log('Service Worker: Cache abierto, añadiendo URLs principales.');
         return cache.addAll(urlsToCache);
       })
       .then(() => {
         console.log('Service Worker: Todos los archivos fueron cacheados exitosamente.');
+        self.skipWaiting();
       })
       .catch(error => {
-        console.error('Service Worker: Falló al cachear los archivos durante la instalación.', error);
+        console.error('Service Worker: Falló al cachear los archivos. Revisa que las rutas y nombres de archivo sean correctos.', error);
       })
   );
 });
 
-self.addEventListener('fetch', event => {
-  // Estrategia: Cache First, then Network
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Si el recurso está en caché, lo devuelve.
-        if (response) {
-          return response;
-        }
-        
-        // Si no está en caché, lo busca en la red.
-        return fetch(event.request).then(
-          networkResponse => {
-            // No es necesario cachear todo lo que se pide, solo los assets principales.
-            // Si quisieras cachear dinámicamente, aquí lo harías.
-            return networkResponse;
-          }
-        ).catch(() => {
-           // Si la red falla y no hay caché, puedes devolver una página de "offline".
-           console.warn('Service Worker: Fallo en la solicitud de red y no hay recurso en caché para:', event.request.url);
-           // Podrías devolver una página offline predefinida aquí si la hubieras creado
-           // return caches.match('./offline.html');
-        });
-      })
-  );
-});
-
-// Limpiar cachés antiguos para liberar espacio y asegurar que se use la nueva versión.
 self.addEventListener('activate', event => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
@@ -63,12 +33,20 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
-            // Elimina cachés que no están en la lista blanca
             console.log('Service Worker: Eliminando caché antiguo:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        return response || fetch(event.request);
+      })
   );
 });
