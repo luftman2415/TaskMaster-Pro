@@ -326,9 +326,8 @@
                 filter.innerHTML = `<option value="all" data-translate-key="filter_all">${translations[lang].filter_all}</option>`;
                 categories.forEach(cat => {
                     const catKey = `cat_${cat}`;
-                    // CORRECCIÓN AQUÍ: Usar la traducción completa (con ícono) en lugar de solo el valor.
                     const translatedCategory = translations[lang][catKey] || cat;
-                    filter.innerHTML += `<option value="${cat}" data-translate-key="${catKey}">${translatedCategory}</option>`;
+                    filter.innerHTML += `<option value="${cat}">${translatedCategory}</option>`;
                 });
                 filter.value = currentFilterValue;
             }
@@ -379,7 +378,7 @@
                         <div>
                             <div class="task-title">${task.title}</div>
                             <div class="task-meta">
-                                <span data-translate-key="cat_${task.category}">${translations[lang]['cat_'+task.category]}</span>
+                                <span>${translations[lang]['cat_'+task.category]}</span>
                                 ${dateTimeDisplay ? `<span>📅 ${dateTimeDisplay}</span>` : ''}
                             </div>
                         </div>
@@ -401,8 +400,6 @@
             }
 
             checkWelcomeNotification() {
-                // CORRECCIÓN AQUÍ: La lógica es correcta, pero el problema es que puede haber datos guardados.
-                // Al limpiar caché y datos del sitio, esta función operará como se espera la primera vez.
                 document.getElementById('welcomeNotification').style.display = this.tasks.length > 0 ? 'none' : 'block';
             }
 
@@ -484,6 +481,8 @@
                     subtasks: []
                 });
                 this.saveData('tasks', this.tasks);
+                // ¡¡¡CORRECCIÓN FINAL AQUÍ!!!
+                this.renderFilterOptions(); // Actualiza el filtro para incluir nuevas categorías
                 this.renderAll();
                 form.reset();
             }
@@ -501,7 +500,7 @@
                 this.showModal('deleteModal');
                 const confirmBtn = document.getElementById('confirmDelete');
                 const cancelBtn = document.getElementById('cancelDelete');
-                const newConfirmBtn = confirmBtn.cloneNode(true); // Evita listeners duplicados
+                const newConfirmBtn = confirmBtn.cloneNode(true); 
                 confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
                 
                 newConfirmBtn.onclick = () => {
@@ -526,7 +525,7 @@
                     `).join('');
                     subtaskListEl.querySelectorAll('.delete-subtask-btn').forEach(btn => btn.onclick = () => {
                         this.deleteSubtask(btn.dataset.subtaskId);
-                        renderSubtasksInModal(); // Re-render subtasks in modal
+                        renderSubtasksInModal();
                     });
                 }
                 renderSubtasksInModal();
@@ -535,7 +534,7 @@
                 newSubtaskInput.onkeyup = (e) => { if(e.key === 'Enter' && e.target.value.trim() !== '') {
                     this.addSubtask(e.target.value.trim());
                     e.target.value = '';
-                    renderSubtasksInModal(); // Re-render
+                    renderSubtasksInModal();
                 }};
 
                 this.showModal('editTaskModal');
@@ -611,7 +610,7 @@
                     } catch (err) {
                         alert(translations[this.settings.language].feedback_error_import);
                     } finally {
-                        event.target.value = ''; // Reset input para poder importar el mismo archivo de nuevo
+                        event.target.value = '';
                     }
                 };
                 reader.readAsText(file);
@@ -631,7 +630,6 @@
                     this.updatePomodoroDisplay();
                     if(this.pomodoroTime < 0) {
                         this.resetPomodoro();
-                        // Aquí podrías añadir una notificación de fin de Pomodoro
                     }
                 }, 1000);
             }
