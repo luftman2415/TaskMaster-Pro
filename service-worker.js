@@ -1,12 +1,15 @@
 // service-worker.js
 
-const CACHE_NAME = 'taskmaster-pro-cache-v4'; // Versión incrementada
+const CACHE_NAME = 'taskmaster-pro-cache-v5'; // Versión incrementada para forzar actualización
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
+  './favicon.ico',
   './icons/android-launchericon-192-192.png',
-  './icons/android-launchericon-512-512.png'
+  './icons/android-launchericon-512-512.png',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+  'https://assets.mixkit.co/sfx/preview/mixkit-positive-notification-951.mp3'
 ];
 
 self.addEventListener('install', event => {
@@ -18,7 +21,7 @@ self.addEventListener('install', event => {
       })
       .then(() => {
         console.log('Service Worker: Todos los archivos fueron cacheados exitosamente.');
-        self.skipWaiting();
+        return self.skipWaiting();
       })
       .catch(error => {
         console.error('Service Worker: Falló al cachear los archivos. Revisa que las rutas y nombres de archivo sean correctos.', error);
@@ -43,10 +46,15 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        return response || fetch(event.request);
-      })
-  );
+    event.respondWith(
+      caches.match(event.request)
+        .then(response => {
+          // Si el recurso está en caché, lo devolvemos.
+          if (response) {
+            return response;
+          }
+          // Si no, lo buscamos en la red.
+          return fetch(event.request);
+        })
+    );
 });
