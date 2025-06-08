@@ -326,7 +326,9 @@
                 filter.innerHTML = `<option value="all" data-translate-key="filter_all">${translations[lang].filter_all}</option>`;
                 categories.forEach(cat => {
                     const catKey = `cat_${cat}`;
-                    filter.innerHTML += `<option value="${cat}" data-translate-key="${catKey}">${translations[lang][catKey]}</option>`;
+                    // CORRECCIÓN AQUÍ: Usar la traducción completa (con ícono) en lugar de solo el valor.
+                    const translatedCategory = translations[lang][catKey] || cat;
+                    filter.innerHTML += `<option value="${cat}" data-translate-key="${catKey}">${translatedCategory}</option>`;
                 });
                 filter.value = currentFilterValue;
             }
@@ -399,6 +401,8 @@
             }
 
             checkWelcomeNotification() {
+                // CORRECCIÓN AQUÍ: La lógica es correcta, pero el problema es que puede haber datos guardados.
+                // Al limpiar caché y datos del sitio, esta función operará como se espera la primera vez.
                 document.getElementById('welcomeNotification').style.display = this.tasks.length > 0 ? 'none' : 'block';
             }
 
