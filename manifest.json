@@ -1,21 +1,29 @@
-{
-  "name": "TaskMaster Pro",
-  "short_name": "TaskMaster",
-  "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#2d3748",
-  "theme_color": "#667eea",
-  "description": "Una aplicación de gestión de tareas con Pomodoro.",
-  "icons": [
-    {
-      "src": "icons/icon-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "icons/icon-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ]
-}
+const CACHE_NAME = 'taskmaster-pro-cache-v1';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  // You would add your CSS and other JS files here if they were separate
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('Opened cache');
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          return response; // Serve from cache
+        }
+        return fetch(event.request); // Fetch from network
+      }
+    )
+  );
+});
