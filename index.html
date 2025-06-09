@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="./icons/android-launchericon-192-192.png">
     <meta name="theme-color" content="#667eea">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- NUEVA LIBRERÍA DE GRÁFICOS: Chart.js -->
+    <!-- LIBRERÍA DE GRÁFICOS: Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -44,7 +44,6 @@
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%); color: var(--text-dark); min-height: 100vh; padding: 20px; transition: background 0.3s ease, color 0.3s ease; }
         .container { max-width: 1200px; margin: 0 auto; background: var(--bg-main); border-radius: 20px; box-shadow: 0 20px 40px var(--shadow-heavy); overflow: hidden; transition: background 0.3s ease; }
         .header { position: relative; background: linear-gradient(135deg, var(--header-grad-start) 0%, var(--header-grad-end) 100%); padding: 30px; text-align: center; color: var(--text-light); transition: filter 0.3s ease; }
-        /* Estilos para el nuevo botón del dashboard */
         .header-buttons { position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; }
         .header-btn { background: rgba(255,255,255,.2); color: #fff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; transition: all .3s ease; display: flex; align-items: center; justify-content: center; }
         .header-btn:hover { background: rgba(255,255,255,.3); transform: rotate(15deg); }
@@ -69,7 +68,7 @@
         .task-progress { width: 100%; background-color: var(--border-color); border-radius: 4px; height: 6px; margin-top: 10px; overflow: hidden; }
         .progress-bar { background-color: var(--accent-color); height: 100%; border-radius: 4px; transition: width 0.3s ease; }
         h1{font-size:2.5rem}label{font-weight:600;color:var(--text-muted);margin-bottom:5px;display:block;}.form-row,.stats{display:grid}.stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;padding:30px;background:var(--bg-secondary)}.stat-card{background:var(--bg-card);padding:20px;border-radius:15px;text-align:center;box-shadow:0 4px 15px var(--shadow-light);transition:all .3s ease}.stat-card:hover{transform:translateY(-5px)}.stat-number{font-size:2.5rem;font-weight:700;color:var(--accent-color)}.stat-label{color:var(--text-muted);font-size:.9rem}.task-section,.sidebar>div{background:var(--bg-card);border-radius:15px;padding:25px;box-shadow:0 4px 15px var(--shadow-light)}.section-title{font-size:1.5rem;color:var(--text-dark);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--border-color)}.notification{background:linear-gradient(135deg,var(--notification-grad-start) 0%,var(--notification-grad-end) 100%);color:var(--text-light);padding:15px;border-radius:10px;margin-bottom:10px;text-align:center;font-weight:600;}.task-form{display:grid;gap:15px;margin-bottom:25px}.task-form input[type="text"],.task-form input[type="date"],.task-form select{width:100%;padding:12px;border:2px solid var(--border-color);background-color:var(--bg-secondary);color:var(--text-dark);border-radius:8px;font-size:1rem;transition:border-color .3s,background-color .3s}.task-form input:focus,.task-form select:focus{outline:none;border-color:var(--accent-color)}.form-row{grid-template-columns:1fr 1fr;gap:15px}.time-picker-group{display:flex;gap:8px}.time-picker-group select{flex:1}.form-group{display:flex;flex-direction:column}.form-group.full-width{grid-column:1/-1}.task-item{background:var(--bg-secondary);padding:20px;border-radius:12px;margin-bottom:15px;border-left:5px solid #cbd5e0}.task-item:hover{transform:translateX(5px);box-shadow:0 4px 15px var(--shadow-heavy)}.task-header,.task-actions{display:flex;align-items:flex-start}.task-header{justify-content:space-between;margin-bottom:10px}.task-title{font-size:1.1rem;font-weight:600;color:var(--text-dark);margin-bottom:5px}.task-meta{display:flex;gap:15px;align-items:center;font-size:.9rem;color:var(--text-muted);flex-wrap:wrap}.task-actions{gap:5px}.btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:600;transition:all .3s ease;font-size:.9rem}.btn-primary{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%);color:#fff}.btn-icon{width:35px;height:35px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background-color:transparent;color:var(--text-muted)}.btn-icon:hover{background-color:var(--border-color)}.sidebar{display:flex;flex-direction:column;gap:25px}.pomodoro-timer{font-size:2.5rem;font-weight:700;text-align:center;color:var(--text-dark);margin:10px 0;transition: color 0.3s;}.pomodoro-timer.finished{animation:blinker 1s linear 3;}.pomodoro-cycle-title{text-align:center;font-weight:600;color:var(--text-muted);margin-bottom:10px}.pomodoro-controls{display:flex;justify-content:center;gap:10px;margin-top:20px}.pomodoro-btn{width:50px;height:50px;border-radius:50%;border:none;font-size:1.2rem;cursor:pointer;color:#fff;transition:all .3s ease;display:flex;align-items:center;justify-content:center}.pomodoro-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px var(--shadow-heavy)}.play-btn{background:#48bb78}.pause-btn{background:#ed8936}.reset-btn{background:#e53e3e}.skip-btn{background:#4facfe}.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);backdrop-filter:blur(5px);z-index:1000;animation:fadeIn .3s ease}.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg-card);color:var(--text-dark);border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.2);max-width:800px;width:90%;overflow:hidden;animation:slideInModal .3s ease}.modal-header{background:linear-gradient(135deg,#f56565 0%,#e53e3e 100%);color:#fff;padding:20px;text-align:center}.modal-header.settings,.modal-header.edit,.modal-header.dashboard{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%)}.modal-body{padding:25px;max-height:70vh;overflow-y:auto}.modal-body p{color:var(--text-muted);font-size:1rem;margin-bottom:25px;line-height:1.5;text-align:center}.modal-actions{display:flex;gap:10px;justify-content:flex-end;padding:20px 25px;border-top:1px solid var(--border-color)}.modal-btn{min-width:100px; padding: 10px 15px;}.completed .task-title{text-decoration:line-through; color: var(--text-muted)}.empty-state{text-align:center;padding:40px;color:var(--text-muted);}.empty-state i{font-size: 4rem; margin-bottom:20px; opacity: 0.5; display: block;}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes slideInModal{from{opacity:0;transform:translate(-50%,-60%)}to{opacity:1;transform:translate(-50%,-50%)}}
-        #editTaskModal .modal { max-width: 500px; }
+        #editTaskModal .modal, #settingsModal .modal, #deleteModal .modal { max-width: 500px; }
         .modal-body .form-group select, .modal-body .form-group input, .modal-body .form-group textarea { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--bg-secondary); color: var(--text-dark); }
         .modal-body .form-group textarea { resize: vertical; min-height: 100px; }
         .modal-data-actions { display: flex; gap: 10px; margin-top: 10px; }
@@ -91,7 +90,6 @@
             <h1 data-translate-key="title">🎯 TaskMaster Pro</h1>
             <p data-translate-key="subtitle">Organiza tu día con inteligencia</p>
             <div class="header-buttons">
-                <!-- NUEVO BOTÓN PARA EL DASHBOARD -->
                 <button id="dashboardBtn" class="header-btn" title="Dashboard de Productividad"><i class="fa-solid fa-chart-line"></i></button>
                 <button id="settingsBtn" class="header-btn" title="Configuración"><i class="fa-solid fa-gear"></i></button>
             </div>
@@ -174,7 +172,7 @@
         </div>
     </div>
     <div class="modal-overlay" id="settingsModal">
-         <div class="modal" style="max-width: 500px;">
+         <div class="modal">
             <div class="modal-header settings"><h3></h3></div>
             <div class="modal-body" style="text-align: left;">
                 <div class="form-group">
@@ -221,7 +219,6 @@
             </div>
         </div>
     </div>
-    <!-- NUEVO MODAL PARA EL DASHBOARD -->
     <div class="modal-overlay" id="dashboardModal">
          <div class="modal">
             <div class="modal-header dashboard"><h3 data-translate-key="dashboard_title"></h3></div>
@@ -275,15 +272,15 @@
                 
                 this.currentEditingTask = null;
                 this.draggedTaskElement = null;
-                this.charts = {}; // Para almacenar instancias de gráficos
+                this.charts = {};
 
                 this.applySettings();
                 this.initializeEventListeners();
             }
 
-            // --- DATA & SETTINGS ---
             loadData(key, defaultValue) { try { const data = localStorage.getItem(`taskmaster-${key}`); return data ? JSON.parse(data) : defaultValue; } catch (e) { console.error(`Error loading data for key: ${key}`, e); return defaultValue; } }
             saveData(key, data) { localStorage.setItem(`taskmaster-${key}`, JSON.stringify(data)); }
+            
             applySettings() {
                 document.documentElement.setAttribute('data-theme', this.settings.theme);
                 document.documentElement.lang = this.settings.language;
@@ -295,7 +292,6 @@
                 this.renderAll();
             }
 
-            // --- UI FEEDBACK ---
             showToast(messageKey, type = 'success') {
                 const toast = document.getElementById('toast');
                 toast.textContent = translations[this.settings.language][messageKey] || messageKey;
@@ -305,10 +301,8 @@
             showModal(id) { document.getElementById(id).style.display = 'block'; }
             hideModal(id) { document.getElementById(id).style.display = 'none'; }
 
-            // --- CORE RENDERING ---
             renderAll() {
                 const lang = this.settings.language;
-                // Translation logic for data-translate-key
                 document.querySelectorAll('[data-translate-key]').forEach(el => {
                     const key = el.getAttribute('data-translate-key');
                     const translation = translations[lang]?.[key];
@@ -320,7 +314,6 @@
                         }
                     }
                 });
-                // Translation logic for placeholders
                 document.querySelectorAll('[data-translate-key-placeholder]').forEach(el => {
                     const key = el.getAttribute('data-translate-key-placeholder');
                     if (translations[lang]?.[key]) el.placeholder = translations[lang][key];
@@ -334,24 +327,153 @@
                 this.updatePomodoroDisplay();
             }
 
-            renderStats() { /* ... sin cambios ... */ }
-            renderTaskForm() { /* ... sin cambios ... */ }
-            renderFilterOptions() { /* ... sin cambios ... */ }
-            renderTasks() { /* ... sin cambios ... */ }
-            createTaskElement(task) { /* ... sin cambios ... */ }
-            checkWelcomeNotification() { /* ... sin cambios ... */ }
+            renderStats() {
+                const statsContainer = document.getElementById('statsContainer');
+                const lang = this.settings.language;
+                const total = this.tasks.length;
+                const completed = this.tasks.filter(t => t.completed).length;
+                const pending = total - completed;
+                const overdue = this.tasks.filter(t => !t.completed && t.date && new Date(t.date) < new Date().setHours(0,0,0,0)).length;
+
+                statsContainer.innerHTML = `
+                    <div class="stat-card"><div class="stat-number">${total}</div><div class="stat-label" data-translate-key="stat_total">${translations[lang].stat_total}</div></div>
+                    <div class="stat-card"><div class="stat-number">${completed}</div><div class="stat-label" data-translate-key="stat_completed">${translations[lang].stat_completed}</div></div>
+                    <div class="stat-card"><div class="stat-number">${pending}</div><div class="stat-label" data-translate-key="stat_pending">${translations[lang].stat_pending}</div></div>
+                    <div class="stat-card"><div class="stat-number">${overdue}</div><div class="stat-label" data-translate-key="stat_overdue">${translations[lang].stat_overdue}</div></div>
+                `;
+            }
+
+            renderTaskForm() {
+                const container = document.getElementById('taskFormContainer');
+                const lang = this.settings.language;
+                if(container.querySelector('#taskForm')) return;
+                
+                container.innerHTML = `
+                    <h2 class="section-title" data-translate-key="form_title">${translations[lang].form_title}</h2>
+                    <form id="taskForm" class="task-form">
+                        <div class="form-group full-width">
+                            <label data-translate-key="label_task">${translations[lang].label_task}</label>
+                            <input type="text" name="title" required placeholder="${translations[lang].placeholder_task}">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-translate-key="label_category">${translations[lang].label_category}</label>
+                                <select name="category">${Object.keys(translations.es).filter(k=>k.startsWith('cat_')).map(k=>`<option value="${k.replace('cat_','')}">${translations[lang][k]}</option>`).join('')}</select>
+                            </div>
+                            <div class="form-group">
+                                <label data-translate-key="label_priority">${translations[lang].label_priority}</label>
+                                <select name="priority">${Object.keys(translations.es).filter(k=>k.startsWith('prio_')).map(k=>`<option value="${k.replace('prio_','')}">${translations[lang][k]}</option>`).join('')}</select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                             <div class="form-group">
+                                <label data-translate-key="label_date">${translations[lang].label_date}</label>
+                                <input type="date" name="date">
+                            </div>
+                            <div class="form-group">
+                                <label data-translate-key="label_recurrence">${translations[lang].label_recurrence}</label>
+                                <select name="recurrence">
+                                    <option value="none">${translations[lang].recur_none}</option>
+                                    <option value="daily">${translations[lang].recur_daily}</option>
+                                    <option value="weekly">${translations[lang].recur_weekly}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary full-width" data-translate-key="btn_add_task">${translations[lang].btn_add_task}</button>
+                    </form>`;
+                document.getElementById('taskForm').addEventListener('submit', this.handleAddTask.bind(this));
+            }
+
+            renderFilterOptions() {
+                const filter = document.getElementById('filterCategory');
+                const lang = this.settings.language;
+                const currentFilterValue = filter.value;
+                const categories = ['all', ...new Set(this.tasks.map(t => t.category))];
+                filter.innerHTML = categories.map(cat => {
+                    const catKey = cat === 'all' ? 'filter_all' : `cat_${cat}`;
+                    return `<option value="${cat}">${translations[lang][catKey] || cat}</option>`;
+                }).join('');
+                filter.value = currentFilterValue || 'all';
+            }
             
-            // --- EVENT LISTENERS ---
+            renderTasks() {
+                const list = document.getElementById('tasksList');
+                const lang = this.settings.language;
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                const filterCat = document.getElementById('filterCategory').value;
+
+                const filteredTasks = this.tasks.filter(task => {
+                    const matchesSearch = task.title.toLowerCase().includes(searchTerm) || (task.notes && task.notes.toLowerCase().includes(searchTerm));
+                    const matchesCategory = filterCat === 'all' || task.category === filterCat;
+                    return matchesSearch && matchesCategory;
+                });
+
+                if (filteredTasks.length === 0) {
+                     list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-clipboard-check"></i><h4 data-translate-key="empty_state_title">${translations[lang].empty_state_title}</h4><p data-translate-key="empty_state_text">${translations[lang].empty_state_text}</p></div>`;
+                    return;
+                }
+                list.innerHTML = '';
+                filteredTasks.forEach(task => list.appendChild(this.createTaskElement(task)));
+            }
+
+            createTaskElement(task) {
+                const taskEl = document.createElement('div');
+                const lang = this.settings.language;
+                
+                const today = new Date().setHours(0, 0, 0, 0);
+                const taskDate = task.date ? new Date(task.date+'T00:00:00').getTime() : null;
+                let dateClass = '';
+                if (!task.completed && taskDate) {
+                    if (taskDate < today) dateClass = 'task-overdue';
+                    else if (taskDate === today) dateClass = 'task-due-today';
+                }
+
+                taskEl.className = `task-item ${task.completed ? 'completed' : ''} ${this.currentPomodoroTask === task.id ? 'pomodoro-active' : ''} ${dateClass}`;
+                taskEl.dataset.id = task.id;
+                taskEl.draggable = true;
+                
+                const priorityColors = { low: 'var(--prio-low)', medium: 'var(--prio-medium)', high: 'var(--prio-high)'};
+                if (!dateClass) {
+                    taskEl.style.borderLeftColor = priorityColors[task.priority] || '#cbd5e0';
+                }
+
+                const subtasksDone = task.subtasks.filter(st => st.completed).length;
+                const progress = task.subtasks.length > 0 ? (subtasksDone / task.subtasks.length) * 100 : 0;
+                
+                taskEl.innerHTML = `
+                    <div class="task-header">
+                        <div class="task-info">
+                            <h4 class="task-title">${task.title}</h4>
+                            <div class="task-meta">
+                                ${task.notes ? '<span><i class="fa-solid fa-note-sticky"></i></span>' : ''}
+                                <span><i class="fa-solid fa-tag"></i> ${translations[lang]['cat_'+task.category] || task.category}</span>
+                                ${task.date ? `<span><i class="fa-solid fa-calendar-days"></i> ${new Date(task.date + 'T00:00:00').toLocaleDateString(lang)}</span>` : ''}
+                                ${task.recurrence !== 'none' ? `<span><i class="fa-solid fa-repeat"></i> ${translations[lang]['recur_'+task.recurrence]}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn-icon pomodoro-start-btn" title="Iniciar Pomodoro"><i class="fa-solid fa-clock"></i></button>
+                            <button class="btn-icon edit-btn" title="Editar"><i class="fa-solid fa-pencil"></i></button>
+                            <button class="btn-icon delete-btn" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                            <button class="btn-icon complete-btn" title="Completar">${task.completed ? '<i class="fa-solid fa-circle-xmark"></i>' : '<i class="fa-solid fa-circle-check"></i>'}</button>
+                        </div>
+                    </div>
+                    ${task.subtasks.length > 0 ? `
+                        <div class="task-progress"><div class="progress-bar" style="width: ${progress}%"></div></div>
+                    ` : ''}
+                `;
+                return taskEl;
+            }
+
+            checkWelcomeNotification() { document.getElementById('welcomeNotification').style.display = this.tasks.length > 0 ? 'none' : 'block'; }
+            
             initializeEventListeners() {
-                // ... (otros listeners sin cambios)
                 document.getElementById('searchInput').addEventListener('input', () => this.renderTasks());
                 document.getElementById('filterCategory').addEventListener('change', () => this.renderTasks());
                 
-                // Header Buttons
                 document.getElementById('dashboardBtn').addEventListener('click', () => this.showDashboard());
                 document.getElementById('settingsBtn').addEventListener('click', () => this.showModal('settingsModal'));
                 
-                // Modals Close Buttons
                 document.getElementById('closeDashboard').addEventListener('click', () => this.hideModal('dashboardModal'));
                 document.getElementById('closeSettings').addEventListener('click', () => { this.hideModal('settingsModal'); this.renderAll(); });
                 
@@ -381,24 +503,36 @@
                 document.getElementById('editSubtaskList').addEventListener('click', (e) => { if(e.target.closest('.delete-subtask-btn')) this.deleteSubtask(e.target.closest('.delete-subtask-btn').dataset.subtaskId); });
             }
             
-            handleTaskListClick(e) { /* ... sin cambios ... */ }
+            handleTaskListClick(e) {
+                const taskEl = e.target.closest('.task-item');
+                if(!taskEl) return;
+                const taskId = taskEl.dataset.id;
+                
+                if(e.target.closest('.delete-btn')) this.showDeleteModal(taskId);
+                else if(e.target.closest('.complete-btn')) this.toggleTaskCompletion(taskId);
+                else if(e.target.closest('.edit-btn')) this.showEditModal(taskId);
+                else if(e.target.closest('.pomodoro-start-btn')) {
+                    if (this.settings.notificationPermission === 'default') this.requestNotificationPermission();
+                    this.startPomodoroForTask(taskId);
+                }
+            }
 
-            // --- TASK ACTIONS ---
             handleAddTask(e) {
                 e.preventDefault();
                 const form = e.target;
+                const formData = new FormData(form);
+                const title = formData.get('title').trim();
+                if (!title) return;
+
                 this.tasks.unshift({
-                    id: `task-${Date.now()}`,
-                    title: new FormData(form).get('title').trim(),
-                    category: new FormData(form).get('category'),
-                    priority: new FormData(form).get('priority'),
-                    recurrence: new FormData(form).get('recurrence'),
-                    date: new FormData(form).get('date') || null,
-                    completed: false,
-                    completedAt: null, // NUEVO: para tracking de fecha
-                    pomodorosCompleted: 0, // NUEVO: para tracking de pomodoros
-                    subtasks: [],
-                    notes: ''
+                    id: `task-${Date.now()}`, title,
+                    category: formData.get('category'),
+                    priority: formData.get('priority'),
+                    recurrence: formData.get('recurrence'),
+                    date: formData.get('date') || null,
+                    completed: false, completedAt: null,
+                    pomodorosCompleted: 0,
+                    subtasks: [], notes: ''
                 });
                 this.saveData('tasks', this.tasks);
                 document.getElementById('filterCategory').value = 'all';
@@ -411,7 +545,6 @@
                 const task = this.tasks.find(t => t.id === taskId);
                 if(!task) return;
                 task.completed = !task.completed;
-                // NUEVO: Añadir/quitar fecha de completado
                 task.completedAt = task.completed ? Date.now() : null;
 
                 if (task.completed && task.recurrence !== 'none' && task.date) {
@@ -428,31 +561,171 @@
                 this.renderAll();
                 this.showToast('toast_task_updated');
             }
-            
-            showDeleteModal(taskId) { /* ... sin cambios ... */ }
-            showEditModal(taskId) { /* ... sin cambios ... */ }
-            saveEditedTask() { /* ... sin cambios ... */ }
-            renderSubtasks() { /* ... sin cambios ... */ }
-            addSubtask() { /* ... sin cambios ... */ }
-            toggleSubtask(subtaskId) { /* ... sin cambios ... */ }
-            deleteSubtask(subtaskId) { /* ... sin cambios ... */ }
-            handleDragStart(e) { /* ... sin cambios ... */ }
-            handleDragOver(e) { /* ... sin cambios ... */ }
-            handleDrop(e) { /* ... sin cambios ... */ }
 
-            // --- POMODORO LOGIC ---
-            updatePomodoroSetting(key, value) { /* ... sin cambios ... */ }
-            startPomodoroForTask(taskId) { /* ... sin cambios ... */ }
-            startPomodoro() { /* ... sin cambios ... */ }
-            pausePomodoro() { /* ... sin cambios ... */ }
-            resetPomodoro(fullReset) { /* ... sin cambios ... */ }
+            showDeleteModal(taskId) {
+                const lang = this.settings.language;
+                const modal = document.getElementById('deleteModal');
+                modal.querySelector('h3').textContent = translations[lang].delete_modal_title;
+                modal.querySelector('p').textContent = translations[lang].delete_modal_text;
+                modal.querySelector('#cancelDelete').textContent = translations[lang].btn_cancel;
+                modal.querySelector('#confirmDelete').textContent = translations[lang].btn_delete;
+                
+                this.showModal('deleteModal');
+                document.getElementById('confirmDelete').onclick = () => {
+                    this.tasks = this.tasks.filter(t => t.id !== taskId);
+                    if (this.currentPomodoroTask === taskId) this.resetPomodoro(true);
+                    this.saveData('tasks', this.tasks);
+                    this.renderAll();
+                    this.hideModal('deleteModal');
+                    this.showToast('toast_task_deleted', 'error');
+                };
+            }
+            
+            showEditModal(taskId) {
+                this.currentEditingTask = this.tasks.find(t => t.id === taskId);
+                if (!this.currentEditingTask) return;
+                const lang = this.settings.language;
+                const modal = document.getElementById('editTaskModal');
+
+                modal.querySelector('h3').textContent = translations[lang].edit_modal_title;
+                modal.querySelector('label[data-translate-key="label_task"]').textContent = translations[lang].label_task;
+                modal.querySelector('label[data-translate-key="label_notes"]').textContent = translations[lang].label_notes;
+                modal.querySelector('label[data-translate-key="label_subtasks"]').textContent = translations[lang].label_subtasks;
+                modal.querySelector('#newSubtaskInput').placeholder = translations[lang].placeholder_subtask;
+                modal.querySelector('#editTaskNotes').placeholder = translations[lang].placeholder_notes;
+                modal.querySelector('#cancelEdit').textContent = translations[lang].btn_cancel;
+                modal.querySelector('#saveEdit').textContent = translations[lang].btn_save_changes;
+                
+                document.getElementById('editTaskTitle').value = this.currentEditingTask.title;
+                document.getElementById('editTaskNotes').value = this.currentEditingTask.notes || '';
+                this.renderSubtasks();
+                this.showModal('editTaskModal');
+            }
+            
+            saveEditedTask() {
+                if (!this.currentEditingTask) return;
+                this.currentEditingTask.title = document.getElementById('editTaskTitle').value.trim();
+                this.currentEditingTask.notes = document.getElementById('editTaskNotes').value.trim();
+                
+                this.saveData('tasks', this.tasks);
+                this.hideModal('editTaskModal');
+                this.renderAll();
+                this.showToast('toast_task_updated');
+                this.currentEditingTask = null;
+            }
+
+            renderSubtasks() {
+                const list = document.getElementById('editSubtaskList');
+                list.innerHTML = this.currentEditingTask.subtasks.map(subtask => `
+                    <div class="subtask-item" data-subtask-id="${subtask.id}">
+                       <label class="${subtask.completed ? 'completed' : ''}">
+                          <input type="checkbox" ${subtask.completed ? 'checked' : ''} onchange="window.app.toggleSubtask('${subtask.id}')">
+                          <span>${subtask.title}</span>
+                       </label>
+                       <button class="btn-icon delete-subtask-btn" data-subtask-id="${subtask.id}"><i class="fa-solid fa-times"></i></button>
+                    </div>
+                `).join('');
+            }
+
+            addSubtask() {
+                const input = document.getElementById('newSubtaskInput');
+                const title = input.value.trim();
+                if (title && this.currentEditingTask) {
+                    this.currentEditingTask.subtasks.push({ id: `sub-${Date.now()}`, title, completed: false });
+                    input.value = '';
+                    this.renderSubtasks();
+                }
+            }
+            
+            toggleSubtask(subtaskId) {
+                const subtask = this.currentEditingTask.subtasks.find(st => st.id === subtaskId);
+                if (subtask) subtask.completed = !subtask.completed;
+                this.renderSubtasks();
+            }
+
+            deleteSubtask(subtaskId) {
+                this.currentEditingTask.subtasks = this.currentEditingTask.subtasks.filter(st => st.id !== subtaskId);
+                this.renderSubtasks();
+            }
+
+            handleDragStart(e) {
+                if(e.target.classList.contains('task-item')) {
+                    this.draggedTaskElement = e.target;
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/plain', e.target.dataset.id);
+                    setTimeout(() => { e.target.classList.add('dragging'); }, 0);
+                }
+            }
+            handleDragOver(e) {
+                e.preventDefault();
+            }
+            handleDrop(e) {
+                e.preventDefault();
+                const draggedId = e.dataTransfer.getData('text/plain');
+                if (!draggedId || !this.draggedTaskElement) return;
+
+                const dropTarget = e.target.closest('.task-item');
+                this.draggedTaskElement.classList.remove('dragging');
+
+                if (dropTarget && dropTarget.dataset.id !== draggedId) {
+                    const draggedIndex = this.tasks.findIndex(t => t.id === draggedId);
+                    const targetIndex = this.tasks.findIndex(t => t.id === dropTarget.dataset.id);
+                    
+                    const [draggedItem] = this.tasks.splice(draggedIndex, 1);
+                    this.tasks.splice(targetIndex, 0, draggedItem);
+                    
+                    this.saveData('tasks', this.tasks);
+                    this.renderTasks();
+                }
+            }
+
+            updatePomodoroSetting(key, value) {
+                this.settings.pomodoro[key] = parseInt(value, 10);
+                this.saveData('settings', this.settings);
+                if(!this.isPomodoroRunning) this.resetPomodoro(false);
+                this.showToast('toast_task_updated');
+            }
+            
+            startPomodoroForTask(taskId) {
+                this.currentPomodoroTask = taskId;
+                this.resetPomodoro(false);
+                this.startPomodoro();
+                this.renderTasks();
+            }
+
+            startPomodoro() {
+                if (this.isPomodoroRunning) return;
+                this.isPomodoroRunning = true;
+                document.body.classList.add('focus-mode');
+                this.pomodoroInterval = setInterval(() => {
+                    this.pomodoroState.time--;
+                    this.updatePomodoroDisplay();
+                    if (this.pomodoroState.time < 0) this.finishPomodoroCycle();
+                }, 1000);
+            }
+
+            pausePomodoro() {
+                clearInterval(this.pomodoroInterval);
+                this.isPomodoroRunning = false;
+                document.body.classList.remove('focus-mode');
+            }
+            
+            resetPomodoro(fullReset) {
+                this.pausePomodoro();
+                if (fullReset) {
+                    this.settings.pomodoro.cycles = 0;
+                    this.currentPomodoroTask = null;
+                }
+                this.pomodoroState = { type: 'work', time: this.settings.pomodoro.work * 60 };
+                this.updatePomodoroDisplay();
+                if (fullReset) this.renderTasks();
+            }
             
             finishPomodoroCycle() {
                 const timerEl = document.getElementById('pomodoroTimer');
                 timerEl.classList.add('finished');
                 document.getElementById('notificationSound').play();
                 
-                // NUEVO: Tracking de pomodoros completados
                 if(this.pomodoroState.type === 'work' && this.currentPomodoroTask) {
                     const task = this.tasks.find(t => t.id === this.currentPomodoroTask);
                     if(task) {
@@ -473,13 +746,38 @@
                 }, 3000);
             }
 
-            nextPomodoroCycle(isSkip) { /* ... sin cambios ... */ }
-            updatePomodoroDisplay() { /* ... sin cambios ... */ }
+            nextPomodoroCycle(isSkip) {
+                this.pausePomodoro();
+                if (this.pomodoroState.type === 'work') {
+                    this.settings.pomodoro.cycles++;
+                    this.pomodoroState = { type: (this.settings.pomodoro.cycles % 4 === 0 ? 'long' : 'short'), time: this.settings.pomodoro[(this.settings.pomodoro.cycles % 4 === 0 ? 'long' : 'short')] * 60 };
+                } else {
+                    this.pomodoroState = { type: 'work', time: this.settings.pomodoro.work * 60 };
+                }
+                this.saveData('settings', this.settings);
+                this.updatePomodoroDisplay();
+                if (!isSkip) this.startPomodoro();
+            }
+            
+            updatePomodoroDisplay() {
+                const { time, type } = this.pomodoroState;
+                document.getElementById('pomodoroTimer').textContent = `${Math.floor(time / 60).toString().padStart(2, '0')}:${(time % 60).toString().padStart(2, '0')}`;
+                
+                const lang = this.settings.language;
+                const cycleKey = `pomo_cycle_${type === 'short' ? 'short' : type === 'long' ? 'long' : 'work'}`;
+                document.getElementById('pomodoroCycleTitle').textContent = translations[lang][cycleKey];
+                
+                const taskTitleEl = document.getElementById('pomodoroTaskTitle');
+                if(this.currentPomodoroTask){
+                    const task = this.tasks.find(t => t.id === this.currentPomodoroTask);
+                    taskTitleEl.textContent = task ? `${translations[lang].pomo_task_title_prefix}${task.title}` : '';
+                } else {
+                    taskTitleEl.textContent = '';
+                }
+            }
 
-            // --- DASHBOARD & CHARTS LOGIC ---
             showDashboard() {
                 this.showModal('dashboardModal');
-                // Retrasar la renderización de los gráficos para asegurar que el modal es visible
                 setTimeout(() => {
                     this.renderWeeklyChart();
                     this.renderCategoryChart();
@@ -491,8 +789,9 @@
                 if (this.charts[canvasId]) {
                     this.charts[canvasId].destroy();
                 }
-                const ctx = document.getElementById(canvasId).getContext('2d');
-                this.charts[canvasId] = new Chart(ctx, { type, data, options });
+                const ctx = document.getElementById(canvasId);
+                if (!ctx) return;
+                this.charts[canvasId] = new Chart(ctx.getContext('2d'), { type, data, options });
             }
 
             renderWeeklyChart() {
@@ -513,8 +812,8 @@
                 this.tasks.filter(t => t.completed && t.completedAt && new Date(t.completedAt) > sevenDaysAgo)
                     .forEach(task => {
                         const completedDate = new Date(task.completedAt);
-                        const diffDays = Math.floor((new Date() - completedDate) / (1000 * 60 * 60 * 24));
-                        if(diffDays < 7) {
+                        const diffDays = Math.floor((new Date().setHours(0,0,0,0) - completedDate.setHours(0,0,0,0)) / (1000 * 60 * 60 * 24));
+                        if(diffDays >= 0 && diffDays < 7) {
                             data[6 - diffDays]++;
                         }
                     });
@@ -528,7 +827,7 @@
                         borderColor: 'rgba(79, 172, 254, 1)',
                         borderWidth: 1
                     }]
-                }, { responsive: true, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } });
+                }, { responsive: true, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: getComputedStyle(document.body).getPropertyValue('--text-muted') } }, x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } }, plugins: { legend: { labels: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } } });
             }
 
             renderCategoryChart() {
@@ -547,15 +846,15 @@
                         data,
                         backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
                     }]
-                }, { responsive: true });
+                }, { responsive: true, plugins: { legend: { position: 'top', labels: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } } });
             }
             
             renderPomodoroChart() {
                 const lang = this.settings.language;
                 const pomodoroTasks = this.tasks
-                    .filter(t => t.pomodorosCompleted > 0)
+                    .filter(t => (t.pomodorosCompleted || 0) > 0)
                     .sort((a,b) => b.pomodorosCompleted - a.pomodorosCompleted)
-                    .slice(0, 7); // Mostrar solo las 7 tareas con más pomodoros
+                    .slice(0, 7);
 
                 const labels = pomodoroTasks.map(t => t.title.length > 25 ? t.title.substring(0, 22) + '...' : t.title);
                 const data = pomodoroTasks.map(t => t.pomodorosCompleted);
@@ -569,14 +868,40 @@
                         borderColor: 'rgba(255, 159, 64, 1)',
                         borderWidth: 1
                     }]
-                }, { responsive: true, indexAxis: 'y' });
+                }, { responsive: true, indexAxis: 'y', scales: { y: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } }, x: { ticks: { stepSize: 1, color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } }, plugins: { legend: { labels: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } } });
             }
 
-            // --- NOTIFICATIONS & DATA (sin cambios) ---
-            async requestNotificationPermission() { /* ... sin cambios ... */ }
-            showPushNotification(title, body) { /* ... sin cambios ... */ }
-            exportData() { /* ... sin cambios ... */ }
-            importData(event) { /* ... sin cambios ... */ }
+            async requestNotificationPermission() { this.settings.notificationPermission = await Notification.requestPermission(); this.saveData('settings', this.settings); }
+            showPushNotification(title, body) { if (this.settings.notificationPermission === 'granted') { new Notification(title, { body: body, icon: './icons/android-launchericon-192-192.png' }); }}
+            exportData() {
+                const data = JSON.stringify({ tasks: this.tasks, settings: this.settings });
+                const blob = new Blob([data], {type: 'application/json'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'taskmaster_backup.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+            importData(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (data.tasks && data.settings) {
+                            this.tasks = data.tasks;
+                            this.settings = data.settings;
+                            this.saveData('tasks', this.tasks);
+                            this.saveData('settings', this.settings);
+                            this.applySettings();
+                            this.showToast('feedback_imported');
+                        } else { throw new Error('Invalid file format'); }
+                    } catch (error) { this.showToast('feedback_error_import', 'error'); console.error(error); }
+                };
+                reader.readAsText(file);
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
