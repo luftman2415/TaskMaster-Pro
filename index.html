@@ -41,10 +41,26 @@
             --accent-color: #34e89e;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%); color: var(--text-dark); min-height: 100vh; padding: 20px; transition: background 0.3s ease, color 0.3s ease; }
-        .container { max-width: 1200px; margin: 0 auto; background: var(--bg-main); border-radius: 20px; box-shadow: 0 20px 40px var(--shadow-heavy); overflow: hidden; transition: background 0.3s ease; }
-        .header { position: relative; background: linear-gradient(135deg, var(--header-grad-start) 0%, var(--header-grad-end) 100%); padding: 30px; text-align: center; color: var(--text-light); transition: filter 0.3s ease; }
-        .header-buttons { position: absolute; top: 20px; right: 20px; display: flex; align-items: center; gap: 10px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%); color: var(--text-dark); min-height: 100vh; /* MODIFICADO */ padding: 0; transition: background 0.3s ease, color 0.3s ease; }
+        .container { max-width: 1200px; margin: 20px auto; background: var(--bg-main); border-radius: 20px; box-shadow: 0 20px 40px var(--shadow-heavy); overflow: hidden; transition: background 0.3s ease; }
+        /* MODIFICADO: Header Fijo */
+        .header { 
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: linear-gradient(135deg, var(--header-grad-start) 0%, var(--header-grad-end) 100%);
+            padding: 20px 30px; /* Padding ajustado */
+            text-align: center;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+        /* NUEVO: Sombra para el header cuando se hace scroll */
+        .header.scrolled {
+            box-shadow: 0 4px 20px var(--shadow-heavy);
+            border-bottom-color: rgba(0,0,0,0.1);
+        }
+        .header-buttons { position: absolute; top: 50%; transform: translateY(-50%); right: 20px; display: flex; align-items: center; gap: 10px; }
         .header-btn { background: rgba(255,255,255,.2); color: #fff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; transition: all .3s ease; display: flex; align-items: center; justify-content: center; }
         .header-btn:hover { background: rgba(255,255,255,.3); transform: rotate(15deg); }
         .header-btn.active { background: rgba(255,255,255,.4); }
@@ -107,15 +123,15 @@
         .task-subtask-item.completed label { text-decoration: line-through; color: var(--text-muted); }
         .task-progress { width: 100%; background-color: var(--border-color); border-radius: 5px; height: 6px; margin-top: 15px; overflow: hidden; }
         .progress-bar { height: 100%; width: 0%; background-color: var(--accent-color); transition: width 0.3s ease; }
-        .footer-copyright { text-align: center; padding: 25px 20px 20px 20px; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; }
+        .footer-copyright { text-align: center; padding: 25px 20px 20px 20px; color: var(--text-muted); font-size: 0.9rem; }
         @keyframes blinker { 50% { opacity: 0.2; } }
-        @media (max-width: 768px) { .task-controls { flex-direction: column; } .form-row { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .task-controls { flex-direction: column; } .form-row { grid-template-columns: 1fr; } .header-buttons { position: static; transform: none; justify-content: center; padding-top: 15px; } .header h1 { font-size: 2rem; } }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- HEADER -->
-        <div class="header">
+        <div class="header" id="appHeader">
             <h1 data-translate-key="title"></h1>
             <p data-translate-key="subtitle"></p>
             <div class="header-buttons">
@@ -164,6 +180,9 @@
                 </div>
             </div>
         </div>
+         <div class="footer-copyright">
+            Copyright © 2025 LUFTMANDMAURICIO
+        </div>
     </div>
     
     <!-- MODALS -->
@@ -192,10 +211,6 @@
     <audio id="notificationSound-relaxing" src="https://cdn.freesound.org/previews/423/423429_5121236-lq.mp3" preload="auto"></audio>
     <audio id="achievementSound-relaxing" src="https://cdn.freesound.org/previews/258/258020_4432924-lq.mp3" preload="auto"></audio>
     
-    <div class="footer-copyright">
-        Copyright © 2025 LUFTMANDMAURICIO
-    </div>
-
     <script>
         const translations = {
             es: { title: "🎯 TaskMaster Pro", subtitle: "Organiza tu día con inteligencia", stat_total: "Total", stat_completed: "Completadas", stat_pending: "Pendientes", stat_overdue: "Vencidas", form_title: "¿Qué necesitas hacer hoy?", label_task: "Tarea", placeholder_task: "Ej: Diseñar el nuevo logo (Atajo: N)", label_category: "Categoría", cat_work: "💼 Trabajo", cat_personal: "👤 Personal", cat_health: "🏃 Salud", cat_study: "📚 Estudio", cat_other: "📋 Otros", label_priority: "Prioridad", prio_low: "🟢 Baja", prio_medium: "🟡 Media", prio_high: "🔴 Alta", label_date: "Fecha Límite", label_time: "Hora", btn_add_task: "➕ Agregar Tarea", placeholder_search: "Buscar tareas...", filter_all: "Todas las categorías", empty_state_title: "¡Todo despejado!", empty_state_text: "Agrega una nueva tarea para empezar.", title_notifications: "🔔 Notificaciones", welcome_notification: "¡Bienvenido a TaskMaster Pro! 🎉", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirmar eliminación", delete_modal_text: "¿Estás seguro de que quieres eliminar esta tarea?", btn_delete: "Eliminar", btn_cancel: "Cancelar", edit_modal_title: "✏️ Editar Tarea", label_subtasks: "Sub-tareas", placeholder_subtask: "Añadir sub-tarea y presionar Enter", settings_title: "⚙️ Configuración", settings_theme: "Tema", theme_light: "Claro", theme_dark: "Oscuro", theme_ocean: "Océano", theme_forest: "Bosque", settings_language: "Idioma", settings_data: "Datos de la Aplicación", btn_export: "Exportar", btn_import: "Importar", btn_save_changes: "Guardar", btn_close: "Cerrar", feedback_imported: "¡Datos importados con éxito!", feedback_error_import: "Error al importar el archivo.", toast_task_added: "Tarea agregada con éxito", toast_task_deleted: "Tarea eliminada", toast_task_updated: "Tarea actualizada", toast_task_rescheduled: "Tarea reprogramada", toast_achievement_unlocked: "🏆 ¡Logro Desbloqueado!", settings_pomodoro: "Personalización de Pomodoro", pomo_work_duration: "Trabajo (min)", pomo_short_break_duration: "Descanso Corto (min)", pomo_long_break_duration: "Descanso Largo (min)", pomo_cycle_work: "¡A trabajar!", pomo_cycle_short: "Descanso corto", pomo_cycle_long: "Descanso largo", notification_title: "¡Tiempo!", notification_work_end: "¡Buen trabajo! Es hora de un descanso.", notification_break_end: "El descanso terminó. ¡De vuelta al trabajo!", label_recurrence: "Recurrencia", recur_none: "Ninguna", recur_daily: "Diaria", recur_weekly: "Semanal", recur_fortnightly: "Quincenal", recur_monthly: "Mensual", recur_business_days: "Días Hábiles (L-V)", pomo_task_title_prefix: "Enfocado en: ", label_notes: "Notas Adicionales", placeholder_notes: "Añade detalles, enlaces, etc.", dashboard_title: "📊 Dashboard de Productividad", dashboard_weekly_title: "Tareas Completadas (Últimos 7 Días)", dashboard_category_title: "Distribución por Categoría", dashboard_pomodoro_title: "Rendimiento de Pomodoros", day_sun: "Dom", day_mon: "Lun", day_tue: "Mar", day_wed: "Mié", day_thu: "Jue", day_fri: "Vie", day_sat: "Sáb", settings_achievements_title: "🏆 Logros", streak_days: "Días", settings_sound_theme: "Tema de Sonido", sound_classic: "Clásico", sound_digital: "Digital", sound_relaxing: "Relajante",
@@ -315,7 +330,6 @@
                 const container = document.getElementById('taskFormContainer');
                 const lang = this.settings.language;
                 if(container.querySelector('#taskForm')) return;
-                // MODIFICADO: Añadidas nuevas opciones de recurrencia al select
                 const recurrenceOptions = ['none', 'daily', 'weekly', 'fortnightly', 'monthly', 'business_days'];
                 container.innerHTML = `<h2 class="section-title" data-translate-key="form_title">${translations[lang].form_title}</h2><form id="taskForm" class="task-form"><div class="form-group full-width"><label data-translate-key="label_task">${translations[lang].label_task}</label><input type="text" name="title" required placeholder="${translations[lang].placeholder_task}"></div><div class="form-row"><div class="form-group"><label data-translate-key="label_category">${translations[lang].label_category}</label><select name="category">${Object.keys(translations.es).filter(k=>k.startsWith('cat_')).map(k=>`<option value="${k.replace('cat_','')}">${translations[lang][k]}</option>`).join('')}</select></div><div class="form-group"><label data-translate-key="label_priority">${translations[lang].label_priority}</label><select name="priority">${Object.keys(translations.es).filter(k=>k.startsWith('prio_')).map(k=>`<option value="${k.replace('prio_','')}">${translations[lang][k]}</option>`).join('')}</select></div></div><div class="form-row"><div class="form-group"><label data-translate-key="label_date">${translations[lang].label_date}</label><input type="date" name="date"></div><div class="form-group"><label data-translate-key="label_recurrence">${translations[lang].label_recurrence}</label><select name="recurrence">${recurrenceOptions.map(r => `<option value="${r}">${translations[lang]['recur_' + r]}</option>`).join('')}</select></div></div><button type="submit" class="btn btn-primary full-width" data-translate-key="btn_add_task">${translations[lang].btn_add_task}</button></form>`;
                 document.getElementById('taskForm').addEventListener('submit', this.handleAddTask.bind(this));
@@ -383,6 +397,16 @@
             checkWelcomeNotification() { document.getElementById('welcomeNotification').style.display = this.tasks.length > 0 ? 'none' : 'block'; }
             
             initializeEventListeners() {
+                // NUEVO: Listener para el scroll y aplicar la clase al header
+                window.addEventListener('scroll', () => {
+                    const header = document.getElementById('appHeader');
+                    if (window.scrollY > 10) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                });
+
                 document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
                 document.getElementById('searchInput').addEventListener('input', () => this.renderTasks());
                 document.getElementById('filterCategory').addEventListener('change', () => this.renderTasks());
@@ -442,22 +466,14 @@
                 this.tasks.unshift(newTask); this.saveData('tasks', this.tasks); document.getElementById('filterCategory').value = 'all'; this.renderAll(); if(this.calendar) this.calendar.refetchEvents(); form.reset(); this.showToast('toast_task_added'); this.checkAchievements();
             }
 
-            // NUEVO: Función auxiliar para obtener el siguiente día hábil.
             getNextBusinessDay(date) {
                 const newDate = new Date(date);
-                newDate.setDate(newDate.getDate() + 1); // Avanza al menos un día
-                // Si es sábado (6), suma 2 días para llegar al lunes.
-                if (newDate.getDay() === 6) {
-                    newDate.setDate(newDate.getDate() + 2);
-                } 
-                // Si es domingo (0), suma 1 día para llegar al lunes.
-                else if (newDate.getDay() === 0) {
-                    newDate.setDate(newDate.getDate() + 1);
-                }
+                newDate.setDate(newDate.getDate() + 1);
+                if (newDate.getDay() === 6) { newDate.setDate(newDate.getDate() + 2); } 
+                else if (newDate.getDay() === 0) { newDate.setDate(newDate.getDate() + 1); }
                 return newDate;
             }
 
-            // MODIFICADO: Lógica de recurrencia actualizada
             toggleTaskCompletion(taskId) {
                 const taskEl = document.querySelector(`.task-item[data-id="${taskId}"]`);
                 const task = this.tasks.find(t => t.id === taskId); if(!task) return;
@@ -466,7 +482,6 @@
                 if (task.completed && task.recurrence !== 'none' && task.date) { 
                     const newTask = { ...task, id: `task-${Date.now()}`, completed: false, completedAt: null, subtasks: task.subtasks.map(st => ({...st, completed: false})) }; 
                     const newDate = new Date(task.date + 'T00:00:00'); 
-                    
                     switch(task.recurrence) {
                         case 'daily': newDate.setDate(newDate.getDate() + 1); break;
                         case 'weekly': newDate.setDate(newDate.getDate() + 7); break;
@@ -474,7 +489,6 @@
                         case 'monthly': newDate.setMonth(newDate.getMonth() + 1); break;
                         case 'business_days': Object.assign(newDate, this.getNextBusinessDay(newDate)); break;
                     }
-
                     newTask.date = newDate.toISOString().split('T')[0]; 
                     this.tasks.push(newTask); 
                 }
@@ -533,7 +547,6 @@
                 return { today: translations[lang].calendar_today, month: translations[lang].calendar_month, week: translations[lang].calendar_week, list: translations[lang].calendar_list };
             }
 
-            // MODIFICADO: Lógica de inicialización del calendario para ser dinámica
             initializeCalendar() {
                 if (this.calendar) { this.calendar.refetchEvents(); return; }
                 const calendarEl = document.getElementById('calendar');
@@ -542,8 +555,6 @@
                 this.calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: 'dayGridMonth', locale: this.settings.language, buttonText: this.getCalendarButtonTranslations(),
                     headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listWeek' },
-                    
-                    // MODIFICADO: Usamos una función de fuente de eventos para que sea siempre dinámico
                     events: (fetchInfo, successCallback, failureCallback) => {
                         const events = this.tasks
                             .filter(t => t.date && !t.completed)
@@ -556,7 +567,6 @@
                             }));
                         successCallback(events);
                     },
-                    
                     editable: true,
                     eventDrop: (info) => {
                         const taskId = info.event.id;
@@ -565,7 +575,7 @@
                         if (task) {
                             task.date = newDate;
                             this.saveData('tasks', this.tasks);
-                            this.renderTasks(); // MODIFICADO: Vuelve a renderizar la lista de tareas
+                            this.renderTasks();
                             this.showToast('toast_task_rescheduled');
                         }
                     }
