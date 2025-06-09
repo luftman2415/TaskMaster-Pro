@@ -10,7 +10,6 @@
     <meta name="theme-color" content="#667eea">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- NUEVA LIBRERÍA DE CALENDARIO: FullCalendar -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <style>
         :root {
@@ -65,7 +64,11 @@
         .task-item.task-due-today { border-left-color: var(--prio-medium) !important; }
         .view-hidden { display: none !important; }
         .calendar-section { background: var(--bg-card); border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px var(--shadow-light); }
-        .fc { --fc-border-color: var(--border-color); --fc-today-bg-color: var(--pomodoro-active-bg); --fc-button-bg-color: var(--accent-color); --fc-button-border-color: var(--accent-color); --fc-button-hover-bg-color: color-mix(in srgb, var(--accent-color) 80%, black); }
+        .fc { --fc-border-color: var(--border-color); --fc-today-bg-color: var(--pomodoro-active-bg); }
+        .fc .fc-button { background: linear-gradient(135deg, var(--header-grad-start), var(--header-grad-end)); border: none; color: white; text-transform: capitalize; transition: all 0.2s ease; }
+        .fc .fc-button:hover { filter: brightness(1.1); }
+        .fc .fc-button-primary:disabled { background: var(--border-color); }
+        .fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active { filter: brightness(0.9); }
         .fc .fc-col-header-cell-cushion, .fc .fc-daygrid-day-number { color: var(--text-dark); text-decoration: none; }
         .fc-event { font-size: 0.8rem; border-width: 2px !important; }
         h1{font-size:2.5rem}label{font-weight:600;color:var(--text-muted);margin-bottom:5px;display:block;}.form-row,.stats{display:grid}.stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;padding:30px;background:var(--bg-secondary)}.stat-card{background:var(--bg-card);padding:20px;border-radius:15px;text-align:center;box-shadow:0 4px 15px var(--shadow-light);transition:all .3s ease}.stat-card:hover{transform:translateY(-5px)}.stat-number{font-size:2.5rem;font-weight:700;color:var(--accent-color)}.stat-label{color:var(--text-muted);font-size:.9rem}.task-section,.sidebar>div{background:var(--bg-card);border-radius:15px;padding:25px;box-shadow:0 4px 15px var(--shadow-light)}.section-title{font-size:1.5rem;color:var(--text-dark);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--border-color)}.notification{background:linear-gradient(135deg,var(--notification-grad-start) 0%,var(--notification-grad-end) 100%);color:var(--text-light);padding:15px;border-radius:10px;margin-bottom:10px;text-align:center;font-weight:600;}.task-form{display:grid;gap:15px;margin-bottom:25px}.task-form input[type="text"],.task-form input[type="date"],.task-form select{width:100%;padding:12px;border:2px solid var(--border-color);background-color:var(--bg-secondary);color:var(--text-dark);border-radius:8px;font-size:1rem;transition:border-color .3s,background-color .3s}.task-form input:focus,.task-form select:focus{outline:none;border-color:var(--accent-color)}.form-row{grid-template-columns:1fr 1fr;gap:15px}.form-group{display:flex;flex-direction:column}.form-group.full-width{grid-column:1/-1}.task-item{background:var(--bg-secondary);padding:20px;border-radius:12px;margin-bottom:15px;border-left:5px solid #cbd5e0}.task-item:hover{transform:translateX(5px);box-shadow:0 4px 15px var(--shadow-heavy)}.task-header,.task-actions{display:flex;align-items:flex-start}.task-header{justify-content:space-between;margin-bottom:10px}.task-title{font-size:1.1rem;font-weight:600;color:var(--text-dark);margin-bottom:5px}.task-meta{display:flex;gap:15px;align-items:center;font-size:.9rem;color:var(--text-muted);flex-wrap:wrap}.task-actions{gap:5px}.btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:600;transition:all .3s ease;font-size:.9rem}.btn-primary{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%);color:#fff}.btn-icon{width:35px;height:35px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background-color:transparent;color:var(--text-muted)}.btn-icon:hover{background-color:var(--border-color)}.sidebar{display:flex;flex-direction:column;gap:25px}.pomodoro-timer{font-size:2.5rem;font-weight:700;text-align:center;color:var(--text-dark);margin:10px 0;transition: color 0.3s;}.pomodoro-timer.finished{animation:blinker 1s linear 3;}.pomodoro-cycle-title{text-align:center;font-weight:600;color:var(--text-muted);margin-bottom:10px}.pomodoro-controls{display:flex;justify-content:center;gap:10px;margin-top:20px}.pomodoro-btn{width:50px;height:50px;border-radius:50%;border:none;font-size:1.2rem;cursor:pointer;color:#fff;transition:all .3s ease;display:flex;align-items:center;justify-content:center}.pomodoro-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px var(--shadow-heavy)}.play-btn{background:#48bb78}.pause-btn{background:#ed8936}.reset-btn{background:#e53e3e}.skip-btn{background:#4facfe}.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);backdrop-filter:blur(5px);z-index:1000;animation:fadeIn .3s ease}.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg-card);color:var(--text-dark);border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.2);max-width:800px;width:90%;overflow:hidden;animation:slideInModal .3s ease}.modal-header{background:linear-gradient(135deg,#f56565 0%,#e53e3e 100%);color:#fff;padding:20px;text-align:center}.modal-header.settings,.modal-header.edit,.modal-header.dashboard{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%)}.modal-body{padding:25px;max-height:70vh;overflow-y:auto}.modal-body p{color:var(--text-muted);font-size:1rem;margin-bottom:25px;line-height:1.5;text-align:center}.modal-actions{display:flex;gap:10px;justify-content:flex-end;padding:20px 25px;border-top:1px solid var(--border-color)}.modal-btn{min-width:100px; padding: 10px 15px;}.completed .task-title{text-decoration:line-through; color: var(--text-muted)}.empty-state{text-align:center;padding:40px;color:var(--text-muted);}.empty-state i{font-size: 4rem; margin-bottom:20px; opacity: 0.5; display: block;}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes slideInModal{from{opacity:0;transform:translate(-50%,-60%)}to{opacity:1;transform:translate(-50%,-50%)}}
@@ -99,7 +102,7 @@
             <p data-translate-key="subtitle"></p>
             <div class="header-buttons">
                 <div id="streakCounter" class="streak-counter" style="display: none;"></div>
-                <button id="listViewBtn" class="header-btn active" title="Vista de Lista"><i class="fa-solid fa-list-ul"></i></button>
+                <button id="listViewBtn" class="header-btn active" title="Vista de Lista (L)"><i class="fa-solid fa-list-ul"></i></button>
                 <button id="calendarViewBtn" class="header-btn" title="Vista de Calendario (C)"><i class="fa-solid fa-calendar-days"></i></button>
                 <button id="dashboardBtn" class="header-btn" title="Dashboard de Productividad (D)"><i class="fa-solid fa-chart-line"></i></button>
                 <button id="settingsBtn" class="header-btn" title="Configuración (S)"><i class="fa-solid fa-gear"></i></button>
@@ -180,7 +183,8 @@
                 ach_first_pomo_title: "Maestro del Foco", ach_first_pomo_desc: "Completa un ciclo Pomodoro.",
                 ach_perfectionist_title: "Perfeccionista", ach_perfectionist_desc: "Completa una tarea con sub-tareas.",
                 ach_streak_3_title: "En Racha", ach_streak_3_desc: "Mantén una racha de 3 días.",
-                ach_night_owl_title: "Ave Nocturna", ach_night_owl_desc: "Completa una tarea de madrugada."
+                ach_night_owl_title: "Ave Nocturna", ach_night_owl_desc: "Completa una tarea de madrugada.",
+                calendar_today: "Hoy", calendar_month: "Mes", calendar_week: "Semana", calendar_list: "Lista"
             },
             en: { title: "🎯 TaskMaster Pro", subtitle: "Organize your day with intelligence", stat_total: "Total", stat_completed: "Completed", stat_pending: "Pending", stat_overdue: "Overdue", form_title: "What do you need to do today?", label_task: "Task", placeholder_task: "E.g.: Design the new logo (Shortcut: N)", label_category: "Category", cat_work: "💼 Work", cat_personal: "👤 Personal", cat_health: "🏃 Health", cat_study: "📚 Study", cat_other: "📋 Other", label_priority: "Priority", prio_low: "🟢 Low", prio_medium: "🟡 Medium", prio_high: "🔴 High", label_date: "Due Date", label_time: "Time", btn_add_task: "➕ Add Task", placeholder_search: "Search tasks...", filter_all: "All categories", empty_state_title: "All clear!", empty_state_text: "Add a new task to get started.", title_notifications: "🔔 Notifications", welcome_notification: "Welcome to TaskMaster Pro! 🎉", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirm Deletion", delete_modal_text: "Are you sure you want to delete this task?", btn_delete: "Delete", btn_cancel: "Cancel", edit_modal_title: "✏️ Edit Task", label_subtasks: "Sub-tasks", placeholder_subtask: "Add sub-task and press Enter", settings_title: "⚙️ Settings", settings_theme: "Theme", theme_light: "Light", theme_dark: "Dark", theme_ocean: "Ocean", theme_forest: "Forest", settings_language: "Language", settings_data: "Application Data", btn_export: "Export", btn_import: "Import", btn_save_changes: "Save", btn_close: "Close", feedback_imported: "Data imported successfully!", feedback_error_import: "Error importing file.", toast_task_added: "Task added successfully", toast_task_deleted: "Task deleted", toast_task_updated: "Task updated", toast_achievement_unlocked: "🏆 Achievement Unlocked!", settings_pomodoro: "Pomodoro Customization", pomo_work_duration: "Work (min)", pomo_short_break_duration: "Short Break (min)", pomo_long_break_duration: "Long Break (min)", pomo_cycle_work: "Time to work!", pomo_cycle_short: "Short break", pomo_cycle_long: "Long break", notification_title: "Time's Up!", notification_work_end: "Good job! Time for a break.", notification_break_end: "Break's over. Back to work!", label_recurrence: "Recurrence", recur_none: "None", recur_daily: "Daily", recur_weekly: "Weekly", pomo_task_title_prefix: "Focused on: ", label_notes: "Additional Notes", placeholder_notes: "Add details, links, etc.", dashboard_title: "📊 Productivity Dashboard", dashboard_weekly_title: "Tasks Completed (Last 7 Days)", dashboard_category_title: "Distribution by Category", dashboard_pomodoro_title: "Pomodoro Performance", day_sun: "Sun", day_mon: "Mon", day_tue: "Tue", day_wed: "Wed", day_thu: "Thu", day_fri: "Fri", day_sat: "Sat", settings_achievements_title: "🏆 Achievements", streak_days: "Days", settings_sound_theme: "Sound Theme", sound_classic: "Classic", sound_digital: "Digital", sound_relaxing: "Relaxing",
                 ach_first_task_title: "First Step", ach_first_task_desc: "Complete your first task.",
@@ -188,7 +192,8 @@
                 ach_first_pomo_title: "Focus Master", ach_first_pomo_desc: "Complete a Pomodoro cycle.",
                 ach_perfectionist_title: "Perfectionist", ach_perfectionist_desc: "Complete a task with sub-tasks.",
                 ach_streak_3_title: "On a Roll", ach_streak_3_desc: "Keep a 3-day streak.",
-                ach_night_owl_title: "Night Owl", ach_night_owl_desc: "Complete a task in the small hours."
+                ach_night_owl_title: "Night Owl", ach_night_owl_desc: "Complete a task in the small hours.",
+                calendar_today: "Today", calendar_month: "Month", calendar_week: "Week", calendar_list: "List"
             }
         };
 
@@ -280,7 +285,7 @@
                 const total = this.tasks.length;
                 const completed = this.tasks.filter(t => t.completed).length;
                 const pending = total - completed;
-                const overdue = this.tasks.filter(t => !t.completed && t.date && new Date(t.date) < new Date().setHours(0,0,0,0)).length;
+                const overdue = this.tasks.filter(t => !t.completed && t.date && new Date(t.date + 'T00:00:00') < new Date().setHours(0,0,0,0)).length;
 
                 statsContainer.innerHTML = `<div class="stat-card"><div class="stat-number">${total}</div><div class="stat-label" data-translate-key="stat_total">${translations[lang].stat_total}</div></div><div class="stat-card"><div class="stat-number">${completed}</div><div class="stat-label" data-translate-key="stat_completed">${translations[lang].stat_completed}</div></div><div class="stat-card"><div class="stat-number">${pending}</div><div class="stat-label" data-translate-key="stat_pending">${translations[lang].stat_pending}</div></div><div class="stat-card"><div class="stat-number">${overdue}</div><div class="stat-label" data-translate-key="stat_overdue">${translations[lang].stat_overdue}</div></div>`;
             }
@@ -323,7 +328,9 @@
                 const priorityColors = { low: 'var(--prio-low)', medium: 'var(--prio-medium)', high: 'var(--prio-high)'};
                 if (!dateClass) { taskEl.style.borderLeftColor = priorityColors[task.priority] || '#cbd5e0'; }
                 const subtasksDone = task.subtasks.filter(st => st.completed).length; const progress = task.subtasks.length > 0 ? (subtasksDone / task.subtasks.length) * 100 : 0;
-                taskEl.innerHTML = `<div class="task-header"><div class="task-info"><h4 class="task-title">${task.title}</h4><div class="task-meta">${task.notes ? '<span><i class="fa-solid fa-note-sticky"></i></span>' : ''}<span><i class="fa-solid fa-tag"></i> ${translations[lang]['cat_'+task.category] || task.category}</span>${task.date ? `<span><i class="fa-solid fa-calendar-days"></i> ${new Date(task.date + 'T00:00:00').toLocaleDateString(lang)}</span>` : ''}${task.recurrence !== 'none' ? `<span><i class="fa-solid fa-repeat"></i> ${translations[lang]['recur_'+task.recurrence]}</span>` : ''}</div></div><div class="task-actions"><button class="btn-icon pomodoro-start-btn" title="Iniciar Pomodoro"><i class="fa-solid fa-clock"></i></button><button class="btn-icon edit-btn" title="Editar"><i class="fa-solid fa-pencil"></i></button><button class="btn-icon delete-btn" title="Eliminar"><i class="fa-solid fa-trash"></i></button><button class="btn-icon complete-btn" title="Completar">${task.completed ? '<i class="fa-solid fa-circle-xmark"></i>' : '<i class="fa-solid fa-circle-check"></i>'}</button></div></div>${task.subtasks.length > 0 ? `<div class="task-progress"><div class="progress-bar" style="width: ${progress}%"></div></div>` : ''}`;
+                // CORRECCIÓN: Usar fallback para 'recurrence' para evitar "undefined"
+                const recurrenceText = task.recurrence && task.recurrence !== 'none' ? `<span><i class="fa-solid fa-repeat"></i> ${translations[lang]['recur_'+task.recurrence] || ''}</span>` : '';
+                taskEl.innerHTML = `<div class="task-header"><div class="task-info"><h4 class="task-title">${task.title}</h4><div class="task-meta">${task.notes ? '<span><i class="fa-solid fa-note-sticky"></i></span>' : ''}<span><i class="fa-solid fa-tag"></i> ${translations[lang]['cat_'+task.category] || task.category}</span>${task.date ? `<span><i class="fa-solid fa-calendar-days"></i> ${new Date(task.date + 'T00:00:00').toLocaleDateString(lang)}</span>` : ''}${recurrenceText}</div></div><div class="task-actions"><button class="btn-icon pomodoro-start-btn" title="Iniciar Pomodoro"><i class="fa-solid fa-clock"></i></button><button class="btn-icon edit-btn" title="Editar"><i class="fa-solid fa-pencil"></i></button><button class="btn-icon delete-btn" title="Eliminar"><i class="fa-solid fa-trash"></i></button><button class="btn-icon complete-btn" title="Completar">${task.completed ? '<i class="fa-solid fa-circle-xmark"></i>' : '<i class="fa-solid fa-circle-check"></i>'}</button></div></div>${task.subtasks.length > 0 ? `<div class="task-progress"><div class="progress-bar" style="width: ${progress}%"></div></div>` : ''}`;
                 return taskEl;
             }
 
@@ -343,7 +350,7 @@
                 document.getElementById('closeSettings').addEventListener('click', () => { this.hideModal('settingsModal'); this.renderAll(); });
                 
                 document.getElementById('themeSelector').addEventListener('change', (e) => { this.settings.theme = e.target.value; this.saveData('settings', this.settings); this.applySettings(); });
-                document.getElementById('languageSelector').addEventListener('change', (e) => { this.settings.language = e.target.value; this.saveData('settings', this.settings); this.applySettings(); if(this.calendar) this.calendar.setOption('locale', e.target.value); });
+                document.getElementById('languageSelector').addEventListener('change', (e) => { this.settings.language = e.target.value; this.saveData('settings', this.settings); this.applySettings(); if(this.calendar) {this.calendar.setOption('locale', e.target.value); this.calendar.setOption('buttonText', this.getCalendarButtonTranslations());} });
                 document.getElementById('soundThemeSelector').addEventListener('change', (e) => { this.settings.soundTheme = e.target.value; this.saveData('settings', this.settings); this.playSound('notification'); });
 
                 document.getElementById('exportBtn').addEventListener('click', this.exportData.bind(this));
@@ -420,25 +427,15 @@
             updatePomodoroDisplay() { const { time, type } = this.pomodoroState; document.getElementById('pomodoroTimer').textContent = `${Math.floor(time / 60).toString().padStart(2, '0')}:${(time % 60).toString().padStart(2, '0')}`; const lang = this.settings.language; document.getElementById('pomodoroCycleTitle').textContent = translations[lang][`pomo_cycle_${type === 'short' ? 'short' : type === 'long' ? 'long' : 'work'}`]; const taskTitleEl = document.getElementById('pomodoroTaskTitle'); if(this.currentPomodoroTask){ const task = this.tasks.find(t => t.id === this.currentPomodoroTask); taskTitleEl.textContent = task ? `${translations[lang].pomo_task_title_prefix}${task.title}` : ''; } else { taskTitleEl.textContent = ''; } }
             
             toggleView(view) {
-                if (this.currentView === view) return;
-                this.currentView = view;
-                const listView = document.getElementById('list-view-section');
-                const calendarView = document.getElementById('calendar-view-section');
-                const listBtn = document.getElementById('listViewBtn');
-                const calendarBtn = document.getElementById('calendarViewBtn');
+                if (this.currentView === view) return; this.currentView = view;
+                const listView = document.getElementById('list-view-section'); const calendarView = document.getElementById('calendar-view-section'); const listBtn = document.getElementById('listViewBtn'); const calendarBtn = document.getElementById('calendarViewBtn');
+                if (view === 'calendar') { listView.classList.add('view-hidden'); calendarView.classList.remove('view-hidden'); listBtn.classList.remove('active'); calendarBtn.classList.add('active'); this.initializeCalendar(); } 
+                else { listView.classList.remove('view-hidden'); calendarView.classList.add('view-hidden'); listBtn.classList.add('active'); calendarBtn.classList.remove('active'); }
+            }
 
-                if (view === 'calendar') {
-                    listView.classList.add('view-hidden');
-                    calendarView.classList.remove('view-hidden');
-                    listBtn.classList.remove('active');
-                    calendarBtn.classList.add('active');
-                    this.initializeCalendar();
-                } else {
-                    listView.classList.remove('view-hidden');
-                    calendarView.classList.add('view-hidden');
-                    listBtn.classList.add('active');
-                    calendarBtn.classList.remove('active');
-                }
+            getCalendarButtonTranslations() {
+                const lang = this.settings.language;
+                return { today: translations[lang].calendar_today, month: translations[lang].calendar_month, week: translations[lang].calendar_week, list: translations[lang].calendar_list };
             }
 
             initializeCalendar() {
@@ -446,16 +443,9 @@
                 const calendarEl = document.getElementById('calendar');
                 const priorityColors = { low: 'var(--prio-low)', medium: 'var(--prio-medium)', high: 'var(--prio-high)'};
                 this.calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
-                    locale: this.settings.language,
+                    initialView: 'dayGridMonth', locale: this.settings.language, buttonText: this.getCalendarButtonTranslations(),
                     headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listWeek' },
-                    events: this.tasks.filter(t => t.date).map(t => ({
-                        id: t.id,
-                        title: t.title,
-                        start: t.date,
-                        color: priorityColors[t.priority] || 'var(--accent-color)',
-                        allDay: true
-                    }))
+                    events: this.tasks.filter(t => t.date).map(t => ({ id: t.id, title: t.title, start: t.date, color: priorityColors[t.priority] || 'var(--accent-color)', allDay: true }))
                 });
                 this.calendar.render();
             }
