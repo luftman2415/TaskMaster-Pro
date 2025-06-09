@@ -18,12 +18,12 @@
             --text-light: white; --text-dark: #2d3748; --text-muted: #64748b;
             --bg-main: rgba(255, 255, 255, 0.95); --bg-secondary: #f8fafc; --bg-card: white;
             --border-color: #e2e8f0; --accent-color: #4facfe;
+            --accent-color-default: #4facfe; /* NUEVO: Color de acento por defecto para el tema claro */
             --shadow-light: rgba(0, 0, 0, 0.08); --shadow-heavy: rgba(0, 0, 0, 0.1);
             --notification-grad-start: #667eea; --notification-grad-end: #764ba2;
             --pomodoro-active-bg: color-mix(in srgb, var(--accent-color) 15%, transparent);
             --toast-success-bg: #48bb78; --toast-error-bg: #f56565; --toast-achievement-bg: linear-gradient(135deg, #fdd835, #f57f17);
             --prio-high: #f56565; --prio-medium: #ed8936; --prio-low: #48bb78;
-            /* NUEVO: Variables para fuentes personalizadas */
             --font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-family-serif: Georgia, 'Times New Roman', Times, serif;
             --font-family-mono: 'Courier New', Courier, monospace;
@@ -32,36 +32,37 @@
             --bg-grad-start: #232526; --bg-grad-end: #414345; --header-grad-start: #434343; --header-grad-end: #000000;
             --text-light: #f7fafc; --text-dark: #e2e8f0; --text-muted: #a0aec0;
             --bg-main: rgba(26, 32, 44, 0.95); --bg-secondary: #2d3748; --bg-card: #4a5568; --border-color: #4a5568;
-            --accent-color: #63b3ed; --shadow-light: rgba(255, 255, 255, 0.05); --shadow-heavy: rgba(0, 0, 0, 0.2);
+            --accent-color: #63b3ed;
+            --accent-color-default: #63b3ed; /* NUEVO: Color de acento por defecto para el tema oscuro */
+            --shadow-light: rgba(255, 255, 255, 0.05); --shadow-heavy: rgba(0, 0, 0, 0.2);
             --notification-grad-start: #89f7fe; --notification-grad-end: #66a6ff;
         }
         [data-theme="ocean"] {
             --bg-grad-start: #00c6ff; --bg-grad-end: #0072ff; --header-grad-start: #0052D4; --header-grad-end: #4364F7;
-            --text-dark: #1A202C; --accent-color: #0072ff;
+            --text-dark: #1A202C; --accent-color: #0072ff; --accent-color-default: #0072ff;
         }
         [data-theme="forest"] {
             --bg-grad-start: #134E5E; --bg-grad-end: #71B280; --header-grad-start: #0f3443; --header-grad-end: #34e89e;
             --text-dark: #f7fafc; --text-muted: #a0aec0; --bg-main: #2d3748e0; --bg-secondary: #4a5568; --bg-card: #2d3748;
-            --accent-color: #34e89e;
+            --accent-color: #34e89e; --accent-color-default: #34e89e;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        /* MODIFICADO: Layout principal para el header fijo */
-        html, body { height: 100%; overflow: hidden; /* Evita el scroll en el body */ }
-        body { font-family: var(--font-family-sans-serif); background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%); color: var(--text-dark); min-height: 100vh; transition: background 0.3s ease, color 0.3s ease; }
+        html, body { height: 100%; overflow: hidden; }
+        body { font-family: var(--font-family-sans-serif); background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%); color: var(--text-dark); min-height: 100vh; transition: background 0.3s ease, color 0.3s ease, font-family 0.3s ease; }
         .app-wrapper { display: flex; flex-direction: column; height: 100%; }
-        .app-content { flex-grow: 1; overflow-y: auto; /* El scroll ahora ocurre aquí */ }
-        .container { max-width: 1200px; margin: 20px auto; background: var(--bg-main); border-radius: 20px; box-shadow: 0 20px 40px var(--shadow-heavy); overflow: hidden; transition: background 0.3s ease; }
-        .header { background: linear-gradient(135deg, var(--header-grad-start) 0%, var(--header-grad-end) 100%); padding: 20px 30px; text-align: center; color: var(--text-light); transition: all 0.3s ease; border-bottom: 1px solid transparent; position: relative; }
+        .app-content { flex-grow: 1; overflow-y: auto; }
+        .container { max-width: 1200px; margin: 20px auto; background: var(--bg-main); border-radius: 20px; box-shadow: 0 20px 40px var(--shadow-heavy); overflow: visible; /* Permitir que los hovers se vean */ transition: background 0.3s ease; }
+        .header { background: linear-gradient(135deg, var(--header-grad-start) 0%, var(--header-grad-end) 100%); padding: 20px 30px; text-align: center; color: var(--text-light); transition: all 0.3s ease; border-bottom: 1px solid transparent; position: relative; z-index: 100; }
         .header-buttons { position: absolute; top: 50%; transform: translateY(-50%); right: 20px; display: flex; align-items: center; gap: 10px; }
         .header-btn { background: rgba(255,255,255,.2); color: #fff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; transition: all .3s ease; display: flex; align-items: center; justify-content: center; }
-        .header-btn:hover { background: rgba(255,255,255,.3); transform: rotate(15deg); }
+        .header-btn:hover { background: rgba(255,255,255,.3); transform: translateY(-3px) rotate(10deg); }
         .header-btn.active { background: rgba(255,255,255,.4); }
         .streak-counter { display: flex; align-items: center; gap: 8px; font-weight: 600; background: rgba(255,255,255,.2); padding: 5px 15px; border-radius: 20px; color: white; font-size: 1rem; }
         .main-content { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; padding: 30px; }
-        @media (max-width: 992px) { .main-content { grid-template-columns: 1fr; } }
+        @media (max-width: 1024px) { .main-content { grid-template-columns: 1fr; } }
         .task-section, .stats, .calendar-section { transition: opacity 0.3s ease, filter 0.3s ease; }
-        body.focus-mode .task-section, body.focus-mode .stats, body.focus-mode .header, body.focus-mode .calendar-section { opacity: 0.1; filter: blur(4px); pointer-events: none; }
-        body.focus-mode .sidebar .pomodoro { z-index: 10; transform: scale(1.05); }
+        body.focus-mode .app-wrapper > *:not(.sidebar), body.focus-mode .sidebar > *:not(.pomodoro) { opacity: 0.1; filter: blur(4px); pointer-events: none; }
+        body.focus-mode .pomodoro { z-index: 10; transform: scale(1.05); }
         .task-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
         .task-controls input, .task-controls select { padding: 12px; border: 2px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-dark); border-radius: 8px; font-size: 1rem; flex-grow: 1; transition: border-color 0.3s, background-color 0.3s; }
         #tasksList { margin-top: 20px; position: relative; }
@@ -81,7 +82,7 @@
         .fc .fc-col-header-cell-cushion, .fc .fc-daygrid-day-number { color: var(--text-dark); text-decoration: none; }
         .fc-event { font-size: 0.8rem; border-width: 2px !important; cursor: grab; }
         .fc-event:hover { filter: brightness(1.1); }
-        h1{font-size:2.5rem}label{font-weight:600;color:var(--text-muted);margin-bottom:5px;display:block;}.form-row,.stats{display:grid}.stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;padding:30px;background:var(--bg-secondary)}.stat-card{background:var(--bg-card);padding:20px;border-radius:15px;text-align:center;box-shadow:0 4px 15px var(--shadow-light);transition:all .3s ease}.stat-card:hover{transform:translateY(-5px)}.stat-number{font-size:2.5rem;font-weight:700;color:var(--accent-color)}.stat-label{color:var(--text-muted);font-size:.9rem}.task-section,.sidebar>div{background:var(--bg-card);border-radius:15px;padding:25px;box-shadow:0 4px 15px var(--shadow-light)}.section-title{font-size:1.5rem;color:var(--text-dark);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--border-color)}.notification{background:linear-gradient(135deg,var(--notification-grad-start) 0%,var(--notification-grad-end) 100%);color:var(--text-light);padding:15px;border-radius:10px;margin-bottom:10px;text-align:center;font-weight:600;}.task-form{display:grid;gap:15px;margin-bottom:25px}.task-form input[type="text"],.task-form input[type="date"],.task-form select{width:100%;padding:12px;border:2px solid var(--border-color);background-color:var(--bg-secondary);color:var(--text-dark);border-radius:8px;font-size:1rem;transition:border-color .3s,background-color .3s}.task-form input:focus,.task-form select:focus{outline:none;border-color:var(--accent-color)}.form-row{grid-template-columns:1fr 1fr;gap:15px}.form-group{display:flex;flex-direction:column}.form-group.full-width{grid-column:1/-1}.task-item{background:var(--bg-secondary);padding:20px;border-radius:12px;margin-bottom:15px;border-left:5px solid #cbd5e0}.task-item:hover{transform:translateX(5px);box-shadow:0 4px 15px var(--shadow-heavy)}.task-header,.task-actions{display:flex;align-items:flex-start}.task-header{justify-content:space-between;margin-bottom:10px}.task-title{font-size:1.1rem;font-weight:600;color:var(--text-dark);margin-bottom:5px}.task-meta{display:flex;gap:15px;align-items:center;font-size:.9rem;color:var(--text-muted);flex-wrap:wrap}.task-actions{gap:5px}.btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:600;transition:all .3s ease;font-size:.9rem}.btn-primary{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%);color:#fff}.btn-icon{width:35px;height:35px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background-color:transparent;color:var(--text-muted);}.btn-icon:hover{background-color:var(--border-color);transform:scale(1.1);}.sidebar{display:flex;flex-direction:column;gap:25px}.pomodoro-timer{font-size:2.5rem;font-weight:700;text-align:center;color:var(--text-dark);margin:10px 0;transition: color 0.3s;}.pomodoro-timer.finished{animation:blinker 1s linear 3;}.pomodoro-cycle-title{text-align:center;font-weight:600;color:var(--text-muted);margin-bottom:10px}.pomodoro-controls{display:flex;justify-content:center;gap:10px;margin-top:20px}.pomodoro-btn{width:50px;height:50px;border-radius:50%;border:none;font-size:1.2rem;cursor:pointer;color:#fff;transition:all .3s ease;display:flex;align-items:center;justify-content:center}.pomodoro-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px var(--shadow-heavy)}.play-btn{background:#48bb78}.pause-btn{background:#ed8936}.reset-btn{background:#e53e3e}.skip-btn{background:#4facfe}.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);backdrop-filter:blur(5px);z-index:1000;animation:fadeIn .3s ease}.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg-card);color:var(--text-dark);border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.2);max-width:800px;width:90%;overflow:hidden;animation:slideInModal .3s ease}.modal-header{background:linear-gradient(135deg,#f56565 0%,#e53e3e 100%);color:#fff;padding:20px;text-align:center}.modal-header.settings,.modal-header.edit,.modal-header.dashboard,.modal-header.stats{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%)}.modal-body{padding:25px;max-height:70vh;overflow-y:auto}.modal-body p{color:var(--text-muted);font-size:1rem;margin-bottom:25px;line-height:1.5;text-align:center}.modal-actions{display:flex;gap:10px;justify-content:flex-end;padding:20px 25px;border-top:1px solid var(--border-color)}.modal-btn{min-width:100px; padding: 10px 15px;}.completed .task-title{text-decoration:line-through; color: var(--text-muted)}.empty-state{text-align:center;padding:40px;color:var(--text-muted);}.empty-state i{font-size: 4rem; margin-bottom:20px; opacity: 0.5; display: block;}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes slideInModal{from{opacity:0;transform:translate(-50%,-60%)}to{opacity:1;transform:translate(-50%,-50%)}}@keyframes slide-in{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+        h1{font-size:2.5rem}label{font-weight:600;color:var(--text-muted);margin-bottom:5px;display:block;}.form-row,.stats{display:grid}.stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;padding:30px;background:var(--bg-secondary)}.stat-card{background:var(--bg-card);padding:20px;border-radius:15px;text-align:center;box-shadow:0 4px 15px var(--shadow-light);transition:all .3s ease}.stat-card:hover{transform:translateY(-5px)}.stat-number{font-size:2.5rem;font-weight:700;color:var(--accent-color)}.stat-label{color:var(--text-muted);font-size:.9rem}.task-section,.sidebar>div{background:var(--bg-card);border-radius:15px;padding:25px;box-shadow:0 4px 15px var(--shadow-light)}.section-title{font-size:1.5rem;color:var(--text-dark);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--border-color)}.notification{background:linear-gradient(135deg,var(--notification-grad-start) 0%,var(--notification-grad-end) 100%);color:var(--text-light);padding:15px;border-radius:10px;margin-bottom:10px;text-align:center;font-weight:600; animation: fadeInDown 0.5s ease both;}.task-form{display:grid;gap:15px;margin-bottom:25px}.task-form input[type="text"],.task-form input[type="date"],.task-form select{width:100%;padding:12px;border:2px solid var(--border-color);background-color:var(--bg-secondary);color:var(--text-dark);border-radius:8px;font-size:1rem;transition:border-color .3s,background-color .3s}.task-form input:focus,.task-form select:focus{outline:none;border-color:var(--accent-color)}.form-row{grid-template-columns:1fr 1fr;gap:15px}.form-group{display:flex;flex-direction:column}.form-group.full-width{grid-column:1/-1}.task-item{background:var(--bg-secondary);padding:20px;border-radius:12px;margin-bottom:15px;border-left:5px solid #cbd5e0}.task-item:hover{transform:translateX(5px);box-shadow:0 4px 15px var(--shadow-heavy)}.task-header,.task-actions{display:flex;align-items:flex-start}.task-header{justify-content:space-between;margin-bottom:10px}.task-title{font-size:1.1rem;font-weight:600;color:var(--text-dark);margin-bottom:5px}.task-meta{display:flex;gap:15px;align-items:center;font-size:.9rem;color:var(--text-muted);flex-wrap:wrap}.task-actions{gap:5px}.btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:600;transition:all .3s ease;font-size:.9rem}.btn-primary{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%);color:#fff}.btn-icon{width:35px;height:35px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background-color:transparent;color:var(--text-muted);}.btn-icon:hover{background-color:var(--border-color);transform:scale(1.1) translateY(-2px);}.sidebar{display:flex;flex-direction:column;gap:25px}.pomodoro-timer{font-size:2.5rem;font-weight:700;text-align:center;color:var(--text-dark);margin:10px 0;transition: color 0.3s;}.pomodoro-timer.finished{animation:blinker 1s linear 3;}.pomodoro-cycle-title{text-align:center;font-weight:600;color:var(--text-muted);margin-bottom:10px}.pomodoro-controls{display:flex;justify-content:center;gap:10px;margin-top:20px}.pomodoro-btn{width:50px;height:50px;border-radius:50%;border:none;font-size:1.2rem;cursor:pointer;color:#fff;transition:all .3s ease;display:flex;align-items:center;justify-content:center}.pomodoro-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px var(--shadow-heavy)}.play-btn{background:#48bb78}.pause-btn{background:#ed8936}.reset-btn{background:#e53e3e}.skip-btn{background:#4facfe}.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);backdrop-filter:blur(5px);z-index:1000;animation:fadeIn .3s ease}.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg-card);color:var(--text-dark);border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.2);max-width:800px;width:90%;overflow:hidden;animation:slideInModal .3s ease}.modal-header{background:linear-gradient(135deg,#f56565 0%,#e53e3e 100%);color:#fff;padding:20px;text-align:center}.modal-header.settings,.modal-header.edit,.modal-header.dashboard,.modal-header.stats{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%)}.modal-body{padding:25px;max-height:70vh;overflow-y:auto}.modal-body p{color:var(--text-muted);font-size:1rem;margin-bottom:25px;line-height:1.5;text-align:center}.modal-actions{display:flex;gap:10px;justify-content:flex-end;padding:20px 25px;border-top:1px solid var(--border-color)}.modal-btn{min-width:100px; padding: 10px 15px;}.completed .task-title{text-decoration:line-through; color: var(--text-muted)}.empty-state{text-align:center;padding:40px;color:var(--text-muted);}.empty-state svg{max-width:200px; margin-bottom:20px; opacity: 0.7;}.empty-state h4{font-size:1.2rem; color:var(--text-dark); margin-bottom:8px;}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes slideInModal{from{opacity:0;transform:translate(-50%,-60%)}to{opacity:1;transform:translate(-50%,-50%)}}@keyframes slide-in{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}@keyframes fadeInDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
         #editTaskModal .modal, #settingsModal .modal, #deleteModal .modal { max-width: 500px; }
         .modal-body .form-group select, .modal-body .form-group input, .modal-body .form-group textarea { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--bg-secondary); color: var(--text-dark); }
         .modal-body .form-group textarea { resize: vertical; min-height: 100px; }
@@ -106,7 +107,7 @@
         .btn-icon.delete-btn { color: var(--prio-high); }
         .btn-icon.complete-btn { position: relative; overflow: hidden; }
         .btn-icon.complete-btn .fa-circle-check { transition: transform 0.3s ease, color 0.3s ease; }
-        .btn-icon.complete-btn.is-completed .fa-circle-check { color: var(--prio-low); transform: scale(1.2); }
+        .btn-icon.complete-btn.is-completed .fa-circle-check { color: var(--prio-low); transform: scale(1.2) rotate(360deg); }
         .btn-icon.complete-btn.is-pending .fa-circle-check { color: var(--text-muted); }
         .task-subtasks { margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px; display: flex; flex-direction: column; gap: 8px; }
         .task-subtask-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
@@ -116,50 +117,44 @@
         .task-progress { width: 100%; background-color: var(--border-color); border-radius: 5px; height: 6px; margin-top: 15px; overflow: hidden; }
         .progress-bar { height: 100%; width: 0%; background-color: var(--accent-color); transition: width 0.3s ease; }
         .footer-copyright { text-align: center; padding: 25px 20px 20px 20px; color: var(--text-muted); font-size: 0.9rem; }
-        /* NUEVO: Estilos para el dashboard de estadísticas avanzadas */
         .goals-section { margin-bottom: 25px; }
         .goal-progress { margin-bottom: 15px; }
         .goal-progress label { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600; }
         .progress-bar-container { background-color: var(--border-color); border-radius: 10px; height: 20px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: linear-gradient(135deg, var(--accent-color), var(--header-grad-start)); transition: width 0.5s ease; text-align: center; color: white; font-size: 0.8rem; line-height: 20px; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 70%, black)); transition: width 0.5s ease; text-align: center; color: white; font-size: 0.8rem; line-height: 20px; border-radius: 10px; }
         .detailed-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        /* NUEVO: Estilos para personalización */
         .color-picker-wrapper { display: flex; align-items: center; gap: 10px; }
-        .color-picker-wrapper input[type="color"] { width: 40px; height: 40px; border: none; padding: 0; cursor: pointer; border-radius: 8px; }
+        .color-picker-wrapper input[type="color"] { width: 40px; height: 40px; border: none; padding: 0; cursor: pointer; border-radius: 8px; background-color: transparent; }
+        #resetAccentColor { font-size: 0.9rem; padding: 5px 10px; }
         @keyframes blinker { 50% { opacity: 0.2; } }
         @media (max-width: 768px) { .task-controls { flex-direction: column; } .form-row { grid-template-columns: 1fr; } .header-buttons { position: static; transform: none; justify-content: center; padding-top: 15px; } .header h1 { font-size: 2rem; } }
     </style>
 </head>
 <body>
-    <!-- NUEVO: Contenedor principal para scroll -->
     <div class="app-wrapper">
         <div class="header">
             <h1 data-translate-key="title"></h1>
             <p data-translate-key="subtitle"></p>
             <div class="header-buttons">
                 <div id="streakCounter" class="streak-counter" style="display: none;"></div>
-                <button id="listViewBtn" class="header-btn active" title="Vista de Lista (L)"><i class="fa-solid fa-list-ul"></i></button>
-                <button id="calendarViewBtn" class="header-btn" title="Vista de Calendario (C)"><i class="fa-solid fa-calendar-days"></i></button>
-                <!-- MODIFICADO: Icono del botón del dashboard -->
-                <button id="statsBtn" class="header-btn" title="Metas y Estadísticas (M)"><i class="fa-solid fa-trophy"></i></button>
-                <button id="dashboardBtn" class="header-btn" title="Dashboard de Productividad (D)"><i class="fa-solid fa-chart-line"></i></button>
-                <button id="settingsBtn" class="header-btn" title="Configuración (S)"><i class="fa-solid fa-gear"></i></button>
+                <button id="listViewBtn" class="header-btn active" title="Vista de Lista (L)" aria-label="Cambiar a vista de lista"><i class="fa-solid fa-list-ul"></i></button>
+                <button id="calendarViewBtn" class="header-btn" title="Vista de Calendario (C)" aria-label="Cambiar a vista de calendario"><i class="fa-solid fa-calendar-days"></i></button>
+                <button id="statsBtn" class="header-btn" title="Metas y Estadísticas (M)" aria-label="Ver metas y estadísticas"><i class="fa-solid fa-bullseye"></i></button>
+                <button id="dashboardBtn" class="header-btn" title="Dashboard de Productividad (D)" aria-label="Ver dashboard de productividad"><i class="fa-solid fa-chart-line"></i></button>
+                <button id="settingsBtn" class="header-btn" title="Configuración (S)" aria-label="Abrir configuración"><i class="fa-solid fa-gear"></i></button>
             </div>
         </div>
 
-        <!-- NUEVO: Contenedor para el contenido scrolleable -->
         <div class="app-content">
             <div class="container">
-                <!-- STATS -->
                 <div class="stats" id="statsContainer"></div>
 
-                <!-- MAIN CONTENT -->
                 <div class="main-content">
                     <div id="list-view-section" class="task-section">
                         <div id="taskFormContainer"></div>
                         <div class="task-controls">
                             <input type="search" id="searchInput" data-translate-key-placeholder="placeholder_search" title="Atajo: F">
-                            <select id="filterCategory"></select>
+                            <select id="filterCategory" aria-label="Filtrar por categoría"></select>
                         </div>
                         <div id="tasksList"></div>
                     </div>
@@ -167,7 +162,6 @@
                         <div id="calendar"></div>
                     </div>
 
-                    <!-- SIDEBAR -->
                     <div class="sidebar">
                         <div class="notifications">
                             <h3 class="section-title" data-translate-key="title_notifications"></h3>
@@ -179,10 +173,10 @@
                             <div id="pomodoroCycleTitle" class="pomodoro-cycle-title"></div>
                             <div id="pomodoroTimer" class="pomodoro-timer">25:00</div>
                             <div class="pomodoro-controls">
-                                <button class="pomodoro-btn play-btn" id="playBtn" title="Iniciar"><i class="fa-solid fa-play"></i></button>
-                                <button class="pomodoro-btn pause-btn" id="pauseBtn" title="Pausar"><i class="fa-solid fa-pause"></i></button>
-                                <button class="pomodoro-btn reset-btn" id="resetBtn" title="Reiniciar"><i class="fa-solid fa-stop"></i></button>
-                                <button class="pomodoro-btn skip-btn" id="skipBtn" title="Saltar"><i class="fa-solid fa-forward"></i></button>
+                                <button class="pomodoro-btn play-btn" id="playBtn" title="Iniciar" aria-label="Iniciar Pomodoro"><i class="fa-solid fa-play"></i></button>
+                                <button class="pomodoro-btn pause-btn" id="pauseBtn" title="Pausar" aria-label="Pausar Pomodoro"><i class="fa-solid fa-pause"></i></button>
+                                <button class="pomodoro-btn reset-btn" id="resetBtn" title="Reiniciar" aria-label="Reiniciar Pomodoro"><i class="fa-solid fa-stop"></i></button>
+                                <button class="pomodoro-btn skip-btn" id="skipBtn" title="Saltar" aria-label="Saltar ciclo Pomodoro"><i class="fa-solid fa-forward"></i></button>
                             </div>
                         </div>
                     </div>
@@ -201,25 +195,23 @@
          <div class="modal">
             <div class="modal-header settings"><h3 data-translate-key="settings_title"></h3></div>
             <div class="modal-body" style="text-align: left;">
-                <!-- NUEVO: Sección de personalización de UI -->
-                <div style="margin-bottom: 20px;"><h4 data-translate-key="settings_ui_customization"></h4>
+                <div style="margin-bottom: 20px;"><h4><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-translate-key="settings_ui_customization"></span></h4>
                     <div class="form-group"><label for="fontSelector" data-translate-key="settings_font"></label><select id="fontSelector"><option value="sans-serif" data-translate-key="font_sans_serif"></option><option value="serif" data-translate-key="font_serif"></option><option value="mono" data-translate-key="font_mono"></option></select></div>
-                    <div class="form-group"><label for="accentColorPicker" data-translate-key="settings_accent_color"></label><div class="color-picker-wrapper"><input type="color" id="accentColorPicker"> <span id="accentColorValue"></span></div></div>
+                    <div class="form-group"><label for="accentColorPicker" data-translate-key="settings_accent_color"></label><div class="color-picker-wrapper"><input type="color" id="accentColorPicker" aria-label="Selector de color de acento"> <span id="accentColorValue"></span><button id="resetAccentColor" class="btn modal-btn" data-translate-key="btn_reset"></button></div></div>
                 </div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 15px;"><h4 data-translate-key="settings_general"></h4>
+                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 15px;"><h4><i class="fa-solid fa-sliders"></i> <span data-translate-key="settings_general"></span></h4>
                     <div class="form-group"><label for="themeSelector" data-translate-key="settings_theme"></label><select id="themeSelector"><option value="light" data-translate-key="theme_light"></option><option value="dark" data-translate-key="theme_dark"></option><option value="ocean" data-translate-key="theme_ocean"></option><option value="forest" data-translate-key="theme_forest"></option></select></div>
                     <div class="form-group"><label for="languageSelector" data-translate-key="settings_language"></label><select id="languageSelector"><option value="es">Español</option><option value="en">English</option></select></div>
                     <div class="form-group"><label for="soundThemeSelector" data-translate-key="settings_sound_theme"></label><select id="soundThemeSelector"><option value="classic" data-translate-key="sound_classic"></option><option value="digital" data-translate-key="sound_digital"></option><option value="relaxing" data-translate-key="sound_relaxing"></option></select></div>
                 </div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4 data-translate-key="settings_pomodoro"></h4><div class="form-row"><div class="form-group"><label for="pomodoroWork" data-translate-key="pomo_work_duration"></label><input type="number" id="pomodoroWork" min="1"></div><div class="form-group"><label for="pomodoroShortBreak" data-translate-key="pomo_short_break_duration"></label><input type="number" id="pomodoroShortBreak" min="1"></div></div><div class="form-group"><label for="pomodoroLongBreak" data-translate-key="pomo_long_break_duration"></label><input type="number" id="pomodoroLongBreak" min="1"></div></div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4 data-translate-key="settings_achievements_title"></h4><div id="achievementsGrid" class="achievements-grid"></div></div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><label data-translate-key="settings_data"></label><div class="modal-data-actions"><button id="exportBtn" class="modal-btn"><i class="fa-solid fa-file-export"></i> <span data-translate-key="btn_export"></span></button><label for="importFile" class="modal-btn import-label"><i class="fa-solid fa-file-import"></i> <span data-translate-key="btn_import"></span></label><input type="file" id="importFile" accept=".json" style="display: none;"></div></div>
+                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4><i class="fa-solid fa-stopwatch"></i> <span data-translate-key="settings_pomodoro"></span></h4><div class="form-row"><div class="form-group"><label for="pomodoroWork" data-translate-key="pomo_work_duration"></label><input type="number" id="pomodoroWork" min="1"></div><div class="form-group"><label for="pomodoroShortBreak" data-translate-key="pomo_short_break_duration"></label><input type="number" id="pomodoroShortBreak" min="1"></div></div><div class="form-group"><label for="pomodoroLongBreak" data-translate-key="pomo_long_break_duration"></label><input type="number" id="pomodoroLongBreak" min="1"></div></div>
+                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4><i class="fa-solid fa-trophy"></i> <span data-translate-key="settings_achievements_title"></span></h4><div id="achievementsGrid" class="achievements-grid"></div></div>
+                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4><i class="fa-solid fa-database"></i> <span data-translate-key="settings_data"></span></h4><div class="modal-data-actions"><button id="exportBtn" class="modal-btn"><i class="fa-solid fa-file-export"></i> <span data-translate-key="btn_export"></span></button><label for="importFile" class="modal-btn import-label"><i class="fa-solid fa-file-import"></i> <span data-translate-key="btn_import"></span></label><input type="file" id="importFile" accept=".json" style="display: none;"></div></div>
             </div>
             <div class="modal-actions"><button id="closeSettings" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div>
     </div>
-    <div class="modal-overlay" id="dashboardModal"><div class="modal"><div class="modal-header dashboard"><h3 data-translate-key="dashboard_title"></h3></div><div class="modal-body"><div class="chart-container"><h4 data-translate-key="dashboard_weekly_title"></h4><canvas id="completedTasksChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_category_title"></h4><canvas id="categoryDistributionChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_pomodoro_title"></h4><canvas id="pomodoroPerformanceChart"></div><div class="chart-container"><h4 data-translate-key="dashboard_monthly_title"></h4><canvas id="monthlyTasksChart"></canvas></div></div><div class="modal-actions"><button id="closeDashboard" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div></div>
-    <!-- NUEVO: Modal de Metas y Estadísticas -->
-    <div class="modal-overlay" id="statsModal"><div class="modal"><div class="modal-header stats"><h3 data-translate-key="stats_title"></h3></div><div class="modal-body"><div class="goals-section"><h4 data-translate-key="stats_goals_title"></h4><div class="form-row"><div class="form-group"><label for="dailyTasksGoal" data-translate-key="stats_daily_task_goal"></label><input type="number" id="dailyTasksGoal" min="1"></div><div class="form-group"><label for="dailyPomosGoal" data-translate-key="stats_daily_pomo_goal"></label><input type="number" id="dailyPomosGoal" min="1"></div></div><div id="goalsProgress"></div></div><div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4 data-translate-key="stats_details_title"></h4><div id="detailedStats" class="detailed-stats-grid"></div></div></div><div class="modal-actions"><button id="closeStats" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div></div>
+    <div class="modal-overlay" id="dashboardModal"><div class="modal"><div class="modal-header dashboard"><h3 data-translate-key="dashboard_title"></h3></div><div class="modal-body"><div class="chart-container"><h4 data-translate-key="dashboard_weekly_title"></h4><canvas id="completedTasksChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_category_title"></h4><canvas id="categoryDistributionChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_pomodoro_title"></h4><canvas id="pomodoroPerformanceChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_monthly_title"></h4><canvas id="monthlyTasksChart"></canvas></div></div><div class="modal-actions"><button id="closeDashboard" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div></div>
+    <div class="modal-overlay" id="statsModal"><div class="modal"><div class="modal-header stats"><h3 data-translate-key="stats_title"></h3></div><div class="modal-body"><div class="goals-section"><h4><i class="fa-solid fa-bullseye"></i> <span data-translate-key="stats_goals_title"></span></h4><div class="form-row"><div class="form-group"><label for="dailyTasksGoal" data-translate-key="stats_daily_task_goal"></label><input type="number" id="dailyTasksGoal" min="1"></div><div class="form-group"><label for="dailyPomosGoal" data-translate-key="stats_daily_pomo_goal"></label><input type="number" id="dailyPomosGoal" min="1"></div></div><div id="goalsProgress"></div></div><div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4><i class="fa-solid fa-magnifying-glass-chart"></i> <span data-translate-key="stats_details_title"></span></h4><div id="detailedStats" class="detailed-stats-grid"></div></div></div><div class="modal-actions"><button id="closeStats" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div></div>
 
     <div id="toast" class="toast"></div>
     <audio id="notificationSound-classic" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-notification-951.mp3" preload="auto"></audio>
@@ -231,7 +223,7 @@
     
     <script>
         const translations = {
-            es: { title: "🎯 TaskMaster Pro", subtitle: "Organiza tu día con inteligencia", stat_total: "Total", stat_completed: "Completadas", stat_pending: "Pendientes", stat_overdue: "Vencidas", form_title: "¿Qué necesitas hacer hoy?", label_task: "Tarea", placeholder_task: "Ej: Diseñar el nuevo logo (Atajo: N)", label_category: "Categoría", cat_work: "💼 Trabajo", cat_personal: "👤 Personal", cat_health: "🏃 Salud", cat_study: "📚 Estudio", cat_other: "📋 Otros", label_priority: "Prioridad", prio_low: "🟢 Baja", prio_medium: "🟡 Media", prio_high: "🔴 Alta", label_date: "Fecha Límite", label_time: "Hora", btn_add_task: "➕ Agregar Tarea", placeholder_search: "Buscar tareas...", filter_all: "Todas las categorías", empty_state_title: "¡Todo despejado!", empty_state_text: "Agrega una nueva tarea para empezar.", title_notifications: "🔔 Notificaciones", welcome_notification: "¡Bienvenido a TaskMaster Pro! 🎉", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirmar eliminación", delete_modal_text: "¿Estás seguro de que quieres eliminar esta tarea?", btn_delete: "Eliminar", btn_cancel: "Cancelar", edit_modal_title: "✏️ Editar Tarea", label_subtasks: "Sub-tareas", placeholder_subtask: "Añadir sub-tarea y presionar Enter", settings_title: "⚙️ Configuración", settings_theme: "Tema", theme_light: "Claro", theme_dark: "Oscuro", theme_ocean: "Océano", theme_forest: "Bosque", settings_language: "Idioma", settings_data: "Datos de la Aplicación", btn_export: "Exportar", btn_import: "Importar", btn_save_changes: "Guardar", btn_close: "Cerrar", feedback_imported: "¡Datos importados con éxito!", feedback_error_import: "Error al importar el archivo.", toast_task_added: "Tarea agregada con éxito", toast_task_deleted: "Tarea eliminada", toast_task_updated: "Tarea actualizada", toast_task_rescheduled: "Tarea reprogramada", toast_achievement_unlocked: "🏆 ¡Logro Desbloqueado!", settings_pomodoro: "Personalización de Pomodoro", pomo_work_duration: "Trabajo (min)", pomo_short_break_duration: "Descanso Corto (min)", pomo_long_break_duration: "Descanso Largo (min)", pomo_cycle_work: "¡A trabajar!", pomo_cycle_short: "Descanso corto", pomo_cycle_long: "Descanso largo", notification_title: "¡Tiempo!", notification_work_end: "¡Buen trabajo! Es hora de un descanso.", notification_break_end: "El descanso terminó. ¡De vuelta al trabajo!", label_recurrence: "Recurrencia", recur_none: "Ninguna", recur_daily: "Diaria", recur_weekly: "Semanal", recur_fortnightly: "Quincenal", recur_monthly: "Mensual", recur_business_days: "Días Hábiles (L-V)", pomo_task_title_prefix: "Enfocado en: ", label_notes: "Notas Adicionales", placeholder_notes: "Añade detalles, enlaces, etc.", dashboard_title: "📊 Dashboard de Productividad", dashboard_weekly_title: "Tareas Completadas (Últimos 7 Días)", dashboard_category_title: "Distribución por Categoría", dashboard_pomodoro_title: "Rendimiento de Pomodoros", dashboard_monthly_title: "Tareas Completadas (Últimos 30 Días)", day_sun: "Dom", day_mon: "Lun", day_tue: "Mar", day_wed: "Mié", day_thu: "Jue", day_fri: "Vie", day_sat: "Sáb", settings_achievements_title: "🏆 Logros", streak_days: "Días", settings_sound_theme: "Tema de Sonido", sound_classic: "Clásico", sound_digital: "Digital", sound_relaxing: "Relajante",
+            es: { title: "🎯 TaskMaster Pro", subtitle: "Organiza tu día con inteligencia", stat_total: "Total", stat_completed: "Completadas", stat_pending: "Pendientes", stat_overdue: "Vencidas", form_title: "¿Qué necesitas hacer hoy?", label_task: "Tarea", placeholder_task: "Ej: Diseñar el nuevo logo (Atajo: N)", label_category: "Categoría", cat_work: "💼 Trabajo", cat_personal: "👤 Personal", cat_health: "🏃 Salud", cat_study: "📚 Estudio", cat_other: "📋 Otros", label_priority: "Prioridad", prio_low: "🟢 Baja", prio_medium: "🟡 Media", prio_high: "🔴 Alta", label_date: "Fecha Límite", label_time: "Hora", btn_add_task: "➕ Agregar Tarea", placeholder_search: "Buscar tareas...", filter_all: "Todas las categorías", empty_state_title: "¡Todo despejado!", empty_state_text: "Añade una nueva tarea para empezar.", empty_search_title: "Sin resultados", empty_search_text: "No se encontraron tareas con ese filtro.", title_notifications: "🔔 Notificaciones", welcome_notification: "¡Bienvenido! Define tu primera tarea.", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirmar eliminación", delete_modal_text: "¿Estás seguro de que quieres eliminar esta tarea?", btn_delete: "Eliminar", btn_cancel: "Cancelar", btn_reset: "Restaurar", edit_modal_title: "✏️ Editar Tarea", label_subtasks: "Sub-tareas", placeholder_subtask: "Añadir sub-tarea y presionar Enter", settings_title: "⚙️ Configuración", settings_theme: "Tema", theme_light: "Claro", theme_dark: "Oscuro", theme_ocean: "Océano", theme_forest: "Bosque", settings_language: "Idioma", settings_data: "Datos de la Aplicación", btn_export: "Exportar", btn_import: "Importar", btn_save_changes: "Guardar", btn_close: "Cerrar", feedback_imported: "¡Datos importados con éxito!", feedback_error_import: "Error al importar el archivo.", toast_task_added: "Tarea agregada con éxito", toast_task_deleted: "Tarea eliminada", toast_task_updated: "Tarea actualizada", toast_task_rescheduled: "Tarea reprogramada", toast_achievement_unlocked: "🏆 ¡Logro Desbloqueado!", settings_pomodoro: "Personalización de Pomodoro", pomo_work_duration: "Trabajo (min)", pomo_short_break_duration: "Descanso Corto (min)", pomo_long_break_duration: "Descanso Largo (min)", pomo_cycle_work: "¡A trabajar!", pomo_cycle_short: "Descanso corto", pomo_cycle_long: "Descanso largo", notification_title: "¡Tiempo!", notification_work_end: "¡Buen trabajo! Es hora de un descanso.", notification_break_end: "El descanso terminó. ¡De vuelta al trabajo!", label_recurrence: "Recurrencia", recur_none: "Ninguna", recur_daily: "Diaria", recur_weekly: "Semanal", recur_fortnightly: "Quincenal", recur_monthly: "Mensual", recur_business_days: "Días Hábiles (L-V)", pomo_task_title_prefix: "Enfocado en: ", label_notes: "Notas Adicionales", placeholder_notes: "Añade detalles, enlaces, etc.", dashboard_title: "📊 Dashboard de Productividad", dashboard_weekly_title: "Tareas Completadas (Últimos 7 Días)", dashboard_category_title: "Distribución por Categoría", dashboard_pomodoro_title: "Rendimiento de Pomodoros", dashboard_monthly_title: "Tareas Completadas (Últimos 30 Días)", day_sun: "Dom", day_mon: "Lun", day_tue: "Mar", day_wed: "Mié", day_thu: "Jue", day_fri: "Vie", day_sat: "Sáb", settings_achievements_title: "Logros", streak_days: "Días", settings_sound_theme: "Tema de Sonido", sound_classic: "Clásico", sound_digital: "Digital", sound_relaxing: "Relajante",
                 settings_ui_customization: "Personalización de Interfaz", settings_font: "Fuente", font_sans_serif: "Moderna (Sans-Serif)", font_serif: "Clásica (Serif)", font_mono: "Técnica (Monoespaciada)", settings_accent_color: "Color de Acento", settings_general: "Configuración General",
                 stats_title: "🏆 Metas y Estadísticas", stats_goals_title: "Metas Diarias", stats_daily_task_goal: "Meta de Tareas", stats_daily_pomo_goal: "Meta de Pomodoros", stats_details_title: "Estadísticas Detalladas", stat_streak: "Racha Actual", stat_today_tasks: "Tareas Hoy", stat_today_pomos: "Pomodoros Hoy", stat_avg_focus: "Foco Promedio", stat_top_category: "Categoría Top",
                 ach_first_task_title: "Primer Paso", ach_first_task_desc: "Completa tu primera tarea.",
@@ -242,7 +234,7 @@
                 ach_night_owl_title: "Ave Nocturna", ach_night_owl_desc: "Completa una tarea de madrugada.",
                 calendar_today: "Hoy", calendar_month: "Mes", calendar_week: "Semana", calendar_list: "Lista"
             },
-            en: { title: "🎯 TaskMaster Pro", subtitle: "Organize your day with intelligence", stat_total: "Total", stat_completed: "Completed", stat_pending: "Pending", stat_overdue: "Overdue", form_title: "What do you need to do today?", label_task: "Task", placeholder_task: "E.g.: Design the new logo (Shortcut: N)", label_category: "Category", cat_work: "💼 Work", cat_personal: "👤 Personal", cat_health: "🏃 Health", cat_study: "📚 Study", cat_other: "📋 Other", label_priority: "Priority", prio_low: "🟢 Low", prio_medium: "🟡 Medium", prio_high: "🔴 High", label_date: "Due Date", label_time: "Time", btn_add_task: "➕ Add Task", placeholder_search: "Search tasks...", filter_all: "All categories", empty_state_title: "All clear!", empty_state_text: "Add a new task to get started.", title_notifications: "🔔 Notifications", welcome_notification: "Welcome to TaskMaster Pro! 🎉", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirm Deletion", delete_modal_text: "Are you sure you want to delete this task?", btn_delete: "Delete", btn_cancel: "Cancel", edit_modal_title: "✏️ Edit Task", label_subtasks: "Sub-tasks", placeholder_subtask: "Add sub-task and press Enter", settings_title: "⚙️ Settings", settings_theme: "Theme", theme_light: "Light", theme_dark: "Dark", theme_ocean: "Ocean", theme_forest: "Forest", settings_language: "Language", settings_data: "Application Data", btn_export: "Export", btn_import: "Import", btn_save_changes: "Save", btn_close: "Close", feedback_imported: "Data imported successfully!", feedback_error_import: "Error importing file.", toast_task_added: "Task added successfully", toast_task_deleted: "Task deleted", toast_task_updated: "Task updated", toast_task_rescheduled: "Task rescheduled", toast_achievement_unlocked: "🏆 Achievement Unlocked!", settings_pomodoro: "Pomodoro Customization", pomo_work_duration: "Work (min)", pomo_short_break_duration: "Short Break (min)", pomo_long_break_duration: "Long Break (min)", pomo_cycle_work: "Time to work!", pomo_cycle_short: "Short break", pomo_cycle_long: "Long break", notification_title: "Time's Up!", notification_work_end: "Good job! Time for a break.", notification_break_end: "Break's over. Back to work!", label_recurrence: "Recurrence", recur_none: "None", recur_daily: "Daily", recur_weekly: "Weekly", recur_fortnightly: "Fortnightly", recur_monthly: "Monthly", recur_business_days: "Business Days (M-F)", pomo_task_title_prefix: "Focused on: ", label_notes: "Additional Notes", placeholder_notes: "Add details, links, etc.", dashboard_title: "📊 Productivity Dashboard", dashboard_weekly_title: "Tasks Completed (Last 7 Days)", dashboard_category_title: "Distribution by Category", dashboard_pomodoro_title: "Pomodoro Performance", dashboard_monthly_title: "Tasks Completed (Last 30 Days)", day_sun: "Sun", day_mon: "Mon", day_tue: "Tue", day_wed: "Wed", day_thu: "Thu", day_fri: "Fri", day_sat: "Sat", settings_achievements_title: "🏆 Achievements", streak_days: "Days", settings_sound_theme: "Sound Theme", sound_classic: "Classic", sound_digital: "Digital", sound_relaxing: "Relaxing",
+            en: { title: "🎯 TaskMaster Pro", subtitle: "Organize your day with intelligence", stat_total: "Total", stat_completed: "Completed", stat_pending: "Pending", stat_overdue: "Overdue", form_title: "What do you need to do today?", label_task: "Task", placeholder_task: "E.g.: Design the new logo (Shortcut: N)", label_category: "Category", cat_work: "💼 Work", cat_personal: "👤 Personal", cat_health: "🏃 Health", cat_study: "📚 Study", cat_other: "📋 Other", label_priority: "Priority", prio_low: "🟢 Low", prio_medium: "🟡 Medium", prio_high: "🔴 High", label_date: "Due Date", label_time: "Time", btn_add_task: "➕ Add Task", placeholder_search: "Search tasks...", filter_all: "All categories", empty_state_title: "All clear!", empty_state_text: "Add a new task to get started.", empty_search_title: "No results", empty_search_text: "No tasks were found with that filter.", title_notifications: "🔔 Notifications", welcome_notification: "Welcome! Define your first task.", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirm Deletion", delete_modal_text: "Are you sure you want to delete this task?", btn_delete: "Delete", btn_cancel: "Cancel", btn_reset: "Reset", edit_modal_title: "✏️ Edit Task", label_subtasks: "Sub-tasks", placeholder_subtask: "Add sub-task and press Enter", settings_title: "⚙️ Settings", settings_theme: "Theme", theme_light: "Light", theme_dark: "Dark", theme_ocean: "Ocean", theme_forest: "Forest", settings_language: "Language", settings_data: "Application Data", btn_export: "Export", btn_import: "Import", btn_save_changes: "Save", btn_close: "Close", feedback_imported: "Data imported successfully!", feedback_error_import: "Error importing file.", toast_task_added: "Task added successfully", toast_task_deleted: "Task deleted", toast_task_updated: "Task updated", toast_task_rescheduled: "Task rescheduled", toast_achievement_unlocked: "🏆 Achievement Unlocked!", settings_pomodoro: "Pomodoro Customization", pomo_work_duration: "Work (min)", pomo_short_break_duration: "Short Break (min)", pomo_long_break_duration: "Long Break (min)", pomo_cycle_work: "Time to work!", pomo_cycle_short: "Short break", pomo_cycle_long: "Long break", notification_title: "Time's Up!", notification_work_end: "Good job! Time for a break.", notification_break_end: "Break's over. Back to work!", label_recurrence: "Recurrence", recur_none: "None", recur_daily: "Daily", recur_weekly: "Weekly", recur_fortnightly: "Fortnightly", recur_monthly: "Monthly", recur_business_days: "Business Days (M-F)", pomo_task_title_prefix: "Focused on: ", label_notes: "Additional Notes", placeholder_notes: "Add details, links, etc.", dashboard_title: "📊 Productivity Dashboard", dashboard_weekly_title: "Tasks Completed (Last 7 Days)", dashboard_category_title: "Distribution by Category", dashboard_pomodoro_title: "Pomodoro Performance", dashboard_monthly_title: "Tasks Completed (Last 30 Days)", day_sun: "Sun", day_mon: "Mon", day_tue: "Tue", day_wed: "Wed", day_thu: "Thu", day_fri: "Fri", day_sat: "Sat", settings_achievements_title: "Achievements", streak_days: "Days", settings_sound_theme: "Sound Theme", sound_classic: "Classic", sound_digital: "Digital", sound_relaxing: "Relaxing",
                 settings_ui_customization: "Interface Customization", settings_font: "Font", font_sans_serif: "Modern (Sans-Serif)", font_serif: "Classic (Serif)", font_mono: "Technical (Monospace)", settings_accent_color: "Accent Color", settings_general: "General Settings",
                 stats_title: "🏆 Goals & Stats", stats_goals_title: "Daily Goals", stats_daily_task_goal: "Tasks Goal", stats_daily_pomo_goal: "Pomodoros Goal", stats_details_title: "Detailed Stats", stat_streak: "Current Streak", stat_today_tasks: "Tasks Today", stat_today_pomos: "Pomos Today", stat_avg_focus: "Avg. Focus", stat_top_category: "Top Category",
                 ach_first_task_title: "First Step", ach_first_task_desc: "Complete your first task.",
@@ -253,6 +245,13 @@
                 ach_night_owl_title: "Night Owl", ach_night_owl_desc: "Complete a task in the small hours.",
                 calendar_today: "Today", calendar_month: "Month", calendar_week: "Week", calendar_list: "List"
             }
+        };
+
+        // NUEVO: SVG para estados vacíos
+        const SVGs = {
+            noTasks: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="var(--accent-color)" d="M96.4 34.4H75.5V23.3c0-2.3-1.9-4.2-4.2-4.2h-14c-2.3 0-4.2 1.9-4.2 4.2v11.2H31.6c-3.4 0-6.2 2.8-6.2 6.2v67.8c0 3.4 2.8 6.2 6.2 6.2h64.8c3.4 0 6.2-2.8 6.2-6.2V40.6c0-3.4-2.8-6.2-6.2-6.2zM57.1 27.5h13.9v6.9H57.1v-6.9zm41.2 81H31.6c-1 0-1.9-.8-1.9-1.9V40.6c0-1 .8-1.9 1.9-1.9h20v6.9c0 2.3 1.9 4.2 4.2 4.2h14c2.3 0 4.2-1.9 4.2-4.2v-6.9h20.5c1 0 1.9.8 1.9 1.9v67.8c-.1 1.1-.9 1.9-2 1.9z"/><path fill="var(--accent-color)" d="M72.2 69.3h-17c-1.1 0-2-.9-2-2s.9-2 2-2h17c1.1 0 2 .9 2 2s-.9 2-2 2zM85.4 86.8H42.6c-1.1 0-2-.9-2-2s.9-2 2-2h42.8c1.1 0 2 .9 2 2s-.9 2-2 2z"/></svg>`,
+            noSearchResults: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="var(--accent-color)" d="M115.8 111.9L92.2 88.3c5.8-7.7 9.1-17.1 9.1-27.4C101.3 35.8 83.5 18 58.4 18S15.5 35.8 15.5 60.9s17.8 42.9 42.9 42.9c10.3 0 19.7-3.3 27.4-9.1l23.6 23.6c1.6 1.6 4.2 1.6 5.8 0l.6-.6c1.5-1.6 1.5-4.2-.1-5.8zm-57.4-19c-18.2 0-32.9-14.8-32.9-32.9S40.2 28 58.4 28s32.9 14.8 32.9 32.9-14.7 32-32.9 32z"/></svg>`,
+            welcome: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="var(--accent-color)" d="M109.9 66.2c-2.3-1.1-5-1.1-7.2.1-5.6 2.8-13.6 4.4-22.3 4.4-12.8 0-22.3-2.6-22.3-2.6-8.7 0-17.8-1.6-22.3-4.4-2.2-1.1-4.9-1.2-7.2-.1-2.3 1.1-3.7 3.4-3.7 5.9v23.2c0 2.5 1.4 4.8 3.7 5.9 2.3 1.1 5 .9 7.2-.1 5.6-2.8 13.6-4.4 22.3-4.4 12.8 0 22.3 2.6 22.3 2.6 8.7 0 17.8 1.6 22.3 4.4 2.2 1.1 4.9 1.2 7.2.1 2.3-1.1 3.7-3.4 3.7-5.9V72.1c.1-2.5-1.3-4.8-3.6-5.9zM103.1 88.5c-6.8-2.6-15.6-4-24.8-4-12.4 0-21.4 2.6-21.4 2.6-9.2 0-18.1 1.4-24.8 4V73c6.8 2.6 15.6 4 24.8 4 12.4 0 21.4-2.6 21.4-2.6 9.2 0 18.1-1.4 24.8-4v15.5z"/><path fill="var(--accent-color)" d="M96.7 45.3c-.6-3.8-3.8-6.6-7.6-6.6-4.2 0-7.6 3.4-7.6 7.6 0 .5.1 1 .2 1.5l-12.2 7c-.5-.1-1-.2-1.5-.2s-1 .1-1.5.2L54.4 48c.1-.5.2-1 .2-1.5 0-4.2-3.4-7.6-7.6-7.6s-7.6 3.4-7.6 7.6c0 .5.1 1 .2 1.5L27.4 54c-2.8-.5-5.4 1.5-5.9 4.3-.5 2.8 1.5 5.4 4.3 5.9l.6.1c.2 0 .5 0 .7 0l12.2-7.1c.5.1 1 .2 1.5.2s1-.1 1.5-.2l12.1 6.9c-.1.5-.2 1-.2 1.5 0 4.2 3.4 7.6 7.6 7.6s7.6-3.4 7.6-7.6c0-.5-.1-1-.2-1.5l12.2-7c.5.1 1 .2 1.5.2s1-.1 1.5-.2l12.1 7.1c2.8.5 5.4-1.5 5.9-4.3.5-2.8-1.5-5.4-4.3-5.9l-.6-.1c-.2 0-.5 0-.7 0l-12.2 7.1c-.5-.1-1-.2-1.5-.2s-1 .1-1.5.2l-12.1-6.9c.1-.5.2-1 .2-1.5 0-.4 0-.8-.1-1.2l12.1-7z"/></svg>`,
         };
 
         const ACHIEVEMENT_DEFINITIONS = {
@@ -266,7 +265,6 @@
 
         class TaskMaster {
             constructor() {
-                // NUEVO: Default settings con metas y personalización
                 const defaultSettings = { 
                     theme: 'light', 
                     language: 'es', 
@@ -277,7 +275,7 @@
                     customization: { fontFamily: 'sans-serif', accentColor: '#4facfe' }
                 };
                 this.tasks = this.loadData('tasks', []);
-                this.settings = { ...defaultSettings, ...this.loadData('settings', {}) };
+                this.settings = { ...defaultSettings, customization: {...defaultSettings.customization}, goals: {...defaultSettings.goals}, ...this.loadData('settings', {}) };
                 this.gamificationData = { ...{ streak: { current: 0, lastCompletedDate: null }, unlockedAchievements: [] }, ...this.loadData('gamification', {}) };
                 
                 this.currentPomodoroTask = null; this.pomodoroInterval = null; this.isPomodoroRunning = false;
@@ -296,21 +294,32 @@
                 document.documentElement.setAttribute('data-theme', this.settings.theme);
                 document.documentElement.lang = this.settings.language;
 
-                // NUEVO: Aplicar personalización de UI
+                const accentColor = this.settings.customization.accentColor || this.getDefaultAccentColor();
+                document.documentElement.style.setProperty('--accent-color', accentColor);
                 document.body.style.fontFamily = `var(--font-family-${this.settings.customization.fontFamily})`;
-                document.documentElement.style.setProperty('--accent-color', this.settings.customization.accentColor);
                 
-                // Actualizar valores en el modal de configuración
                 document.getElementById('themeSelector').value = this.settings.theme;
                 document.getElementById('languageSelector').value = this.settings.language;
                 document.getElementById('soundThemeSelector').value = this.settings.soundTheme;
                 document.getElementById('fontSelector').value = this.settings.customization.fontFamily;
-                document.getElementById('accentColorPicker').value = this.settings.customization.accentColor;
-                document.getElementById('accentColorValue').textContent = this.settings.customization.accentColor;
+                document.getElementById('accentColorPicker').value = accentColor;
+                document.getElementById('accentColorValue').textContent = accentColor.toUpperCase();
                 document.getElementById('pomodoroWork').value = this.settings.pomodoro.work;
                 document.getElementById('pomodoroShortBreak').value = this.settings.pomodoro.short;
                 document.getElementById('pomodoroLongBreak').value = this.settings.pomodoro.long;
                 this.renderAll();
+            }
+
+            // NUEVO: Función para obtener el color de acento por defecto del tema actual
+            getDefaultAccentColor() {
+                const theme = this.settings.theme || 'light';
+                const style = getComputedStyle(document.documentElement);
+                // Usamos un truco: establecemos el tema temporalmente para leer la variable CSS correcta.
+                document.documentElement.setAttribute('data-theme', theme);
+                const color = style.getPropertyValue(`--accent-color-default`);
+                // Lo restauramos por si acaso, aunque applySettings lo volverá a hacer.
+                document.documentElement.setAttribute('data-theme', this.settings.theme);
+                return color.trim();
             }
 
             showToast(messageKey, type = 'success', extra = '') {
@@ -392,9 +401,11 @@
                 
                 const taskSorter = (a, b) => {
                     if (a.completed !== b.completed) return a.completed ? 1 : -1;
-                    const dateA = a.date ? new Date(a.date) : Infinity;
-                    const dateB = b.date ? new Date(b.date) : Infinity;
-                    if (dateA !== dateB) return dateA - dateB;
+                    const dateA = a.date ? new Date(a.date) : 0;
+                    const dateB = b.date ? new Date(b.date) : 0;
+                    if(dateA && dateB) return dateA - dateB;
+                    if(dateA) return -1;
+                    if(dateB) return 1;
                     return 0;
                 };
 
@@ -402,12 +413,12 @@
                     .filter(task => (task.title.toLowerCase().includes(searchTerm) || (task.notes && task.notes.toLowerCase().includes(searchTerm))) && (filterCat === 'all' || task.category === filterCat))
                     .sort(taskSorter);
 
-                if (filteredTasks.length === 0 && this.tasks.length > 0) {
-                     list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-search"></i><h4>No hay resultados</h4><p>Intenta con otra búsqueda o filtro.</p></div>`;
+                if (this.tasks.length === 0) { list.innerHTML = `<div class="empty-state">${SVGs.noTasks}<h4 data-translate-key="empty_state_title">${translations[lang].empty_state_title}</h4><p data-translate-key="empty_state_text">${translations[lang].empty_state_text}</p></div>`; return; }
+
+                if (filteredTasks.length === 0) {
+                     list.innerHTML = `<div class="empty-state">${SVGs.noSearchResults}<h4 data-translate-key="empty_search_title">${translations[lang].empty_search_title}</h4><p data-translate-key="empty_search_text">${translations[lang].empty_search_text}</p></div>`;
                      return;
                 }
-
-                if (this.tasks.length === 0) { list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-clipboard-check"></i><h4 data-translate-key="empty_state_title">${translations[lang].empty_state_title}</h4><p data-translate-key="empty_state_text">${translations[lang].empty_state_text}</p></div>`; return; }
                 
                 list.innerHTML = '';
                 filteredTasks.forEach(task => list.appendChild(this.createTaskElement(task)));
@@ -434,7 +445,16 @@
                 return taskEl;
             }
 
-            checkWelcomeNotification() { document.getElementById('welcomeNotification').style.display = this.tasks.length > 0 ? 'none' : 'block'; }
+            checkWelcomeNotification() { 
+                const welcomeEl = document.getElementById('welcomeNotification');
+                if (this.tasks.length > 0) {
+                    welcomeEl.style.display = 'none';
+                } else {
+                    const lang = this.settings.language;
+                    welcomeEl.innerHTML = `${SVGs.welcome} <strong>${translations[lang].welcome_notification}</strong>`;
+                    welcomeEl.style.display = 'block';
+                }
+            }
             
             initializeEventListeners() {
                 document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
@@ -455,11 +475,10 @@
                 document.getElementById('languageSelector').addEventListener('change', (e) => { this.settings.language = e.target.value; this.saveData('settings', this.settings); this.applySettings(); if(this.calendar) {this.calendar.setOption('locale', e.target.value); this.calendar.setOption('buttonText', this.getCalendarButtonTranslations());} });
                 document.getElementById('soundThemeSelector').addEventListener('change', (e) => { this.settings.soundTheme = e.target.value; this.saveData('settings', this.settings); this.playSound('notification'); });
 
-                // NUEVO: Listeners para personalización
                 document.getElementById('fontSelector').addEventListener('change', (e) => { this.settings.customization.fontFamily = e.target.value; this.saveData('settings', this.settings); this.applySettings(); });
                 document.getElementById('accentColorPicker').addEventListener('input', (e) => { this.settings.customization.accentColor = e.target.value; this.saveData('settings', this.settings); this.applySettings(); });
+                document.getElementById('resetAccentColor').addEventListener('click', () => { this.settings.customization.accentColor = this.getDefaultAccentColor(); this.saveData('settings', this.settings); this.applySettings(); });
                 
-                // NUEVO: Listeners para metas
                 document.getElementById('dailyTasksGoal').addEventListener('change', (e) => { this.settings.goals.dailyTasks = parseInt(e.target.value, 10) || 5; this.saveData('settings', this.settings); this.renderGoalsProgress(); });
                 document.getElementById('dailyPomosGoal').addEventListener('change', (e) => { this.settings.goals.dailyPomos = parseInt(e.target.value, 10) || 4; this.saveData('settings', this.settings); this.renderGoalsProgress(); });
 
@@ -629,10 +648,8 @@
             renderWeeklyChart() { const lang = this.settings.language; const labels = []; const data = [0, 0, 0, 0, 0, 0, 0]; const dayKeys = ['day_sun', 'day_mon', 'day_tue', 'day_wed', 'day_thu', 'day_fri', 'day_sat']; for (let i = 6; i >= 0; i--) { const date = new Date(); date.setDate(date.getDate() - i); labels.push(translations[lang][dayKeys[date.getDay()]]); } const sevenDaysAgo = new Date(); sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7); this.tasks.filter(t => t.completed && t.completedAt && new Date(t.completedAt) > sevenDaysAgo).forEach(task => { const completedDate = new Date(task.completedAt); const diffDays = Math.floor((new Date().setHours(0,0,0,0) - completedDate.setHours(0,0,0,0)) / (1000 * 60 * 60 * 24)); if(diffDays >= 0 && diffDays < 7) { data[6 - diffDays]++; } }); this.renderChart('completedTasksChart', 'bar', { labels, datasets: [{ label: translations[lang].stat_completed, data, backgroundColor: 'rgba(79, 172, 254, 0.5)', borderColor: 'rgba(79, 172, 254, 1)', borderWidth: 1 }] }, { responsive: true, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: getComputedStyle(document.body).getPropertyValue('--text-muted') } }, x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } }, plugins: { legend: { labels: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } } }); }
             renderCategoryChart() { const lang = this.settings.language; const categoryCounts = this.tasks.reduce((acc, task) => { acc[task.category] = (acc[task.category] || 0) + 1; return acc; }, {}); const labels = Object.keys(categoryCounts).map(cat => translations[lang]['cat_' + cat] || cat); const data = Object.values(categoryCounts); this.renderChart('categoryDistributionChart', 'doughnut', { labels, datasets: [{ data, backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'], }] }, { responsive: true, plugins: { legend: { position: 'top', labels: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } } }); }
             renderPomodoroChart() { const lang = this.settings.language; const pomodoroTasks = this.tasks.filter(t => (t.pomodorosCompleted || 0) > 0).sort((a,b) => b.pomodorosCompleted - a.pomodorosCompleted).slice(0, 7); const labels = pomodoroTasks.map(t => t.title.length > 25 ? t.title.substring(0, 22) + '...' : t.title); const data = pomodoroTasks.map(t => t.pomodorosCompleted); this.renderChart('pomodoroPerformanceChart', 'bar', { labels, datasets: [{ label: 'Pomodoros', data, backgroundColor: 'rgba(255, 159, 64, 0.5)', borderColor: 'rgba(255, 159, 64, 1)', borderWidth: 1 }] }, { responsive: true, indexAxis: 'y', scales: { y: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } }, x: { ticks: { stepSize: 1, color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } }, plugins: { legend: { labels: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } } }); }
-            // NUEVO: Gráfico de tareas completadas en los últimos 30 días
             renderMonthlyChart() { const lang = this.settings.language; const labels = []; const data = Array(30).fill(0); const thirtyDaysAgo = new Date(); thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30); for (let i = 29; i >= 0; i--) { const date = new Date(); date.setDate(date.getDate() - i); labels.push(date.toLocaleDateString(lang, { month: 'short', day: 'numeric' })); } this.tasks.filter(t => t.completed && t.completedAt && new Date(t.completedAt) > thirtyDaysAgo).forEach(task => { const completedDate = new Date(task.completedAt); const diffDays = Math.floor((new Date().setHours(0,0,0,0) - completedDate.setHours(0,0,0,0)) / (1000 * 60 * 60 * 24)); if(diffDays >= 0 && diffDays < 30) { data[29 - diffDays]++; } }); this.renderChart('monthlyTasksChart', 'line', { labels, datasets: [{ label: translations[lang].stat_completed, data, backgroundColor: 'rgba(75, 192, 192, 0.2)', borderColor: 'rgba(75, 192, 192, 1)', borderWidth: 2, tension: 0.3 }] }, { responsive: true, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: getComputedStyle(document.body).getPropertyValue('--text-muted') } }, x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } }, plugins: { legend: { display: false } } }); }
             
-            // NUEVO: Funciones para el dashboard de estadísticas avanzadas
             showStatsDashboard() {
                 document.getElementById('dailyTasksGoal').value = this.settings.goals.dailyTasks;
                 document.getElementById('dailyPomosGoal').value = this.settings.goals.dailyPomos;
@@ -646,7 +663,6 @@
                 const today = new Date().toISOString().split('T')[0];
                 const tasksToday = this.tasks.filter(t => t.completed && new Date(t.completedAt).toISOString().startsWith(today)).length;
                 const pomosToday = this.tasks.reduce((acc, task) => {
-                    // Aquí asumimos que los pomodoros se completaron el mismo día que la tarea. Una mejora sería guardar la fecha de cada pomodoro.
                     if (task.completed && new Date(task.completedAt).toISOString().startsWith(today)) {
                         return acc + (task.pomodorosCompleted || 0);
                     }
@@ -677,7 +693,11 @@
                 const today = new Date().toISOString().split('T')[0];
 
                 const tasksTodayCount = this.tasks.filter(t => t.completed && new Date(t.completedAt).toISOString().startsWith(today)).length;
-                const pomosTodayCount = this.tasks.reduce((acc, t) => acc + (t.pomodorosCompleted || 0), 0);
+                const pomosTodayCount = this.tasks.reduce((acc, t) => {
+                    if (t.completed && new Date(t.completedAt).toISOString().startsWith(today)) {
+                        return acc + (t.pomodorosCompleted || 0);
+                    } return acc;
+                }, 0);
                 
                 const totalPomos = this.tasks.reduce((acc, task) => acc + (task.pomodorosCompleted || 0), 0);
                 const tasksWithPomos = this.tasks.filter(t => (t.pomodorosCompleted || 0) > 0).length;
