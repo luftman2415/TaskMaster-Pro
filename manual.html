@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - TaskMaster Pro</title>
+    <!-- Mismos iconos y manifest que la app principal -->
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./icons/android-launchericon-192-192.png">
+    <meta name="theme-color" content="#667eea">
+    <!-- Mismas fuentes externas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos en línea para simplicidad del manual -->
+    <style>
+        :root {
+            --bg-grad-start: #667eea; --bg-grad-end: #764ba2;
+            --text-light: white; --text-dark: #2d3748; --text-muted: #64748b;
+            --bg-main: rgba(255, 255, 255, 0.95); --bg-card: white;
+            --border-color: #e2e8f0; --accent-color: #4facfe;
+            --shadow-heavy: rgba(0, 0, 0, 0.1);
+        }
+        [data-theme="dark"] {
+            --bg-grad-start: #232526; --bg-grad-end: #414345;
+            --text-light: #f7fafc; --text-dark: #e2e8f0; --text-muted: #a0aec0;
+            --bg-main: rgba(26, 32, 44, 0.95); --bg-card: #4a5568; --border-color: #4a5568;
+            --accent-color: #63b3ed;
+        }
+        [data-theme="ocean"] {
+            --bg-grad-start: #00c6ff; --bg-grad-end: #0072ff; --header-grad-start: #0052D4; --header-grad-end: #4364F7;
+            --text-dark: #1A202C; --accent-color: #0072ff;
+        }
+        [data-theme="forest"] {
+            --bg-grad-start: #134E5E; --bg-grad-end: #71B280; --header-grad-start: #0f3443; --header-grad-end: #34e89e;
+            --text-dark: #f7fafc; --text-muted: #a0aec0; --bg-main: #2d3748e0; --bg-secondary: #4a5568; --bg-card: #2d3748;
+            --accent-color: #34e89e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%); color: var(--text-dark); min-height: 100vh; padding: 20px; }
+        .manual-container { max-width: 800px; margin: 20px auto; background: var(--bg-main); border-radius: 20px; box-shadow: 0 20px 40px var(--shadow-heavy); padding: 30px 40px; }
+        h1, h2, h3 { color: var(--accent-color); margin-bottom: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+        h1 { font-size: 2.2em; text-align: center; border-bottom: none; }
+        h2 { margin-top: 30px; }
+        p, li { line-height: 1.7; color: var(--text-muted); margin-bottom: 10px; }
+        ul, ol { padding-left: 25px; }
+        code { background-color: var(--border-color); padding: 2px 6px; border-radius: 4px; font-family: "Courier New", monospace; color: var(--text-dark); }
+        .back-link { display: block; text-align: center; margin-top: 40px; font-weight: 600; }
+        .back-link a { color: var(--accent-color); text-decoration: none; font-size: 1.1em; }
+    </style>
+</head>
+<body>
+    <div class="manual-container">
+        <h1><i class="fa-solid fa-book-open"></i><br>Manual de TaskMaster Pro</h1>
+        
+        <section>
+            <h2>Bienvenido</h2>
+            <p>TaskMaster Pro es tu asistente personal de productividad. Esta guía te ayudará a aprovechar al máximo todas sus funcionalidades, desde la gestión de tareas hasta la técnica Pomodoro.</p>
+        </section>
+
+        <section>
+            <h2><i class="fa-solid fa-list-ul"></i> Gestión de Tareas</h2>
+            <ol>
+                <li><strong>Añadir una Tarea:</strong> Usa el formulario principal. Rellena el título, categoría, prioridad y fecha límite.</li>
+                <li><strong>Editar una Tarea:</strong> Haz clic en el icono del lápiz (✏️) en cualquier tarea para modificar su título y añadir notas o sub-tareas.</li>
+                <li><strong>Completar una Tarea:</strong> Haz clic en el círculo (🔘) para marcarla como completada. ¡Intenta mantener tu racha diaria!</li>
+                <li><strong>Eliminar una Tarea:</strong> Haz clic en el icono de la papelera (🗑️) para eliminarla permanentemente.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2><i class="fa-solid fa-tomato"></i> Técnica Pomodoro</h2>
+            <p>Usa el temporizador Pomodoro para mantener la concentración. Haz clic en el icono del reloj (🕒) en una tarea para enfocar el temporizador en ella. Los ciclos (trabajo, descanso corto, descanso largo) se gestionan automáticamente.</p>
+        </section>
+
+        <section>
+            <h2><i class="fa-solid fa-chart-line"></i> Vistas y Dashboard</h2>
+            <ul>
+                <li><strong>Vista de Lista y Calendario:</strong> Cambia entre la vista de lista clásica y un calendario completo usando los iconos en la cabecera.</li>
+                <li><strong>Dashboard de Productividad:</strong> Accede a gráficos detallados sobre tus tareas completadas, distribución por categoría y rendimiento de Pomodoros.</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2><i class="fa-solid fa-keyboard"></i> Atajos de Teclado</h2>
+            <p>Agiliza tu flujo de trabajo con estos atajos:</p>
+            <ul>
+                <li><code>N</code> - Enfocar en el campo para una nueva tarea.</li>
+                <li><code>F</code> - Enfocar en la barra de búsqueda.</li>
+                <li><code>L</code> - Cambiar a la Vista de Lista.</li>
+                <li><code>C</code> - Cambiar a la Vista de Calendario.</li>
+                <li><code>D</code> - Abrir el Dashboard.</li>
+                <li><code>S</code> - Abrir la Configuración.</li>
+                <li><code>Esc</code> - Cerrar cualquier ventana modal abierta.</li>
+            </ul>
+        </section>
+        
+        <div class="back-link">
+             <a href="./index.html">← Volver a la Aplicación</a>
+        </div>
+    </div>
+    
+    <script>
+        // Sincronizar el tema del manual con el de la aplicación
+        const savedTheme = localStorage.getItem('taskmaster-settings') 
+            ? JSON.parse(localStorage.getItem('taskmaster-settings')).theme 
+            : 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>
