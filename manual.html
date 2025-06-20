@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - TaskMaster Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
+            color: #2d3748;
+        }
+        header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        h2 {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-top: 30px;
+            color: #4facfe;
+        }
+        h3 {
+            margin-top: 25px;
+            color: #2d3748;
+        }
+        code {
+            background-color: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .shortcut-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .shortcut-table th, .shortcut-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        .shortcut-table th {
+            background-color: #f8fafc;
+        }
+        .shortcut-key {
+            font-weight: bold;
+            display: inline-block;
+            min-width: 80px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+        }
+        a {
+            color: #4facfe;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fa-solid fa-book"></i> Manual de Usuario de TaskMaster Pro</h1>
+    </header>
+
+    <main class="container">
+        <section id="introduction">
+            <h2>Bienvenido a TaskMaster Pro</h2>
+            <p>Esta guía te ayudará a sacar el máximo provecho de todas las funcionalidades de la aplicación. ¡Organiza tu día, mantén el foco y alcanza tus metas!</p>
+        </section>
+
+        <section id="getting-started">
+            <h2><i class="fa-solid fa-rocket"></i> Empezando</h2>
+            <p>La pantalla principal está dividida en tres secciones: el área de tareas, la vista de calendario y una barra lateral con notificaciones y el temporizador Pomodoro.</p>
+            <h3>Añadir tu Primera Tarea</h3>
+            <p>Simplemente escribe el nombre de tu tarea en el campo principal, selecciona una categoría, prioridad, fecha límite y recurrencia si lo deseas, y haz clic en "➕ Agregar Tarea".</p>
+        </section>
+
+        <section id="features">
+            <h2><i class="fa-solid fa-star"></i> Funcionalidades Clave</h2>
+            
+            <h3>Gestión de Tareas</h3>
+            <ul>
+                <li><strong>Subtareas:</strong> Desglosa tareas grandes. Puedes añadirlas desde el modal de edición y marcarlas como completadas directamente en la tarjeta de la tarea.</li>
+                <li><strong>Prioridades:</strong> Usa los niveles 🟢 Baja, 🟡 Media, y 🔴 Alta para organizar visualmente tus tareas.</li>
+                <li><strong>Recurrencia:</strong> Configura tareas para que se repitan Diaria, Semanal, Quincenal, Mensual o solo en Días Hábiles (Lunes a Viernes).</li>
+                <li><strong>Arrastrar y Soltar:</strong> Reordena tus tareas en la vista de lista o cambia su fecha en el calendario simplemente arrastrándolas.</li>
+            </ul>
+
+            <h3>Herramientas de Productividad</h3>
+            <ul>
+                <li><strong>Temporizador Pomodoro:</strong> Usa el temporizador en la barra lateral para trabajar en bloques de tiempo enfocados. Puedes asociar un Pomodoro a una tarea específica haciendo clic en el ícono del reloj (<i class="fa-solid fa-clock"></i>) en la tarjeta de la tarea.</li>
+                <li><strong>Modo Foco:</strong> Al iniciar el Pomodoro, la interfaz se atenúa para minimizar distracciones y mantenerte enfocado.</li>
+                <li><strong>Dashboards:</strong> Accede a gráficos de tu productividad (diaria, semanal, mensual) y a un panel de metas y estadísticas detalladas.</li>
+            </ul>
+
+            <h3>Gamificación</h3>
+            <ul>
+                <li><strong>Rachas (Streak):</strong> Completa al menos una tarea cada día para mantener y aumentar tu racha.</li>
+                <li><strong>Logros:</strong> Desbloquea logros por completar hitos, como tu primera tarea, completar un ciclo Pomodoro, etc.</li>
+            </ul>
+        </section>
+
+        <section id="command-palette">
+            <h2><i class="fa-solid fa-terminal"></i> Command Palette (Paleta de Comandos)</h2>
+            <p>La paleta de comandos es una forma rápida de navegar y ejecutar acciones en la aplicación.</p>
+            <ul>
+                <li><strong>Abrir:</strong> Presiona <code>Ctrl + K</code> (o <code>Cmd + K</code> en Mac).</li>
+                <li><strong>Usar:</strong> Simplemente empieza a escribir lo que quieres hacer (ej: "tema", "calendario", "nueva tarea").</li>
+                <li><strong>Navegar:</strong> Usa las flechas <code>↑</code> y <code>↓</code> para seleccionar un comando y <code>Enter</code> para ejecutarlo.</li>
+            </ul>
+        </section>
+
+        <section id="shortcuts">
+            <h2><i class="fa-solid fa-keyboard"></i> Atajos de Teclado</h2>
+            <table class="shortcut-table">
+                <thead>
+                    <tr>
+                        <th>Atajo</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="shortcut-key">Ctrl / Cmd + K</span></td>
+                        <td>Abrir la Paleta de Comandos</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-key">N</span></td>
+                        <td>Enfocar el campo para añadir una nueva tarea</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-key">F</span></td>
+                        <td>Enfocar el campo de búsqueda de tareas</td>
+                    </tr>
+                     <tr>
+                        <td><span class="shortcut-key">L</span></td>
+                        <td>Cambiar a la Vista de Lista</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-key">C</span></td>
+                        <td>Cambiar a la Vista de Calendario</td>
+                    </tr>
+                     <tr>
+                        <td><span class="shortcut-key">M</span></td>
+                        <td>Abrir Metas y Estadísticas</td>
+                    </tr>
+                     <tr>
+                        <td><span class="shortcut-key">D</span></td>
+                        <td>Abrir el Dashboard de Productividad</td>
+                    </tr>
+                     <tr>
+                        <td><span class="shortcut-key">S</span></td>
+                        <td>Abrir la Configuración</td>
+                    </tr>
+                    <tr>
+                        <td><span class="shortcut-key">Esc</span></td>
+                        <td>Cerrar cualquier ventana modal o la paleta de comandos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+    </main>
+
+    <footer>
+        <p>TaskMaster Pro © 2025 | Diseñado por LUFTMANDMAURICIO</p>
+    </footer>
+
+</body>
+</html>
+```
