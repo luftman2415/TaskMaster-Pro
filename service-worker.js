@@ -1,6 +1,4 @@
-// service-worker.js
-
-const CACHE_NAME = 'taskmaster-pro-cache-v11'; // Nueva versión para forzar actualización total
+const CACHE_NAME = 'taskmaster-pro-cache-v1';
 const urlsToCache = [
   './',
   './index.html',
@@ -30,15 +28,15 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Service Worker: Cache abierto.');
+        console.log('Service Worker: Cache opened.');
         return cache.addAll(urlsToCache);
       })
       .then(() => {
-        console.log('Service Worker: Todos los archivos fueron cacheados exitosamente.');
+        console.log('Service Worker: All files were cached successfully.');
         return self.skipWaiting();
       })
       .catch(error => {
-        console.error('Service Worker: Falló al cachear los archivos.', error);
+        console.error('Service Worker: Failed to cache files.', error);
       })
   );
 });
@@ -50,7 +48,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
-            console.log('Service Worker: Eliminando caché antiguo:', cacheName);
+            console.log('Service Worker: Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -60,18 +58,26 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-    if (event.request.mode === 'navigate') {
-        event.respondWith(
-            fetch(event.request).catch(() => {
-                return caches.match('./index.html');
-            })
-        );
-        return;
-    }
-
+  // Estrategia "Cache first" para los recursos de la app
+  if (urlsToCache.some(url => event.request.url.endsWith(url.replace('./', '')))) {
     event.respondWith(
-        caches.match(event.request).then(response => {
-            return response || fetch(event.request);
-        })
+      caches.match(event.request).then(cachedResponse => {
+        return cachedResponse || fetch(event.request);
+      })
     );
+    return;
+  }
+  
+  // Estrategia "Network first" para la navegación principal
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        return caches.match('./index.html');
+      })
+    );
+    return;
+  }
+
+  // Para cualquier otra petición (API de terceros, etc.), ir a la red
+  event.respondWith(fetch(event.request));
 });
