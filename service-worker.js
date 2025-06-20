@@ -1,4 +1,4 @@
-const CACHE_NAME = 'taskmaster-pro-cache-v2'; // <--- CAMBIO CLAVE
+const CACHE_NAME = 'taskmaster-pro-cache-v3'; // <-- ¡CAMBIO CLAVE! AHORA ES v3
 const urlsToCache = [
   './',
   './index.html',
@@ -28,15 +28,15 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Service Worker: Cache opened.');
+        console.log('Service Worker: Cache v3 opened.');
         return cache.addAll(urlsToCache);
       })
       .then(() => {
-        console.log('Service Worker: All files were cached successfully.');
+        console.log('Service Worker: All v3 files were cached successfully.');
         return self.skipWaiting();
       })
       .catch(error => {
-        console.error('Service Worker: Failed to cache files.', error);
+        console.error('Service Worker: Failed to cache v3 files.', error);
       })
   );
 });
@@ -58,15 +58,6 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  if (urlsToCache.some(url => event.request.url.endsWith(url.replace('./', '')))) {
-    event.respondWith(
-      caches.match(event.request).then(cachedResponse => {
-        return cachedResponse || fetch(event.request);
-      })
-    );
-    return;
-  }
-  
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).catch(() => {
@@ -76,5 +67,9 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  event.respondWith(fetch(event.request));
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
+  );
 });
