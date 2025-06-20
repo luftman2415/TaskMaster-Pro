@@ -1,6 +1,6 @@
 // service-worker.js
 
-const CACHE_NAME = 'taskmaster-pro-cache-v7'; // Versión incrementada para forzar actualización
+const CACHE_NAME = 'taskmaster-pro-cache-v8'; // Versión incrementada para forzar actualización
 const urlsToCache = [
   './',
   './index.html',
@@ -15,13 +15,13 @@ const urlsToCache = [
   'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
 
-  // ARCHIVOS DE SONIDO
-  'https://assets.mixkit.co/sfx/preview/mixkit-positive-notification-951.mp3',
-  'https://assets.mixkit.co/sfx/preview/mixkit-video-game-win-2016.mp3',
-  'https://cdn.freesound.org/previews/391/391659_5121236-lq.mp3',
-  'https://cdn.freesound.org/previews/387/387212_5121236-lq.mp3',
-  'https://cdn.freesound.org/previews/423/423429_5121236-lq.mp3',
-  'https://cdn.freesound.org/previews/258/258020_4432924-lq.mp3'
+  // ARCHIVOS DE SONIDO FUNCIONALES
+  'https://cdn.pixabay.com/audio/2022/03/15/audio_751c20dae0.mp3', // classic-notification
+  'https://cdn.pixabay.com/audio/2022/11/17/audio_822d645a27.mp3', // classic-achievement
+  'https://cdn.pixabay.com/audio/2022/03/10/audio_c893d736b2.mp3', // digital-notification
+  'https://cdn.pixabay.com/audio/2022/03/22/audio_6b43549923.mp3', // digital-achievement
+  'https://cdn.pixabay.com/audio/2021/08/04/audio_2bbe625b15.mp3', // relaxing-notification
+  'https://cdn.pixabay.com/audio/2022/05/27/audio_3439b1a067.mp3'  // relaxing-achievement
 ];
 
 self.addEventListener('install', event => {

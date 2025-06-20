@@ -3,33 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskMaster Pro</title>
+    <title>Manual de Usuario - TaskMaster Pro</title>
     <link rel="manifest" href="./manifest.json">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="./icons/android-launchericon-192-192.png">
     <meta name="theme-color" content="#667eea">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    
     <style>
         :root {
             --bg-grad-start: #667eea; --bg-grad-end: #764ba2;
-            --header-grad-start: #4facfe; --header-grad-end: #00f2fe;
             --text-light: white; --text-dark: #2d3748; --text-muted: #64748b;
-            --bg-main: rgba(255, 255, 255, 0.95); --bg-secondary: #f8fafc; --bg-card: white;
+            --bg-main: rgba(255, 255, 255, 0.95); --bg-card: white;
             --border-color: #e2e8f0; --accent-color: #4facfe;
-            --shadow-light: rgba(0, 0, 0, 0.08); --shadow-heavy: rgba(0, 0, 0, 0.1);
-            --notification-grad-start: #667eea; --notification-grad-end: #764ba2;
-            --pomodoro-active-bg: color-mix(in srgb, var(--accent-color) 15%, transparent);
-            --toast-success-bg: #48bb78; --toast-error-bg: #f56565; --toast-achievement-bg: linear-gradient(135deg, #fdd835, #f57f17);
-            --prio-high: #f56565; --prio-medium: #ed8936; --prio-low: #48bb78;
+            --shadow-heavy: rgba(0, 0, 0, 0.1);
         }
         [data-theme="dark"] {
-            --bg-grad-start: #232526; --bg-grad-end: #414345; --header-grad-start: #434343; --header-grad-end: #000000;
+            --bg-grad-start: #232526; --bg-grad-end: #414345;
             --text-light: #f7fafc; --text-dark: #e2e8f0; --text-muted: #a0aec0;
-            --bg-main: rgba(26, 32, 44, 0.95); --bg-secondary: #2d3748; --bg-card: #4a5568; --border-color: #4a5568;
-            --accent-color: #63b3ed; --shadow-light: rgba(255, 255, 255, 0.05); --shadow-heavy: rgba(0, 0, 0, 0.2);
-            --notification-grad-start: #89f7fe; --notification-grad-end: #66a6ff;
+            --bg-main: rgba(26, 32, 44, 0.95); --bg-card: #4a5568; --border-color: #4a5568;
+            --accent-color: #63b3ed;
         }
         [data-theme="ocean"] {
             --bg-grad-start: #00c6ff; --bg-grad-end: #0072ff; --header-grad-start: #0052D4; --header-grad-end: #4364F7;
@@ -41,575 +34,75 @@
             --accent-color: #34e89e;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%); color: var(--text-dark); min-height: 100vh; padding: 20px; transition: background 0.3s ease, color 0.3s ease; }
-        .container { max-width: 1200px; margin: 0 auto; background: var(--bg-main); border-radius: 20px; box-shadow: 0 20px 40px var(--shadow-heavy); overflow: hidden; transition: background 0.3s ease; }
-        .header { position: relative; background: linear-gradient(135deg, var(--header-grad-start) 0%, var(--header-grad-end) 100%); padding: 30px; text-align: center; color: var(--text-light); transition: filter 0.3s ease; }
-        .header-buttons { position: absolute; top: 20px; right: 20px; display: flex; align-items: center; gap: 10px; }
-        .header-btn { background: rgba(255,255,255,.2); color: #fff; border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; transition: all .3s ease; display: flex; align-items: center; justify-content: center; }
-        .header-btn:hover { background: rgba(255,255,255,.3); transform: rotate(15deg); }
-        .header-btn.active { background: rgba(255,255,255,.4); }
-        .streak-counter { display: flex; align-items: center; gap: 8px; font-weight: 600; background: rgba(255,255,255,.2); padding: 5px 15px; border-radius: 20px; color: white; font-size: 1rem; }
-        .main-content { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; padding: 30px; }
-        @media (max-width: 992px) { .main-content { grid-template-columns: 1fr; } }
-        .task-section, .stats, .calendar-section { transition: opacity 0.3s ease, filter 0.3s ease; }
-        body.focus-mode .task-section, body.focus-mode .stats, body.focus-mode .header, body.focus-mode .calendar-section { opacity: 0.1; filter: blur(4px); pointer-events: none; }
-        body.focus-mode .sidebar .pomodoro { z-index: 10; transform: scale(1.05); }
-        .task-controls { display: flex; gap: 15px; margin-bottom: 20px; }
-        .task-controls input, .task-controls select { padding: 12px; border: 2px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-dark); border-radius: 8px; font-size: 1rem; flex-grow: 1; transition: border-color 0.3s, background-color 0.3s; }
-        #tasksList { margin-top: 20px; }
-        .task-item { transition: all 0.3s ease; cursor: grab; }
-        .task-item.pomodoro-active { background-color: var(--pomodoro-active-bg); border-left-color: var(--accent-color) !important; transform: scale(1.02); }
-        .task-item.dragging { opacity: 0.5; background: var(--accent-color); cursor: grabbing; }
-        .task-item.task-overdue { border-left-color: var(--prio-high) !important; }
-        .task-item.task-due-today { border-left-color: var(--prio-medium) !important; }
-        .view-hidden { display: none !important; }
-        .calendar-section { background: var(--bg-card); border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px var(--shadow-light); }
-        .fc { --fc-border-color: var(--border-color); --fc-today-bg-color: var(--pomodoro-active-bg); }
-        .fc .fc-button { background: linear-gradient(135deg, var(--header-grad-start), var(--header-grad-end)); border: none; color: white; text-transform: capitalize; transition: all 0.2s ease; }
-        .fc .fc-button:hover { filter: brightness(1.1); }
-        .fc .fc-button-primary:disabled { background: var(--border-color); }
-        .fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active { filter: brightness(0.9); }
-        .fc .fc-col-header-cell-cushion, .fc .fc-daygrid-day-number { color: var(--text-dark); text-decoration: none; }
-        .fc-event { font-size: 0.8rem; border-width: 2px !important; }
-        h1{font-size:2.5rem}label{font-weight:600;color:var(--text-muted);margin-bottom:5px;display:block;}.form-row,.stats{display:grid}.stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;padding:30px;background:var(--bg-secondary)}.stat-card{background:var(--bg-card);padding:20px;border-radius:15px;text-align:center;box-shadow:0 4px 15px var(--shadow-light);transition:all .3s ease}.stat-card:hover{transform:translateY(-5px)}.stat-number{font-size:2.5rem;font-weight:700;color:var(--accent-color)}.stat-label{color:var(--text-muted);font-size:.9rem}.task-section,.sidebar>div{background:var(--bg-card);border-radius:15px;padding:25px;box-shadow:0 4px 15px var(--shadow-light)}.section-title{font-size:1.5rem;color:var(--text-dark);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--border-color)}.notification{background:linear-gradient(135deg,var(--notification-grad-start) 0%,var(--notification-grad-end) 100%);color:var(--text-light);padding:15px;border-radius:10px;margin-bottom:10px;text-align:center;font-weight:600;}.task-form{display:grid;gap:15px;margin-bottom:25px}.task-form input[type="text"],.task-form input[type="date"],.task-form select{width:100%;padding:12px;border:2px solid var(--border-color);background-color:var(--bg-secondary);color:var(--text-dark);border-radius:8px;font-size:1rem;transition:border-color .3s,background-color .3s}.task-form input:focus,.task-form select:focus{outline:none;border-color:var(--accent-color)}.form-row{grid-template-columns:1fr 1fr;gap:15px}.form-group{display:flex;flex-direction:column}.form-group.full-width{grid-column:1/-1}.task-item{background:var(--bg-secondary);padding:20px;border-radius:12px;margin-bottom:15px;border-left:5px solid #cbd5e0}.task-item:hover{transform:translateX(5px);box-shadow:0 4px 15px var(--shadow-heavy)}.task-header,.task-actions{display:flex;align-items:flex-start}.task-header{justify-content:space-between;margin-bottom:10px}.task-title{font-size:1.1rem;font-weight:600;color:var(--text-dark);margin-bottom:5px}.task-meta{display:flex;gap:15px;align-items:center;font-size:.9rem;color:var(--text-muted);flex-wrap:wrap}.task-actions{gap:5px}.btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:600;transition:all .3s ease;font-size:.9rem}.btn-primary{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%);color:#fff}.btn-icon{width:35px;height:35px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background-color:transparent;color:var(--text-muted);}.btn-icon:hover{background-color:var(--border-color);transform:scale(1.1);}.sidebar{display:flex;flex-direction:column;gap:25px}.pomodoro-timer{font-size:2.5rem;font-weight:700;text-align:center;color:var(--text-dark);margin:10px 0;transition: color 0.3s;}.pomodoro-timer.finished{animation:blinker 1s linear 3;}.pomodoro-cycle-title{text-align:center;font-weight:600;color:var(--text-muted);margin-bottom:10px}.pomodoro-controls{display:flex;justify-content:center;gap:10px;margin-top:20px}.pomodoro-btn{width:50px;height:50px;border-radius:50%;border:none;font-size:1.2rem;cursor:pointer;color:#fff;transition:all .3s ease;display:flex;align-items:center;justify-content:center}.pomodoro-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px var(--shadow-heavy)}.play-btn{background:#48bb78}.pause-btn{background:#ed8936}.reset-btn{background:#e53e3e}.skip-btn{background:#4facfe}.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);backdrop-filter:blur(5px);z-index:1000;animation:fadeIn .3s ease}.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg-card);color:var(--text-dark);border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.2);max-width:800px;width:90%;overflow:hidden;animation:slideInModal .3s ease}.modal-header{background:linear-gradient(135deg,#f56565 0%,#e53e3e 100%);color:#fff;padding:20px;text-align:center}.modal-header.settings,.modal-header.edit,.modal-header.dashboard{background:linear-gradient(135deg,var(--header-grad-start) 0%,var(--header-grad-end) 100%)}.modal-body{padding:25px;max-height:70vh;overflow-y:auto}.modal-body p{color:var(--text-muted);font-size:1rem;margin-bottom:25px;line-height:1.5;text-align:center}.modal-actions{display:flex;gap:10px;justify-content:flex-end;padding:20px 25px;border-top:1px solid var(--border-color)}.modal-btn{min-width:100px; padding: 10px 15px;}.completed .task-title{text-decoration:line-through; color: var(--text-muted)}.empty-state{text-align:center;padding:40px;color:var(--text-muted);}.empty-state i{font-size: 4rem; margin-bottom:20px; opacity: 0.5; display: block;}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes slideInModal{from{opacity:0;transform:translate(-50%,-60%)}to{opacity:1;transform:translate(-50%,-50%)}}
-        #editTaskModal .modal, #settingsModal .modal, #deleteModal .modal { max-width: 500px; }
-        .modal-body .form-group select, .modal-body .form-group input, .modal-body .form-group textarea { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--bg-secondary); color: var(--text-dark); }
-        .modal-body .form-group textarea { resize: vertical; min-height: 100px; }
-        .modal-data-actions { display: flex; gap: 10px; margin-top: 10px; }
-        .modal-data-actions .modal-btn, .modal-data-actions .import-label { flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; background-color: var(--bg-secondary); color: var(--text-dark); border: 1px solid var(--border-color); }
-        .modal-data-actions .import-label { cursor: pointer; }
-        .modal-data-actions .modal-btn:hover, .modal-data-actions .import-label:hover { background-color: var(--border-color); }
-        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: var(--toast-success-bg); color: white; padding: 15px 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, bottom 0.3s; }
-        .toast.show { opacity: 1; visibility: visible; bottom: 40px; }
-        .toast.error { background-color: var(--toast-error-bg); }
-        .toast.achievement { background: var(--toast-achievement-bg); }
-        .chart-container { margin-bottom: 40px; }
-        .chart-container h4 { text-align: center; color: var(--text-dark); margin-bottom: 15px; }
-        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 15px; text-align: center; }
-        .achievement-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .achievement-icon { font-size: 2.5rem; color: var(--border-color); transition: all 0.3s ease; }
-        .achievement-item.unlocked .achievement-icon { color: #fdd835; transform: scale(1.1); }
-        .achievement-item .ach-title { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
-        .achievement-item.unlocked .ach-title { color: var(--text-dark); }
-        .btn-icon.pomodoro-start-btn { color: var(--prio-medium); }
-        .btn-icon.edit-btn { color: var(--accent-color); }
-        .btn-icon.delete-btn { color: var(--prio-high); }
-        .btn-icon.complete-btn.is-completed { color: var(--prio-low); }
-        .btn-icon.complete-btn.is-pending { color: var(--text-muted); }
-        .footer-copyright { text-align: center; padding: 25px 20px 20px 20px; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; }
-        @keyframes blinker { 50% { opacity: 0.2; } }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%); color: var(--text-dark); min-height: 100vh; padding: 20px; }
+        .manual-container { max-width: 800px; margin: 20px auto; background: var(--bg-main); border-radius: 20px; box-shadow: 0 20px 40px var(--shadow-heavy); padding: 30px 40px; }
+        h1, h2, h3 { color: var(--accent-color); margin-bottom: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+        h1 { font-size: 2.2em; text-align: center; border-bottom: none; }
+        h2 { margin-top: 30px; }
+        p, li { line-height: 1.7; color: var(--text-muted); margin-bottom: 10px; }
+        ul, ol { padding-left: 25px; }
+        code { background-color: var(--border-color); padding: 2px 6px; border-radius: 4px; font-family: "Courier New", monospace; color: var(--text-dark); }
+        .back-link { display: block; text-align: center; margin-top: 40px; font-weight: 600; }
+        .back-link a { color: var(--accent-color); text-decoration: none; font-size: 1.1em; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- HEADER -->
-        <div class="header">
-            <h1 data-translate-key="title"></h1>
-            <p data-translate-key="subtitle"></p>
-            <div class="header-buttons">
-                <div id="streakCounter" class="streak-counter" style="display: none;"></div>
-                <button id="listViewBtn" class="header-btn active" title="Vista de Lista (L)"><i class="fa-solid fa-list-ul"></i></button>
-                <button id="calendarViewBtn" class="header-btn" title="Vista de Calendario (C)"><i class="fa-solid fa-calendar-days"></i></button>
-                <button id="dashboardBtn" class="header-btn" title="Dashboard de Productividad (D)"><i class="fa-solid fa-chart-line"></i></button>
-                <button id="settingsBtn" class="header-btn" title="Configuración (S)"><i class="fa-solid fa-gear"></i></button>
-            </div>
-        </div>
+    <div class="manual-container">
+        <h1><i class="fa-solid fa-book-open"></i><br>Manual de TaskMaster Pro</h1>
+        
+        <section>
+            <h2>Bienvenido</h2>
+            <p>TaskMaster Pro es tu asistente personal de productividad. Esta guía te ayudará a aprovechar al máximo todas sus funcionalidades, desde la gestión de tareas hasta la técnica Pomodoro.</p>
+        </section>
 
-        <!-- STATS -->
-        <div class="stats" id="statsContainer"></div>
+        <section>
+            <h2><i class="fa-solid fa-list-ul"></i> Gestión de Tareas</h2>
+            <ol>
+                <li><strong>Añadir una Tarea:</strong> Usa el formulario principal. Rellena el título, categoría, prioridad y fecha límite.</li>
+                <li><strong>Editar una Tarea:</strong> Haz clic en el icono del lápiz (✏️) en cualquier tarea para modificar su título y añadir notas o sub-tareas.</li>
+                <li><strong>Completar una Tarea:</strong> Haz clic en el círculo (🔘) para marcarla como completada. ¡Intenta mantener tu racha diaria!</li>
+                <li><strong>Eliminar una Tarea:</strong> Haz clic en el icono de la papelera (🗑️) para eliminarla permanentemente.</li>
+            </ol>
+        </section>
 
-        <!-- MAIN CONTENT -->
-        <div class="main-content">
-            <div id="list-view-section" class="task-section">
-                <div id="taskFormContainer"></div>
-                <div class="task-controls">
-                    <input type="search" id="searchInput" data-translate-key-placeholder="placeholder_search" title="Atajo: F">
-                    <select id="filterCategory"></select>
-                </div>
-                <div id="tasksList"></div>
-            </div>
-            <div id="calendar-view-section" class="calendar-section view-hidden">
-                <div id="calendar"></div>
-            </div>
+        <section>
+            <h2><i class="fa-solid fa-tomato"></i> Técnica Pomodoro</h2>
+            <p>Usa el temporizador Pomodoro para mantener la concentración. Haz clic en el icono del reloj (🕒) en una tarea para enfocar el temporizador en ella. Los ciclos (trabajo, descanso corto, descanso largo) se gestionan automáticamente.</p>
+        </section>
 
-            <!-- SIDEBAR -->
-            <div class="sidebar">
-                <div class="notifications">
-                    <h3 class="section-title" data-translate-key="title_notifications"></h3>
-                    <div id="welcomeNotification" class="notification"></div>
-                </div>
-                <div class="pomodoro">
-                    <h3 class="section-title" data-translate-key="title_pomodoro"></h3>
-                    <div id="pomodoroTaskTitle" style="text-align: center; color: var(--text-muted); margin-bottom: 10px; font-weight: 500; min-height: 20px;"></div>
-                    <div id="pomodoroCycleTitle" class="pomodoro-cycle-title"></div>
-                    <div id="pomodoroTimer" class="pomodoro-timer">25:00</div>
-                    <div class="pomodoro-controls">
-                        <button class="pomodoro-btn play-btn" id="playBtn" title="Iniciar"><i class="fa-solid fa-play"></i></button>
-                        <button class="pomodoro-btn pause-btn" id="pauseBtn" title="Pausar"><i class="fa-solid fa-pause"></i></button>
-                        <button class="pomodoro-btn reset-btn" id="resetBtn" title="Reiniciar"><i class="fa-solid fa-stop"></i></button>
-                        <button class="pomodoro-btn skip-btn" id="skipBtn" title="Saltar"><i class="fa-solid fa-forward"></i></button>
-                    </div>
-                </div>
-            </div>
+        <section>
+            <h2><i class="fa-solid fa-chart-line"></i> Vistas y Dashboard</h2>
+            <ul>
+                <li><strong>Vista de Lista y Calendario:</strong> Cambia entre la vista de lista clásica y un calendario completo usando los iconos en la cabecera.</li>
+                <li><strong>Dashboard de Productividad:</strong> Accede a gráficos detallados sobre tus tareas completadas, distribución por categoría y rendimiento de Pomodoros.</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2><i class="fa-solid fa-keyboard"></i> Atajos de Teclado</h2>
+            <p>Agiliza tu flujo de trabajo con estos atajos:</p>
+            <ul>
+                <li><code>N</code> - Enfocar en el campo para una nueva tarea.</li>
+                <li><code>F</code> - Enfocar en la barra de búsqueda.</li>
+                <li><code>L</code> - Cambiar a la Vista de Lista.</li>
+                <li><code>C</code> - Cambiar a la Vista de Calendario.</li>
+                <li><code>D</code> - Abrir el Dashboard.</li>
+                <li><code>S</code> - Abrir la Configuración.</li>
+                <li><code>Esc</code> - Cerrar cualquier ventana modal abierta.</li>
+            </ul>
+        </section>
+        
+        <div class="back-link">
+             <a href="./index.html">← Volver a la Aplicación</a>
         </div>
     </div>
     
-    <!-- MODALS -->
-    <div class="modal-overlay" id="deleteModal"><div class="modal"><div class="modal-header"><h3></h3></div><div class="modal-body"><p></p></div><div class="modal-actions"><button id="cancelDelete" class="modal-btn"></button><button id="confirmDelete" class="modal-btn" style="background-color: #e53e3e; color: white;"></button></div></div></div>
-    <div class="modal-overlay" id="editTaskModal"><div class="modal"><div class="modal-header edit"><h3></h3></div><div class="modal-body"><div class="form-group"><label data-translate-key="label_task"></label><input type="text" id="editTaskTitle"></div><div class="form-group"><label data-translate-key="label_notes"></label><textarea id="editTaskNotes" data-translate-key-placeholder="placeholder_notes"></textarea></div><div class="form-group"><label data-translate-key="label_subtasks"></label><div id="editSubtaskList"></div><input type="text" id="newSubtaskInput"></div></div><div class="modal-actions"><button id="cancelEdit" class="modal-btn"></button><button id="saveEdit" class="modal-btn" style="background-color: var(--accent-color); color: white;"></button></div></div></div>
-    <div class="modal-overlay" id="settingsModal">
-         <div class="modal">
-            <div class="modal-header settings"><h3 data-translate-key="settings_title"></h3></div>
-            <div class="modal-body" style="text-align: left;">
-                <div class="form-group"><label for="themeSelector" data-translate-key="settings_theme"></label><select id="themeSelector"><option value="light" data-translate-key="theme_light"></option><option value="dark" data-translate-key="theme_dark"></option><option value="ocean" data-translate-key="theme_ocean"></option><option value="forest" data-translate-key="theme_forest"></option></select></div>
-                <div class="form-group"><label for="languageSelector" data-translate-key="settings_language"></label><select id="languageSelector"><option value="es">Español</option><option value="en">English</option></select></div>
-                <div class="form-group"><label for="soundThemeSelector" data-translate-key="settings_sound_theme"></label><select id="soundThemeSelector"><option value="classic" data-translate-key="sound_classic"></option><option value="digital" data-translate-key="sound_digital"></option><option value="relaxing" data-translate-key="sound_relaxing"></option></select></div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4 data-translate-key="settings_pomodoro"></h4><div class="form-row"><div class="form-group"><label for="pomodoroWork" data-translate-key="pomo_work_duration"></label><input type="number" id="pomodoroWork" min="1"></div><div class="form-group"><label for="pomodoroShortBreak" data-translate-key="pomo_short_break_duration"></label><input type="number" id="pomodoroShortBreak" min="1"></div></div><div class="form-group"><label for="pomodoroLongBreak" data-translate-key="pomo_long_break_duration"></label><input type="number" id="pomodoroLongBreak" min="1"></div></div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4 data-translate-key="settings_achievements_title"></h4><div id="achievementsGrid" class="achievements-grid"></div></div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><label data-translate-key="settings_data"></label><div class="modal-data-actions"><button id="exportBtn" class="modal-btn"><i class="fa-solid fa-file-export"></i> <span data-translate-key="btn_export"></span></button><label for="importFile" class="modal-btn import-label"><i class="fa-solid fa-file-import"></i> <span data-translate-key="btn_import"></span></label><input type="file" id="importFile" accept=".json" style="display: none;"></div></div>
-            </div>
-            <div class="modal-actions"><button id="closeSettings" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div>
-    </div>
-    <div class="modal-overlay" id="dashboardModal"><div class="modal"><div class="modal-header dashboard"><h3 data-translate-key="dashboard_title"></h3></div><div class="modal-body"><div class="chart-container"><h4 data-translate-key="dashboard_weekly_title"></h4><canvas id="completedTasksChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_category_title"></h4><canvas id="categoryDistributionChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_pomodoro_title"></h4><canvas id="pomodoroPerformanceChart"></canvas></div></div><div class="modal-actions"><button id="closeDashboard" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div></div>
-
-    <div id="toast" class="toast"></div>
-    <audio id="notificationSound-classic" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-notification-951.mp3" preload="auto"></audio>
-    <audio id="achievementSound-classic" src="https://assets.mixkit.co/sfx/preview/mixkit-video-game-win-2016.mp3" preload="auto"></audio>
-    <audio id="notificationSound-digital" src="https://cdn.freesound.org/previews/391/391659_5121236-lq.mp3" preload="auto"></audio>
-    <audio id="achievementSound-digital" src="https://cdn.freesound.org/previews/387/387212_5121236-lq.mp3" preload="auto"></audio>
-    <audio id="notificationSound-relaxing" src="https://cdn.freesound.org/previews/423/423429_5121236-lq.mp3" preload="auto"></audio>
-    <audio id="achievementSound-relaxing" src="https://cdn.freesound.org/previews/258/258020_4432924-lq.mp3" preload="auto"></audio>
-    
-    <div class="footer-copyright">
-        Copyright © 2025 LUFTMANDMAURICIO
-        <!-- INICIO DE LA MODIFICACIÓN -->
-        <p style="margin-top: 8px;">
-            <a href="./manual.html" target="_blank" style="color: rgba(255, 255, 255, 0.85); text-decoration: none;">
-                <i class="fa-solid fa-book"></i> Ver Manual de Usuario
-            </a>
-        </p>
-        <!-- FIN DE LA MODIFICACIÓN -->
-    </div>
-
     <script>
-        const translations = {
-            es: { title: "🎯 TaskMaster Pro", subtitle: "Organiza tu día con inteligencia", stat_total: "Total", stat_completed: "Completadas", stat_pending: "Pendientes", stat_overdue: "Vencidas", form_title: "¿Qué necesitas hacer hoy?", label_task: "Tarea", placeholder_task: "Ej: Diseñar el nuevo logo (Atajo: N)", label_category: "Categoría", cat_work: "💼 Trabajo", cat_personal: "👤 Personal", cat_health: "🏃 Salud", cat_study: "📚 Estudio", cat_other: "📋 Otros", label_priority: "Prioridad", prio_low: "🟢 Baja", prio_medium: "🟡 Media", prio_high: "🔴 Alta", label_date: "Fecha Límite", label_time: "Hora", btn_add_task: "➕ Agregar Tarea", placeholder_search: "Buscar tareas...", filter_all: "Todas las categorías", empty_state_title: "¡Todo despejado!", empty_state_text: "Agrega una nueva tarea para empezar.", title_notifications: "🔔 Notificaciones", welcome_notification: "¡Bienvenido a TaskMaster Pro! 🎉", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirmar eliminación", delete_modal_text: "¿Estás seguro de que quieres eliminar esta tarea?", btn_delete: "Eliminar", btn_cancel: "Cancelar", edit_modal_title: "✏️ Editar Tarea", label_subtasks: "Sub-tareas", placeholder_subtask: "Añadir sub-tarea y presionar Enter", settings_title: "⚙️ Configuración", settings_theme: "Tema", theme_light: "Claro", theme_dark: "Oscuro", theme_ocean: "Océano", theme_forest: "Bosque", settings_language: "Idioma", settings_data: "Datos de la Aplicación", btn_export: "Exportar", btn_import: "Importar", btn_save_changes: "Guardar", btn_close: "Cerrar", feedback_imported: "¡Datos importados con éxito!", feedback_error_import: "Error al importar el archivo.", toast_task_added: "Tarea agregada con éxito", toast_task_deleted: "Tarea eliminada", toast_task_updated: "Tarea actualizada", toast_achievement_unlocked: "🏆 ¡Logro Desbloqueado!", settings_pomodoro: "Personalización de Pomodoro", pomo_work_duration: "Trabajo (min)", pomo_short_break_duration: "Descanso Corto (min)", pomo_long_break_duration: "Descanso Largo (min)", pomo_cycle_work: "¡A trabajar!", pomo_cycle_short: "Descanso corto", pomo_cycle_long: "Descanso largo", notification_title: "¡Tiempo!", notification_work_end: "¡Buen trabajo! Es hora de un descanso.", notification_break_end: "El descanso terminó. ¡De vuelta al trabajo!", 
-                // <-- MODIFICACIÓN: Nuevas traducciones para recurrencia personalizada -->
-                label_recurrence: "Recurrencia", recur_none: "Ninguna", recur_daily: "Diaria", recur_weekly: "Semanal", recur_custom_monthly: "Mensual (Personalizado)",
-                label_custom_monthly_days: "Días del mes (ej: 1,15,30)",
-                recurrence_display_custom: "Recurre los días: ",
-                // <-- FIN DE MODIFICACIÓN -->
-                pomo_task_title_prefix: "Enfocado en: ", label_notes: "Notas Adicionales", placeholder_notes: "Añade detalles, enlaces, etc.", dashboard_title: "📊 Dashboard de Productividad", dashboard_weekly_title: "Tareas Completadas (Últimos 7 Días)", dashboard_category_title: "Distribución por Categoría", dashboard_pomodoro_title: "Rendimiento de Pomodoros", day_sun: "Dom", day_mon: "Lun", day_tue: "Mar", day_wed: "Mié", day_thu: "Jue", day_fri: "Vie", day_sat: "Sáb", settings_achievements_title: "🏆 Logros", streak_days: "Días", settings_sound_theme: "Tema de Sonido", sound_classic: "Clásico", sound_digital: "Digital", sound_relaxing: "Relajante",
-                ach_first_task_title: "Primer Paso", ach_first_task_desc: "Completa tu primera tarea.",
-                ach_ten_tasks_title: " Imparable", ach_ten_tasks_desc: "Completa 10 tareas.",
-                ach_first_pomo_title: "Maestro del Foco", ach_first_pomo_desc: "Completa un ciclo Pomodoro.",
-                ach_perfectionist_title: "Perfeccionista", ach_perfectionist_desc: "Completa una tarea con sub-tareas.",
-                ach_streak_3_title: "En Racha", ach_streak_3_desc: "Mantén una racha de 3 días.",
-                ach_night_owl_title: "Ave Nocturna", ach_night_owl_desc: "Completa una tarea de madrugada.",
-                calendar_today: "Hoy", calendar_month: "Mes", calendar_week: "Semana", calendar_list: "Lista"
-            },
-            en: { title: "🎯 TaskMaster Pro", subtitle: "Organize your day with intelligence", stat_total: "Total", stat_completed: "Completed", stat_pending: "Pending", stat_overdue: "Overdue", form_title: "What do you need to do today?", label_task: "Task", placeholder_task: "E.g.: Design the new logo (Shortcut: N)", label_category: "Category", cat_work: "💼 Work", cat_personal: "👤 Personal", cat_health: "🏃 Health", cat_study: "📚 Study", cat_other: "📋 Other", label_priority: "Priority", prio_low: "🟢 Low", prio_medium: "🟡 Medium", prio_high: "🔴 High", label_date: "Due Date", label_time: "Time", btn_add_task: "➕ Add Task", placeholder_search: "Search tasks...", filter_all: "All categories", empty_state_title: "All clear!", empty_state_text: "Add a new task to get started.", title_notifications: "🔔 Notifications", welcome_notification: "Welcome to TaskMaster Pro! 🎉", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirm Deletion", delete_modal_text: "Are you sure you want to delete this task?", btn_delete: "Delete", btn_cancel: "Cancel", edit_modal_title: "✏️ Edit Task", label_subtasks: "Sub-tasks", placeholder_subtask: "Add sub-task and press Enter", settings_title: "⚙️ Settings", settings_theme: "Theme", theme_light: "Light", theme_dark: "Dark", theme_ocean: "Ocean", theme_forest: "Forest", settings_language: "Language", settings_data: "Application Data", btn_export: "Export", btn_import: "Import", btn_save_changes: "Save", btn_close: "Close", feedback_imported: "Data imported successfully!", feedback_error_import: "Error importing file.", toast_task_added: "Task added successfully", toast_task_deleted: "Task deleted", toast_task_updated: "Task updated", toast_achievement_unlocked: "🏆 Achievement Unlocked!", settings_pomodoro: "Pomodoro Customization", pomo_work_duration: "Work (min)", pomo_short_break_duration: "Short Break (min)", pomo_long_break_duration: "Long Break (min)", pomo_cycle_work: "Time to work!", pomo_cycle_short: "Short break", pomo_cycle_long: "Long break", notification_title: "Time's Up!", notification_work_end: "Good job! Time for a break.", notification_break_end: "Break's over. Back to work!",
-                // <-- MODIFICACIÓN: Nuevas traducciones para recurrencia personalizada -->
-                label_recurrence: "Recurrence", recur_none: "None", recur_daily: "Daily", recur_weekly: "Weekly", recur_custom_monthly: "Monthly (Custom)",
-                label_custom_monthly_days: "Days of the month (e.g., 1,15,30)",
-                recurrence_display_custom: "Recurs on days: ",
-                // <-- FIN DE MODIFICACIÓN -->
-                pomo_task_title_prefix: "Focused on: ", label_notes: "Additional Notes", placeholder_notes: "Add details, links, etc.", dashboard_title: "📊 Productivity Dashboard", dashboard_weekly_title: "Tasks Completed (Last 7 Days)", dashboard_category_title: "Distribution by Category", dashboard_pomodoro_title: "Pomodoro Performance", day_sun: "Sun", day_mon: "Mon", day_tue: "Tue", day_wed: "Wed", day_thu: "Thu", day_fri: "Fri", day_sat: "Sat", settings_achievements_title: "🏆 Achievements", streak_days: "Days", settings_sound_theme: "Sound Theme", sound_classic: "Classic", sound_digital: "Digital", sound_relaxing: "Relaxing",
-                ach_first_task_title: "First Step", ach_first_task_desc: "Complete your first task.",
-                ach_ten_tasks_title: "Unstoppable", ach_ten_tasks_desc: "Complete 10 tasks.",
-                ach_first_pomo_title: "Focus Master", ach_first_pomo_desc: "Complete a Pomodoro cycle.",
-                ach_perfectionist_title: "Perfectionist", ach_perfectionist_desc: "Complete a task with sub-tasks.",
-                ach_streak_3_title: "On a Roll", ach_streak_3_desc: "Keep a 3-day streak.",
-                ach_night_owl_title: "Night Owl", ach_night_owl_desc: "Complete a task in the small hours.",
-                calendar_today: "Today", calendar_month: "Month", calendar_week: "Week", calendar_list: "List"
-            }
-        };
-
-        const ACHIEVEMENT_DEFINITIONS = {
-            FIRST_TASK: { id: 'ach_first_task', icon: 'fa-shoe-prints', check: (app) => app.tasks.filter(t => t.completed).length >= 1 },
-            TEN_TASKS: { id: 'ach_ten_tasks', icon: 'fa-rocket', check: (app) => app.tasks.filter(t => t.completed).length >= 10 },
-            FIRST_POMO: { id: 'ach_first_pomo', icon: 'fa-brain', check: (app) => app.tasks.some(t => (t.pomodorosCompleted || 0) > 0) },
-            PERFECTIONIST: { id: 'ach_perfectionist', icon: 'fa-check-double', check: (app) => app.tasks.some(t => t.completed && t.subtasks.length > 0 && t.subtasks.every(st => st.completed)) },
-            STREAK_3: { id: 'ach_streak_3', icon: 'fa-fire', check: (app) => app.gamificationData.streak.current >= 3 },
-            NIGHT_OWL: { id: 'ach_night_owl', icon: 'fa-moon', check: (app, task) => { const hour = new Date(task.completedAt).getHours(); return hour >= 0 && hour < 4; } }
-        };
-
-        class TaskMaster {
-            constructor() {
-                const defaultSettings = { theme: 'light', language: 'es', soundTheme: 'classic', pomodoro: { work: 25, short: 5, long: 15, cycles: 0 }, notificationPermission: 'default' };
-                this.tasks = this.loadData('tasks', []);
-                this.settings = { ...defaultSettings, ...this.loadData('settings', {}) };
-                this.gamificationData = { ...{ streak: { current: 0, lastCompletedDate: null }, unlockedAchievements: [] }, ...this.loadData('gamification', {}) };
-                
-                this.currentPomodoroTask = null; this.pomodoroInterval = null; this.isPomodoroRunning = false;
-                this.pomodoroState = { type: 'work', time: this.settings.pomodoro.work * 60 };
-                this.currentEditingTask = null; this.draggedTaskElement = null;
-                this.charts = {}; this.calendar = null; this.currentView = 'list';
-
-                this.applySettings();
-                this.initializeEventListeners();
-            }
-
-            loadData(key, defaultValue) { try { const data = localStorage.getItem(`taskmaster-${key}`); return data ? JSON.parse(data) : defaultValue; } catch (e) { console.error(`Error loading data for key: ${key}`, e); return defaultValue; } }
-            saveData(key, data) { localStorage.setItem(`taskmaster-${key}`, JSON.stringify(data)); }
-            
-            applySettings() {
-                document.documentElement.setAttribute('data-theme', this.settings.theme);
-                document.documentElement.lang = this.settings.language;
-                document.getElementById('themeSelector').value = this.settings.theme;
-                document.getElementById('languageSelector').value = this.settings.language;
-                document.getElementById('soundThemeSelector').value = this.settings.soundTheme;
-                document.getElementById('pomodoroWork').value = this.settings.pomodoro.work;
-                document.getElementById('pomodoroShortBreak').value = this.settings.pomodoro.short;
-                document.getElementById('pomodoroLongBreak').value = this.settings.pomodoro.long;
-                this.renderAll();
-            }
-
-            showToast(messageKey, type = 'success', extra = '') {
-                const toast = document.getElementById('toast');
-                toast.innerHTML = `${translations[this.settings.language][messageKey] || messageKey} ${extra}`;
-                toast.className = `toast ${type} show`;
-                if(type === 'achievement') this.playSound('achievement');
-                setTimeout(() => { toast.className = 'toast'; }, 4000);
-            }
-            playSound(type) {
-                const soundId = `${type}Sound-${this.settings.soundTheme}`;
-                const sound = document.getElementById(soundId);
-                if (sound) sound.play().catch(e => console.error("Error playing sound:", e));
-            }
-            showModal(id) { document.getElementById(id).style.display = 'block'; }
-            hideModal(id) { document.getElementById(id).style.display = 'none'; }
-            hideAllModals() { document.querySelectorAll('.modal-overlay').forEach(modal => modal.style.display = 'none'); }
-
-            renderAll() {
-                const lang = this.settings.language;
-                document.querySelectorAll('[data-translate-key]').forEach(el => {
-                    const key = el.getAttribute('data-translate-key'); const translation = translations[lang]?.[key];
-                    if (translation) {
-                        const container = el.tagName === 'SPAN' || el.parentElement?.tagName === 'LABEL' || el.parentElement?.tagName === 'BUTTON' ? el : el;
-                        container.innerHTML = translation;
-                    }
-                });
-                document.querySelectorAll('[data-translate-key-placeholder]').forEach(el => {
-                    const key = el.getAttribute('data-translate-key-placeholder');
-                    if (translations[lang]?.[key]) el.placeholder = translations[lang][key];
-                });
-                this.renderStreakCounter(); this.renderStats(); this.renderTaskForm(); this.renderFilterOptions(); this.renderTasks(); this.checkWelcomeNotification(); this.updatePomodoroDisplay();
-            }
-
-            renderStreakCounter() {
-                const streakCounterEl = document.getElementById('streakCounter');
-                if (this.gamificationData.streak.current > 0) {
-                    streakCounterEl.innerHTML = `🔥 ${this.gamificationData.streak.current} <span data-translate-key="streak_days">${translations[this.settings.language].streak_days}</span>`;
-                    streakCounterEl.style.display = 'flex';
-                } else {
-                    streakCounterEl.style.display = 'none';
-                }
-            }
-
-            renderStats() {
-                const statsContainer = document.getElementById('statsContainer');
-                const lang = this.settings.language;
-                const total = this.tasks.length;
-                const completed = this.tasks.filter(t => t.completed).length;
-                const pending = total - completed;
-                const overdue = this.tasks.filter(t => !t.completed && t.date && new Date(t.date + 'T00:00:00') < new Date().setHours(0,0,0,0)).length;
-
-                statsContainer.innerHTML = `<div class="stat-card"><div class="stat-number">${total}</div><div class="stat-label" data-translate-key="stat_total">${translations[lang].stat_total}</div></div><div class="stat-card"><div class="stat-number">${completed}</div><div class="stat-label" data-translate-key="stat_completed">${translations[lang].stat_completed}</div></div><div class="stat-card"><div class="stat-number">${pending}</div><div class="stat-label" data-translate-key="stat_pending">${translations[lang].stat_pending}</div></div><div class="stat-card"><div class="stat-number">${overdue}</div><div class="stat-label" data-translate-key="stat_overdue">${translations[lang].stat_overdue}</div></div>`;
-            }
-
-            renderTaskForm() {
-                const container = document.getElementById('taskFormContainer');
-                const lang = this.settings.language;
-                if(container.querySelector('#taskForm')) return; // No volver a renderizar si ya existe
-
-                // <-- MODIFICACIÓN: Se añade el campo para los días del mes, inicialmente oculto. -->
-                container.innerHTML = `
-                    <h2 class="section-title" data-translate-key="form_title">${translations[lang].form_title}</h2>
-                    <form id="taskForm" class="task-form">
-                        <div class="form-group full-width">
-                            <label data-translate-key="label_task">${translations[lang].label_task}</label>
-                            <input type="text" name="title" required placeholder="${translations[lang].placeholder_task}">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label data-translate-key="label_category">${translations[lang].label_category}</label>
-                                <select name="category">${Object.keys(translations.es).filter(k=>k.startsWith('cat_')).map(k=>`<option value="${k.replace('cat_','')}">${translations[lang][k]}</option>`).join('')}</select>
-                            </div>
-                            <div class="form-group">
-                                <label data-translate-key="label_priority">${translations[lang].label_priority}</label>
-                                <select name="priority">${Object.keys(translations.es).filter(k=>k.startsWith('prio_')).map(k=>`<option value="${k.replace('prio_','')}">${translations[lang][k]}</option>`).join('')}</select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label data-translate-key="label_date">${translations[lang].label_date}</label>
-                                <input type="date" name="date">
-                            </div>
-                            <div class="form-group">
-                                <label data-translate-key="label_recurrence">${translations[lang].label_recurrence}</label>
-                                <select name="recurrence">
-                                    <option value="none">${translations[lang].recur_none}</option>
-                                    <option value="daily">${translations[lang].recur_daily}</option>
-                                    <option value="weekly">${translations[lang].recur_weekly}</option>
-                                    <option value="custom_monthly">${translations[lang].recur_custom_monthly}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Campo para los días del mes, oculto por defecto -->
-                        <div class="form-group full-width" id="monthlyDaysInputContainer" style="display: none;">
-                             <label data-translate-key="label_custom_monthly_days">${translations[lang].label_custom_monthly_days}</label>
-                             <input type="text" name="monthly_days" placeholder="1, 15, 30">
-                        </div>
-                        <button type="submit" class="btn btn-primary full-width" data-translate-key="btn_add_task">${translations[lang].btn_add_task}</button>
-                    </form>`;
-                
-                document.getElementById('taskForm').addEventListener('submit', this.handleAddTask.bind(this));
-                // <-- MODIFICACIÓN: Listener para mostrar/ocultar el campo de días -->
-                document.querySelector('#taskForm select[name="recurrence"]').addEventListener('change', (e) => {
-                    document.getElementById('monthlyDaysInputContainer').style.display = e.target.value === 'custom_monthly' ? 'block' : 'none';
-                });
-            }
-
-            renderFilterOptions() {
-                const filter = document.getElementById('filterCategory');
-                const lang = this.settings.language;
-                const currentFilterValue = filter.value;
-                const categories = ['all', ...new Set(this.tasks.map(t => t.category))];
-                filter.innerHTML = categories.map(cat => `<option value="${cat}">${translations[lang][cat === 'all' ? 'filter_all' : `cat_${cat}`] || cat}</option>`).join('');
-                filter.value = currentFilterValue || 'all';
-            }
-            
-            renderTasks() {
-                const list = document.getElementById('tasksList');
-                const lang = this.settings.language;
-                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-                const filterCat = document.getElementById('filterCategory').value;
-                const filteredTasks = this.tasks.filter(task => (task.title.toLowerCase().includes(searchTerm) || (task.notes && task.notes.toLowerCase().includes(searchTerm))) && (filterCat === 'all' || task.category === filterCat));
-                if (filteredTasks.length === 0) { list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-clipboard-check"></i><h4 data-translate-key="empty_state_title">${translations[lang].empty_state_title}</h4><p data-translate-key="empty_state_text">${translations[lang].empty_state_text}</p></div>`; return; }
-                list.innerHTML = '';
-                filteredTasks.forEach(task => list.appendChild(this.createTaskElement(task)));
-            }
-
-            createTaskElement(task) {
-                const taskEl = document.createElement('div');
-                const lang = this.settings.language;
-                const today = new Date().setHours(0, 0, 0, 0); const taskDate = task.date ? new Date(task.date+'T00:00:00').getTime() : null; let dateClass = '';
-                if (!task.completed && taskDate) { if (taskDate < today) dateClass = 'task-overdue'; else if (taskDate === today) dateClass = 'task-due-today'; }
-                taskEl.className = `task-item ${task.completed ? 'completed' : ''} ${this.currentPomodoroTask === task.id ? 'pomodoro-active' : ''} ${dateClass}`;
-                taskEl.dataset.id = task.id; taskEl.draggable = true;
-                const priorityColors = { low: 'var(--prio-low)', medium: 'var(--prio-medium)', high: 'var(--prio-high)'};
-                if (!dateClass) { taskEl.style.borderLeftColor = priorityColors[task.priority] || '#cbd5e0'; }
-                const subtasksDone = task.subtasks.filter(st => st.completed).length; const progress = task.subtasks.length > 0 ? (subtasksDone / task.subtasks.length) * 100 : 0;
-                
-                // <-- MODIFICACIÓN: Mostrar la recurrencia personalizada en la tarjeta de la tarea -->
-                let recurrenceText = '';
-                if (task.recurrence && typeof task.recurrence === 'object' && task.recurrence.type === 'custom_monthly') {
-                    recurrenceText = `<span><i class="fa-solid fa-repeat"></i> ${translations[lang].recurrence_display_custom}${task.recurrence.days.join(', ')}</span>`;
-                } else if (task.recurrence && task.recurrence !== 'none') {
-                    recurrenceText = `<span><i class="fa-solid fa-repeat"></i> ${translations[lang]['recur_'+task.recurrence] || ''}</span>`;
-                }
-                
-                const completeBtnClass = task.completed ? 'is-completed' : 'is-pending';
-                const completeIcon = task.completed ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle-check';
-                taskEl.innerHTML = `<div class="task-header"><div class="task-info"><h4 class="task-title">${task.title}</h4><div class="task-meta">${task.notes ? '<span><i class="fa-solid fa-note-sticky"></i></span>' : ''}<span><i class="fa-solid fa-tag"></i> ${translations[lang]['cat_'+task.category] || task.category}</span>${task.date ? `<span><i class="fa-solid fa-calendar-days"></i> ${new Date(task.date + 'T00:00:00').toLocaleDateString(lang)}</span>` : ''}${recurrenceText}</div></div><div class="task-actions"><button class="btn-icon pomodoro-start-btn" title="Iniciar Pomodoro"><i class="fa-solid fa-clock"></i></button><button class="btn-icon edit-btn" title="Editar"><i class="fa-solid fa-pencil"></i></button><button class="btn-icon delete-btn" title="Eliminar"><i class="fa-solid fa-trash-can"></i></button><button class="btn-icon complete-btn ${completeBtnClass}" title="Completar"><i class="${completeIcon}"></i></button></div></div>${task.subtasks.length > 0 ? `<div class="task-progress"><div class="progress-bar" style="width: ${progress}%"></div></div>` : ''}`;
-                return taskEl;
-            }
-
-            checkWelcomeNotification() { document.getElementById('welcomeNotification').style.display = this.tasks.length > 0 ? 'none' : 'block'; }
-            
-            initializeEventListeners() {
-                document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
-                document.getElementById('searchInput').addEventListener('input', () => this.renderTasks());
-                document.getElementById('filterCategory').addEventListener('change', () => this.renderTasks());
-                
-                document.getElementById('listViewBtn').addEventListener('click', () => this.toggleView('list'));
-                document.getElementById('calendarViewBtn').addEventListener('click', () => this.toggleView('calendar'));
-                document.getElementById('dashboardBtn').addEventListener('click', () => this.showDashboard());
-                document.getElementById('settingsBtn').addEventListener('click', () => { this.renderAchievements(); this.showModal('settingsModal'); });
-                
-                document.getElementById('closeDashboard').addEventListener('click', () => this.hideModal('dashboardModal'));
-                document.getElementById('closeSettings').addEventListener('click', () => { this.hideModal('settingsModal'); this.renderAll(); });
-                
-                document.getElementById('themeSelector').addEventListener('change', (e) => { this.settings.theme = e.target.value; this.saveData('settings', this.settings); this.applySettings(); });
-                document.getElementById('languageSelector').addEventListener('change', (e) => { this.settings.language = e.target.value; this.saveData('settings', this.settings); this.applySettings(); if(this.calendar) {this.calendar.setOption('locale', e.target.value); this.calendar.setOption('buttonText', this.getCalendarButtonTranslations());} });
-                document.getElementById('soundThemeSelector').addEventListener('change', (e) => { this.settings.soundTheme = e.target.value; this.saveData('settings', this.settings); this.playSound('notification'); });
-
-                document.getElementById('exportBtn').addEventListener('click', this.exportData.bind(this));
-                document.getElementById('importFile').addEventListener('change', this.importData.bind(this));
-                
-                document.getElementById('playBtn').addEventListener('click', () => this.startPomodoro()); document.getElementById('pauseBtn').addEventListener('click', () => this.pausePomodoro()); document.getElementById('resetBtn').addEventListener('click', () => this.resetPomodoro(true)); document.getElementById('skipBtn').addEventListener('click', () => this.nextPomodoroCycle(true));
-                document.getElementById('pomodoroWork').addEventListener('change', (e) => this.updatePomodoroSetting('work', e.target.value)); document.getElementById('pomodoroShortBreak').addEventListener('change', (e) => this.updatePomodoroSetting('short', e.target.value)); document.getElementById('pomodoroLongBreak').addEventListener('change', (e) => this.updatePomodoroSetting('long', e.target.value));
-                
-                const tasksList = document.getElementById('tasksList');
-                tasksList.addEventListener('click', this.handleTaskListClick.bind(this)); tasksList.addEventListener('dragstart', this.handleDragStart.bind(this)); tasksList.addEventListener('dragover', this.handleDragOver.bind(this)); tasksList.addEventListener('drop', this.handleDrop.bind(this));
-                
-                document.getElementById('cancelDelete').addEventListener('click', () => this.hideModal('deleteModal')); document.getElementById('cancelEdit').addEventListener('click', () => this.hideModal('editTaskModal')); document.getElementById('saveEdit').addEventListener('click', () => this.saveEditedTask());
-                document.getElementById('newSubtaskInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') { e.preventDefault(); this.addSubtask(); }});
-                document.getElementById('editSubtaskList').addEventListener('click', (e) => { if(e.target.closest('.delete-subtask-btn')) this.deleteSubtask(e.target.closest('.delete-subtask-btn').dataset.subtaskId); });
-            }
-            
-            handleKeyboardShortcuts(e) {
-                if (document.querySelector('.modal-overlay[style*="display: block"]') || document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'SELECT') { if (e.key === 'Escape') this.hideAllModals(); return; }
-                switch(e.key.toLowerCase()) {
-                    case 'n': e.preventDefault(); document.querySelector('#taskFormContainer input[name="title"]').focus(); break;
-                    case 'f': e.preventDefault(); document.getElementById('searchInput').focus(); break;
-                    case 'd': e.preventDefault(); this.showDashboard(); break;
-                    case 's': e.preventDefault(); this.renderAchievements(); this.showModal('settingsModal'); break;
-                    case 'c': e.preventDefault(); this.toggleView('calendar'); break;
-                    case 'l': e.preventDefault(); this.toggleView('list'); break;
-                    case 'escape': this.hideAllModals(); break;
-                }
-            }
-
-            handleTaskListClick(e) { const taskEl = e.target.closest('.task-item'); if(!taskEl) return; const taskId = taskEl.dataset.id; if(e.target.closest('.delete-btn')) this.showDeleteModal(taskId); else if(e.target.closest('.complete-btn')) this.toggleTaskCompletion(taskId); else if(e.target.closest('.edit-btn')) this.showEditModal(taskId); else if(e.target.closest('.pomodoro-start-btn')) { if (this.settings.notificationPermission === 'default') this.requestNotificationPermission(); this.startPomodoroForTask(taskId); } }
-            
-            handleAddTask(e) {
-                e.preventDefault(); const form = e.target; const formData = new FormData(form); const title = formData.get('title').trim(); if (!title) return;
-                let recurrenceValue = formData.get('recurrence');
-                
-                // <-- MODIFICACIÓN: Capturar y procesar la recurrencia personalizada -->
-                if (recurrenceValue === 'custom_monthly') {
-                    const daysStr = formData.get('monthly_days');
-                    if (daysStr) {
-                        const days = daysStr.split(',').map(d => parseInt(d.trim())).filter(d => !isNaN(d) && d > 0 && d < 32).sort((a,b) => a-b);
-                        if (days.length > 0) {
-                            recurrenceValue = { type: 'custom_monthly', days: days };
-                        } else {
-                            recurrenceValue = 'none'; // Si no se especifican días, no hay recurrencia
-                        }
-                    } else {
-                        recurrenceValue = 'none';
-                    }
-                }
-                
-                const newTask = { id: `task-${Date.now()}`, title, category: formData.get('category'), priority: formData.get('priority'), recurrence: recurrenceValue, date: formData.get('date') || null, completed: false, completedAt: null, pomodorosCompleted: 0, subtasks: [], notes: '' };
-                this.tasks.unshift(newTask); this.saveData('tasks', this.tasks); document.getElementById('filterCategory').value = 'all'; this.renderAll(); if(this.calendar) this.calendar.refetchEvents(); form.reset(); document.getElementById('monthlyDaysInputContainer').style.display = 'none'; this.showToast('toast_task_added'); this.checkAchievements();
-            }
-
-            toggleTaskCompletion(taskId) {
-                const task = this.tasks.find(t => t.id === taskId); if(!task) return;
-                const wasCompleted = task.completed; task.completed = !task.completed; task.completedAt = task.completed ? Date.now() : null;
-                if (task.completed && !wasCompleted) { this.updateStreak(); this.checkAchievements(task); }
-                
-                // <-- MODIFICACIÓN: Lógica mejorada para manejar todos los tipos de recurrencia -->
-                if (task.completed && task.date) {
-                    let newDate = new Date(task.date + 'T00:00:00');
-                    let shouldCreateNewTask = false;
-
-                    if (task.recurrence === 'daily') {
-                        newDate.setDate(newDate.getDate() + 1);
-                        shouldCreateNewTask = true;
-                    } else if (task.recurrence === 'weekly') {
-                        newDate.setDate(newDate.getDate() + 7);
-                        shouldCreateNewTask = true;
-                    } else if (typeof task.recurrence === 'object' && task.recurrence.type === 'custom_monthly') {
-                        const recurrenceDays = task.recurrence.days;
-                        const currentDayOfMonth = newDate.getDate();
-                        let nextDay = -1;
-
-                        // Encontrar el siguiente día de recurrencia en este mes
-                        for (const day of recurrenceDays) {
-                            if (day > currentDayOfMonth) {
-                                nextDay = day;
-                                break;
-                            }
-                        }
-
-                        if (nextDay !== -1) {
-                            // Si encontramos un día en el mismo mes
-                            newDate.setDate(nextDay);
-                        } else {
-                            // Si no, vamos al primer día del siguiente mes
-                            newDate.setMonth(newDate.getMonth() + 1);
-                            newDate.setDate(recurrenceDays[0]);
-                        }
-                        shouldCreateNewTask = true;
-                    }
-
-                    if (shouldCreateNewTask) {
-                        const newTask = { ...task, id: `task-${Date.now()}`, completed: false, completedAt: null, date: newDate.toISOString().split('T')[0], subtasks: task.subtasks.map(st => ({...st, completed: false})) };
-                        this.tasks.push(newTask);
-                        this.tasks.sort((a, b) => (a.date > b.date) ? 1 : -1);
-                    }
-                }
-                
-                this.saveData('tasks', this.tasks); this.renderAll(); if(this.calendar) this.calendar.refetchEvents(); this.showToast('toast_task_updated');
-            }
-            
-            showDeleteModal(taskId) { const lang = this.settings.language; const modal = document.getElementById('deleteModal'); modal.querySelector('h3').textContent = translations[lang].delete_modal_title; modal.querySelector('p').textContent = translations[lang].delete_modal_text; modal.querySelector('#cancelDelete').textContent = translations[lang].btn_cancel; modal.querySelector('#confirmDelete').textContent = translations[lang].btn_delete; this.showModal('deleteModal'); document.getElementById('confirmDelete').onclick = () => { this.tasks = this.tasks.filter(t => t.id !== taskId); if (this.currentPomodoroTask === taskId) this.resetPomodoro(true); this.saveData('tasks', this.tasks); this.renderAll(); if(this.calendar) this.calendar.refetchEvents(); this.hideModal('deleteModal'); this.showToast('toast_task_deleted', 'error'); }; }
-            showEditModal(taskId) { this.currentEditingTask = this.tasks.find(t => t.id === taskId); if (!this.currentEditingTask) return; const lang = this.settings.language; const modal = document.getElementById('editTaskModal'); modal.querySelector('h3').textContent = translations[lang].edit_modal_title; modal.querySelector('label[data-translate-key="label_task"]').textContent = translations[lang].label_task; modal.querySelector('label[data-translate-key="label_notes"]').textContent = translations[lang].label_notes; modal.querySelector('label[data-translate-key="label_subtasks"]').textContent = translations[lang].label_subtasks; modal.querySelector('#newSubtaskInput').placeholder = translations[lang].placeholder_subtask; modal.querySelector('#editTaskNotes').placeholder = translations[lang].placeholder_notes; modal.querySelector('#cancelEdit').textContent = translations[lang].btn_cancel; modal.querySelector('#saveEdit').textContent = translations[lang].btn_save_changes; document.getElementById('editTaskTitle').value = this.currentEditingTask.title; document.getElementById('editTaskNotes').value = this.currentEditingTask.notes || ''; this.renderSubtasks(); this.showModal('editTaskModal'); }
-            saveEditedTask() { if (!this.currentEditingTask) return; this.currentEditingTask.title = document.getElementById('editTaskTitle').value.trim(); this.currentEditingTask.notes = document.getElementById('editTaskNotes').value.trim(); this.saveData('tasks', this.tasks); this.hideModal('editTaskModal'); this.renderAll(); if(this.calendar) this.calendar.refetchEvents(); this.showToast('toast_task_updated'); this.currentEditingTask = null; }
-            renderSubtasks() { const list = document.getElementById('editSubtaskList'); list.innerHTML = this.currentEditingTask.subtasks.map(subtask => `<div class="subtask-item" data-subtask-id="${subtask.id}"><label class="${subtask.completed ? 'completed' : ''}"><input type="checkbox" ${subtask.completed ? 'checked' : ''} onchange="window.app.toggleSubtask('${subtask.id}')"><span>${subtask.title}</span></label><button class="btn-icon delete-subtask-btn" data-subtask-id="${subtask.id}"><i class="fa-solid fa-times"></i></button></div>`).join(''); }
-            addSubtask() { const input = document.getElementById('newSubtaskInput'); const title = input.value.trim(); if (title && this.currentEditingTask) { this.currentEditingTask.subtasks.push({ id: `sub-${Date.now()}`, title, completed: false }); input.value = ''; this.renderSubtasks(); } }
-            toggleSubtask(subtaskId) { const subtask = this.currentEditingTask.subtasks.find(st => st.id === subtaskId); if (subtask) subtask.completed = !subtask.completed; this.renderSubtasks(); }
-            deleteSubtask(subtaskId) { this.currentEditingTask.subtasks = this.currentEditingTask.subtasks.filter(st => st.id !== subtaskId); this.renderSubtasks(); }
-            
-            handleDragStart(e) { if(e.target.classList.contains('task-item')) { this.draggedTaskElement = e.target; e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', e.target.dataset.id); setTimeout(() => { e.target.classList.add('dragging'); }, 0); } }
-            handleDragOver(e) { e.preventDefault(); }
-            handleDrop(e) { e.preventDefault(); const draggedId = e.dataTransfer.getData('text/plain'); if (!draggedId || !this.draggedTaskElement) return; const dropTarget = e.target.closest('.task-item'); this.draggedTaskElement.classList.remove('dragging'); if (dropTarget && dropTarget.dataset.id !== draggedId) { const draggedIndex = this.tasks.findIndex(t => t.id === draggedId); const targetIndex = this.tasks.findIndex(t => t.id === dropTarget.dataset.id); const [draggedItem] = this.tasks.splice(draggedIndex, 1); this.tasks.splice(targetIndex, 0, draggedItem); this.saveData('tasks', this.tasks); this.renderTasks(); } }
-
-            updateStreak() { const today = new Date().toISOString().split('T')[0]; const lastDate = this.gamificationData.streak.lastCompletedDate; if (today === lastDate) return; const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1); const yesterdayStr = yesterday.toISOString().split('T')[0]; if (lastDate === yesterdayStr) { this.gamificationData.streak.current++; } else { this.gamificationData.streak.current = 1; } this.gamificationData.streak.lastCompletedDate = today; this.saveData('gamification', this.gamificationData); }
-            checkAchievements(task = null) { const lang = this.settings.language; for (const key in ACHIEVEMENT_DEFINITIONS) { const ach = ACHIEVEMENT_DEFINITIONS[key]; if (!this.gamificationData.unlockedAchievements.includes(ach.id) && ach.check(this, task)) { this.gamificationData.unlockedAchievements.push(ach.id); this.saveData('gamification', this.gamificationData); this.showToast('toast_achievement_unlocked', 'achievement', translations[lang][`${ach.id}_title`]); } } }
-            renderAchievements() { const grid = document.getElementById('achievementsGrid'); const lang = this.settings.language; grid.innerHTML = Object.values(ACHIEVEMENT_DEFINITIONS).map(ach => { const unlocked = this.gamificationData.unlockedAchievements.includes(ach.id); return `<div class="achievement-item ${unlocked ? 'unlocked' : ''}" title="${translations[lang][`${ach.id}_desc`]}"><i class="fa-solid ${ach.icon} achievement-icon"></i><span class="ach-title">${translations[lang][`${ach.id}_title`]}</span></div>`; }).join(''); }
-            
-            finishPomodoroCycle() {
-                this.playSound('notification');
-                const timerEl = document.getElementById('pomodoroTimer'); timerEl.classList.add('finished');
-                if(this.pomodoroState.type === 'work' && this.currentPomodoroTask) { const task = this.tasks.find(t => t.id === this.currentPomodoroTask); if(task) { task.pomodorosCompleted = (task.pomodorosCompleted || 0) + 1; this.saveData('tasks', this.tasks); this.checkAchievements(); } }
-                const lang = this.settings.language; this.showPushNotification(translations[lang].notification_title, this.pomodoroState.type === 'work' ? translations[lang].notification_work_end : translations[lang].notification_break_end);
-                setTimeout(() => { timerEl.classList.remove('finished'); this.nextPomodoroCycle(false); }, 3000);
-            }
-            updatePomodoroSetting(key, value) { this.settings.pomodoro[key] = parseInt(value, 10); this.saveData('settings', this.settings); if(!this.isPomodoroRunning) this.resetPomodoro(false); this.showToast('toast_task_updated'); }
-            startPomodoroForTask(taskId) { this.currentPomodoroTask = taskId; this.resetPomodoro(false); this.startPomodoro(); this.renderTasks(); }
-            startPomodoro() { if (this.isPomodoroRunning) return; this.isPomodoroRunning = true; document.body.classList.add('focus-mode'); this.pomodoroInterval = setInterval(() => { this.pomodoroState.time--; this.updatePomodoroDisplay(); if (this.pomodoroState.time < 0) this.finishPomodoroCycle(); }, 1000); }
-            pausePomodoro() { clearInterval(this.pomodoroInterval); this.isPomodoroRunning = false; document.body.classList.remove('focus-mode'); }
-            resetPomodoro(fullReset) { this.pausePomodoro(); if (fullReset) { this.settings.pomodoro.cycles = 0; this.currentPomodoroTask = null; } this.pomodoroState = { type: 'work', time: this.settings.pomodoro.work * 60 }; this.updatePomodoroDisplay(); if (fullReset) this.renderTasks(); }
-            nextPomodoroCycle(isSkip) { this.pausePomodoro(); if (this.pomodoroState.type === 'work') { this.settings.pomodoro.cycles++; this.pomodoroState = { type: (this.settings.pomodoro.cycles % 4 === 0 ? 'long' : 'short'), time: this.settings.pomodoro[(this.settings.pomodoro.cycles % 4 === 0 ? 'long' : 'short')] * 60 }; } else { this.pomodoroState = { type: 'work', time: this.settings.pomodoro.work * 60 }; } this.saveData('settings', this.settings); this.updatePomodoroDisplay(); if (!isSkip) this.startPomodoro(); }
-            updatePomodoroDisplay() { const { time, type } = this.pomodoroState; document.getElementById('pomodoroTimer').textContent = `${Math.floor(time / 60).toString().padStart(2, '0')}:${(time % 60).toString().padStart(2, '0')}`; const lang = this.settings.language; document.getElementById('pomodoroCycleTitle').textContent = translations[lang][`pomo_cycle_${type === 'short' ? 'short' : type === 'long' ? 'long' : 'work'}`]; const taskTitleEl = document.getElementById('pomodoroTaskTitle'); if(this.currentPomodoroTask){ const task = this.tasks.find(t => t.id === this.currentPomodoroTask); taskTitleEl.textContent = task ? `${translations[lang].pomo_task_title_prefix}${task.title}` : ''; } else { taskTitleEl.textContent = ''; } }
-            
-            toggleView(view) {
-                if (this.currentView === view) return; this.currentView = view;
-                const listView = document.getElementById('list-view-section'); const calendarView = document.getElementById('calendar-view-section'); const listBtn = document.getElementById('listViewBtn'); const calendarBtn = document.getElementById('calendarViewBtn');
-                if (view === 'calendar') { listView.classList.add('view-hidden'); calendarView.classList.remove('view-hidden'); listBtn.classList.remove('active'); calendarBtn.classList.add('active'); this.initializeCalendar(); } 
-                else { listView.classList.remove('view-hidden'); calendarView.classList.add('view-hidden'); listBtn.classList.add('active'); calendarBtn.classList.remove('active'); }
-            }
-
-            getCalendarButtonTranslations() {
-                const lang = this.settings.language;
-                return { today: translations[lang].calendar_today, month: translations[lang].calendar_month, week: translations[lang].calendar_week, list: translations[lang].calendar_list };
-            }
-
-            initializeCalendar() {
-                if (this.calendar) { this.calendar.refetchEvents(); return; }
-                const calendarEl = document.getElementById('calendar');
-                const priorityColors = { low: 'var(--prio-low)', medium: 'var(--prio-medium)', high: 'var(--prio-high)'};
-                this.calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth', locale: this.settings.language, buttonText: this.getCalendarButtonTranslations(),
-                    headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listWeek' },
-                    events: this.tasks.filter(t => t.date).map(t => ({ id: t.id, title: t.title, start: t.date, color: priorityColors[t.priority] || 'var(--accent-color)', allDay: true }))
-                });
-                this.calendar.render();
-            }
-
-            showDashboard() { this.showModal('dashboardModal'); setTimeout(() => { this.renderWeeklyChart(); this.renderCategoryChart(); this.renderPomodoroChart(); }, 100); }
-            renderChart(canvasId, type, data, options = {}) { if (this.charts[canvasId]) { this.charts[canvasId].destroy(); } const ctx = document.getElementById(canvasId); if (!ctx) return; this.charts[canvasId] = new Chart(ctx.getContext('2d'), { type, data, options }); }
-            renderWeeklyChart() { const lang = this.settings.language; const labels = []; const data = [0, 0, 0, 0, 0, 0, 0]; const dayKeys = ['day_sun', 'day_mon', 'day_tue', 'day_wed', 'day_thu', 'day_fri', 'day_sat']; for (let i = 6; i >= 0; i--) { const date = new Date(); date.setDate(date.getDate() - i); labels.push(translations[lang][dayKeys[date.getDay()]]); } const sevenDaysAgo = new Date(); sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7); this.tasks.filter(t => t.completed && t.completedAt && new Date(t.completedAt) > sevenDaysAgo).forEach(task => { const completedDate = new Date(task.completedAt); const diffDays = Math.floor((new Date().setHours(0,0,0,0) - completedDate.setHours(0,0,0,0)) / (1000 * 60 * 60 * 24)); if(diffDays >= 0 && diffDays < 7) { data[6 - diffDays]++; } }); this.renderChart('completedTasksChart', 'bar', { labels, datasets: [{ label: translations[lang].stat_completed, data, backgroundColor: 'rgba(79, 172, 254, 0.5)', borderColor: 'rgba(79, 172, 254, 1)', borderWidth: 1 }] }, { responsive: true, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: getComputedStyle(document.body).getPropertyValue('--text-muted') } }, x: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } }, plugins: { legend: { labels: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } } }); }
-            renderCategoryChart() { const lang = this.settings.language; const categoryCounts = this.tasks.reduce((acc, task) => { acc[task.category] = (acc[task.category] || 0) + 1; return acc; }, {}); const labels = Object.keys(categoryCounts).map(cat => translations[lang]['cat_' + cat] || cat); const data = Object.values(categoryCounts); this.renderChart('categoryDistributionChart', 'doughnut', { labels, datasets: [{ data, backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'], }] }, { responsive: true, plugins: { legend: { position: 'top', labels: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } } }); }
-            renderPomodoroChart() { const lang = this.settings.language; const pomodoroTasks = this.tasks.filter(t => (t.pomodorosCompleted || 0) > 0).sort((a,b) => b.pomodorosCompleted - a.pomodorosCompleted).slice(0, 7); const labels = pomodoroTasks.map(t => t.title.length > 25 ? t.title.substring(0, 22) + '...' : t.title); const data = pomodoroTasks.map(t => t.pomodorosCompleted); this.renderChart('pomodoroPerformanceChart', 'bar', { labels, datasets: [{ label: 'Pomodoros', data, backgroundColor: 'rgba(255, 159, 64, 0.5)', borderColor: 'rgba(255, 159, 64, 1)', borderWidth: 1 }] }, { responsive: true, indexAxis: 'y', scales: { y: { ticks: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } }, x: { ticks: { stepSize: 1, color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } }, plugins: { legend: { labels: { color: getComputedStyle(document.body).getPropertyValue('--text-muted') } } } }); }
-            
-            async requestNotificationPermission() { this.settings.notificationPermission = await Notification.requestPermission(); this.saveData('settings', this.settings); }
-            showPushNotification(title, body) { if (this.settings.notificationPermission === 'granted') { new Notification(title, { body: body, icon: './icons/android-launchericon-192-192.png' }); }}
-            exportData() { const data = JSON.stringify({ tasks: this.tasks, settings: this.settings, gamification: this.gamificationData }); const blob = new Blob([data], {type: 'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'taskmaster_backup.json'; a.click(); URL.revokeObjectURL(url); }
-            importData(event) { const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = (e) => { try { const data = JSON.parse(e.target.result); if (data.tasks && data.settings) { this.tasks = data.tasks; this.settings = data.settings; if(data.gamification) this.gamificationData = data.gamification; this.saveData('tasks', this.tasks); this.saveData('settings', this.settings); this.saveData('gamification', this.gamificationData); this.applySettings(); this.showToast('feedback_imported'); } else { throw new Error('Invalid file format'); } } catch (error) { this.showToast('feedback_error_import', 'error'); console.error(error); } }; reader.readAsText(file); }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            window.app = new TaskMaster();
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./service-worker.js').then(reg => console.log('Service Worker: Registrado')).catch(err => console.error('Service Worker: Fallo en registro', err));
-            }
-        });
+        // Sincronizar el tema del manual con el de la aplicación
+        const savedTheme = localStorage.getItem('taskmaster-settings') 
+            ? JSON.parse(localStorage.getItem('taskmaster-settings')).theme 
+            : 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 </body>
 </html>
