@@ -1,4 +1,4 @@
-const CACHE_NAME = 'taskmaster-pro-cache-v1';
+const CACHE_NAME = 'taskmaster-pro-cache-v2'; // <--- CAMBIO CLAVE
 const urlsToCache = [
   './',
   './index.html',
@@ -58,7 +58,6 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  // Estrategia "Cache first" para los recursos de la app
   if (urlsToCache.some(url => event.request.url.endsWith(url.replace('./', '')))) {
     event.respondWith(
       caches.match(event.request).then(cachedResponse => {
@@ -68,7 +67,6 @@ self.addEventListener('fetch', event => {
     return;
   }
   
-  // Estrategia "Network first" para la navegación principal
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).catch(() => {
@@ -78,6 +76,5 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Para cualquier otra petición (API de terceros, etc.), ir a la red
   event.respondWith(fetch(event.request));
 });
