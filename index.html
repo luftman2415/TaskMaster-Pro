@@ -4,23 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskMaster Pro</title>
-    
-    <!-- Archivos de la PWA y Iconos -->
     <link rel="manifest" href="./manifest.json">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="./icons/android-launchericon-192-192.png">
     <meta name="theme-color" content="#667eea">
-    
-    <!-- Enlace a la nueva hoja de estilos CSS -->
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Librerías Externas -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 </head>
 <body>
     <div class="container">
+        <!-- Todo el contenido del <body> es el mismo... -->
         <!-- HEADER -->
         <div class="header">
             <h1 data-translate-key="title"></h1>
@@ -33,10 +28,8 @@
                 <button id="settingsBtn" class="header-btn" title="Configuración (S)"><i class="fa-solid fa-gear"></i></button>
             </div>
         </div>
-
         <!-- STATS -->
         <div class="stats" id="statsContainer"></div>
-
         <!-- MAIN CONTENT -->
         <div class="main-content">
             <div id="list-view-section" class="task-section">
@@ -50,7 +43,6 @@
             <div id="calendar-view-section" class="calendar-section view-hidden">
                 <div id="calendar"></div>
             </div>
-
             <!-- SIDEBAR -->
             <div class="sidebar">
                 <div class="notifications">
@@ -92,12 +84,13 @@
     <div class="modal-overlay" id="dashboardModal"><div class="modal"><div class="modal-header dashboard"><h3 data-translate-key="dashboard_title"></h3></div><div class="modal-body"><div class="chart-container"><h4 data-translate-key="dashboard_weekly_title"></h4><canvas id="completedTasksChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_category_title"></h4><canvas id="categoryDistributionChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_pomodoro_title"></h4><canvas id="pomodoroPerformanceChart"></canvas></div></div><div class="modal-actions"><button id="closeDashboard" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div></div>
 
     <div id="toast" class="toast"></div>
-    <audio id="notificationSound-classic" src="https://cdn.pixabay.com/audio/2022/03/15/audio_751c20dae0.mp3" preload="auto"></audio>
-    <audio id="achievementSound-classic" src="https://cdn.pixabay.com/audio/2022/11/17/audio_822d645a27.mp3" preload="auto"></audio>
-    <audio id="notificationSound-digital" src="https://cdn.pixabay.com/audio/2022/03/10/audio_c893d736b2.mp3" preload="auto"></audio>
-    <audio id="achievementSound-digital" src="https://cdn.pixabay.com/audio/2022/03/22/audio_6b43549923.mp3" preload="auto"></audio>
-    <audio id="notificationSound-relaxing" src="https://cdn.pixabay.com/audio/2021/08/04/audio_2bbe625b15.mp3" preload="auto"></audio>
-    <audio id="achievementSound-relaxing" src="https://cdn.pixabay.com/audio/2022/05/27/audio_3439b1a067.mp3" preload="auto"></audio>
+    
+    <audio id="notificationSound-classic" src="./audio/classic-notification.mp3" preload="auto"></audio>
+    <audio id="achievementSound-classic" src="./audio/classic-achievement.mp3" preload="auto"></audio>
+    <audio id="notificationSound-digital" src="./audio/digital-notification.mp3" preload="auto"></audio>
+    <audio id="achievementSound-digital" src="./audio/digital-achievement.mp3" preload="auto"></audio>
+    <audio id="notificationSound-relaxing" src="./audio/relaxing-notification.mp3" preload="auto"></audio>
+    <audio id="achievementSound-relaxing" src="./audio/relaxing-achievement.mp3" preload="auto"></audio>
     
     <div class="footer-copyright">
         Copyright © 2025 LUFTMANDMAURICIO
@@ -108,7 +101,6 @@
         </p>
     </div>
 
-    <!-- Enlace al nuevo archivo JavaScript -->
     <script src="script.js" defer></script>
 </body>
 </html>
