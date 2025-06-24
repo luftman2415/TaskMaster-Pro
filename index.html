@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskMaster Pro</title>
-    <link rel="manifest" href="./manifest.json">
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="./icons/android-launchericon-192-192.png">
     <meta name="theme-color" content="#667eea">
-    
-    <!-- Archivos de Estilos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="preloader" class="preloader"><div class="spinner"></div></div>
+
     <div class="app-wrapper">
         <div class="header">
             <h1 data-translate-key="title"></h1>
@@ -32,7 +32,6 @@
         <div class="app-content">
             <div class="container">
                 <div class="stats" id="statsContainer"></div>
-
                 <div class="main-content">
                     <div id="list-view-section" class="task-section">
                         <div id="taskFormContainer"></div>
@@ -45,7 +44,6 @@
                     <div id="calendar-view-section" class="calendar-section view-hidden">
                         <div id="calendar"></div>
                     </div>
-
                     <div class="sidebar">
                         <div class="notifications">
                             <h3 class="section-title" data-translate-key="title_notifications"></h3>
@@ -53,7 +51,7 @@
                         </div>
                         <div class="pomodoro">
                             <h3 class="section-title" data-translate-key="title_pomodoro"></h3>
-                            <div id="pomodoroTaskTitle" style="text-align: center; color: var(--text-muted); margin-bottom: 10px; font-weight: 500; min-height: 20px;"></div>
+                            <div id="pomodoroTaskTitle" class="pomodoro-task-title"></div>
                             <div id="pomodoroCycleTitle" class="pomodoro-cycle-title"></div>
                             <div id="pomodoroTimer" class="pomodoro-timer">25:00</div>
                             <div class="pomodoro-controls">
@@ -65,58 +63,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="footer-copyright">
-                    Copyright © 2025 LUFTMANDMAURICIO
-                </div>
+                <div class="footer-copyright">Copyright © 2025 LUFTMANDMAURICIO</div>
             </div>
         </div>
     </div>
     
-    <!-- MODALS -->
+    <!-- Modals -->
     <div class="modal-overlay" id="deleteModal"><div class="modal"><div class="modal-header"><h3></h3></div><div class="modal-body"><p></p></div><div class="modal-actions"><button id="cancelDelete" class="modal-btn"></button><button id="confirmDelete" class="modal-btn" style="background-color: #e53e3e; color: white;"></button></div></div></div>
-    <div class="modal-overlay" id="editTaskModal"><div class="modal"><div class="modal-header edit"><h3></h3></div><div class="modal-body"><div class="form-group"><label data-translate-key="label_task"></label><input type="text" id="editTaskTitle"></div><div class="form-group"><label data-translate-key="label_notes"></label><textarea id="editTaskNotes" data-translate-key-placeholder="placeholder_notes"></textarea></div><div class="form-group"><label data-translate-key="label_subtasks"></label><div id="editSubtaskList"></div><input type="text" id="newSubtaskInput" data-translate-key-placeholder="placeholder_subtask"></div></div><div class="modal-actions"><button id="cancelEdit" class="modal-btn"></button><button id="saveEdit" class="modal-btn" style="background-color: var(--accent-color); color: white;"></button></div></div></div>
-    <div class="modal-overlay" id="settingsModal">
-         <div class="modal">
-            <div class="modal-header settings"><h3 data-translate-key="settings_title"></h3></div>
-            <div class="modal-body" style="text-align: left;">
-                <div style="margin-bottom: 20px;"><h4><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-translate-key="settings_ui_customization"></span></h4>
-                    <div class="form-group"><label for="fontSelector" data-translate-key="settings_font"></label><select id="fontSelector"><option value="sans-serif" data-translate-key="font_sans_serif"></option><option value="serif" data-translate-key="font_serif"></option><option value="mono" data-translate-key="font_mono"></option></select></div>
-                    <div class="form-group"><label for="accentColorPicker" data-translate-key="settings_accent_color"></label><div class="color-picker-wrapper"><input type="color" id="accentColorPicker" aria-label="Selector de color de acento"> <span id="accentColorValue"></span><button id="resetAccentColor" class="btn modal-btn" data-translate-key="btn_reset"></button></div></div>
-                </div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 15px;"><h4><i class="fa-solid fa-sliders"></i> <span data-translate-key="settings_general"></span></h4>
-                    <div class="form-group"><label for="themeSelector" data-translate-key="settings_theme"></label><select id="themeSelector"><option value="light" data-translate-key="theme_light"></option><option value="dark" data-translate-key="theme_dark"></option><option value="ocean" data-translate-key="theme_ocean"></option><option value="forest" data-translate-key="theme_forest"></option></select></div>
-                    <div class="form-group"><label for="languageSelector" data-translate-key="settings_language"></label><select id="languageSelector"><option value="es">Español</option><option value="en">English</option></select></div>
-                    <div class="form-group"><label for="soundThemeSelector" data-translate-key="settings_sound_theme"></label><select id="soundThemeSelector"><option value="classic" data-translate-key="sound_classic"></option><option value="digital" data-translate-key="sound_digital"></option><option value="relaxing" data-translate-key="sound_relaxing"></option></select></div>
-                </div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4><i class="fa-solid fa-stopwatch"></i> <span data-translate-key="settings_pomodoro"></span></h4><div class="form-row"><div class="form-group"><label for="pomodoroWork" data-translate-key="pomo_work_duration"></label><input type="number" id="pomodoroWork" min="1"></div><div class="form-group"><label for="pomodoroShortBreak" data-translate-key="pomo_short_break_duration"></label><input type="number" id="pomodoroShortBreak" min="1"></div></div><div class="form-group"><label for="pomodoroLongBreak" data-translate-key="pomo_long_break_duration"></label><input type="number" id="pomodoroLongBreak" min="1"></div></div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4><i class="fa-solid fa-trophy"></i> <span data-translate-key="settings_achievements_title"></span></h4><div id="achievementsGrid" class="achievements-grid"></div></div>
-                <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4><i class="fa-solid fa-database"></i> <span data-translate-key="settings_data"></span></h4><div class="modal-data-actions"><button id="exportBtn" class="modal-btn"><i class="fa-solid fa-file-export"></i> <span data-translate-key="btn_export"></span></button><label for="importFile" class="modal-btn import-label"><i class="fa-solid fa-file-import"></i> <span data-translate-key="btn_import"></span></label><input type="file" id="importFile" accept=".json" style="display: none;"></div></div>
-            </div>
-            <div class="modal-actions"><button id="closeSettings" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div>
-    </div>
+    <div class="modal-overlay" id="editTaskModal"><div class="modal"><div class="modal-header edit"><h3></h3></div><div class="modal-body"><div class="form-group"><label data-translate-key="label_task"></label><input type="text" id="editTaskTitle"></div><div class="form-group"><label data-translate-key="label_notes"></label><textarea id="editTaskNotes" data-translate-key-placeholder="placeholder_notes"></textarea></div><div class="form-group"><label data-translate-key="label_subtasks"></label><div id="editSubtaskList"></div><input type="text" id="newSubtaskInput" data-translate-key-placeholder="placeholder_subtask"></div></div><div class="modal-actions"><button id="cancelEdit" class="modal-btn"></button><button id="saveEdit" class="modal-btn btn-primary"></button></div></div></div>
+    <div class="modal-overlay" id="settingsModal"><div class="modal"><div class="modal-header settings"><h3 data-translate-key="settings_title"></h3></div><div class="modal-body"><div style="margin-bottom: 20px;"><h4><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-translate-key="settings_ui_customization"></span></h4><div class="form-group"><label for="fontSelector" data-translate-key="settings_font"></label><select id="fontSelector"><option value="sans-serif" data-translate-key="font_sans_serif"></option><option value="serif" data-translate-key="font_serif"></option><option value="mono" data-translate-key="font_mono"></option></select></div><div class="form-group"><label for="accentColorPicker" data-translate-key="settings_accent_color"></label><div class="color-picker-wrapper"><input type="color" id="accentColorPicker" aria-label="Selector de color de acento"> <span id="accentColorValue"></span><button id="resetAccentColor" class="btn modal-btn" data-translate-key="btn_reset"></button></div></div></div><div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 15px;"><h4><i class="fa-solid fa-sliders"></i> <span data-translate-key="settings_general"></span></h4><div class="form-group"><label for="themeSelector" data-translate-key="settings_theme"></label><select id="themeSelector"><option value="light" data-translate-key="theme_light"></option><option value="dark" data-translate-key="theme_dark"></option><option value="ocean" data-translate-key="theme_ocean"></option><option value="forest" data-translate-key="theme_forest"></option></select></div><div class="form-group"><label for="languageSelector" data-translate-key="settings_language"></label><select id="languageSelector"><option value="es">Español</option><option value="en">English</option></select></div><div class="form-group"><label for="soundThemeSelector" data-translate-key="settings_sound_theme"></label><select id="soundThemeSelector"><option value="classic" data-translate-key="sound_classic"></option><option value="digital" data-translate-key="sound_digital"></option><option value="relaxing" data-translate-key="sound_relaxing"></option></select></div></div><div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4><i class="fa-solid fa-stopwatch"></i> <span data-translate-key="settings_pomodoro"></span></h4><div class="form-row"><div class="form-group"><label for="pomodoroWork" data-translate-key="pomo_work_duration"></label><input type="number" id="pomodoroWork" min="1"></div><div class="form-group"><label for="pomodoroShortBreak" data-translate-key="pomo_short_break_duration"></label><input type="number" id="pomodoroShortBreak" min="1"></div></div><div class="form-group"><label for="pomodoroLongBreak" data-translate-key="pomo_long_break_duration"></label><input type="number" id="pomodoroLongBreak" min="1"></div></div><div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4><i class="fa-solid fa-trophy"></i> <span data-translate-key="settings_achievements_title"></span></h4><div id="achievementsGrid" class="achievements-grid"></div></div><div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4><i class="fa-solid fa-database"></i> <span data-translate-key="settings_data"></span></h4><div class="modal-data-actions"><button id="exportBtn" class="modal-btn"><i class="fa-solid fa-file-export"></i> <span data-translate-key="btn_export"></span></button><label for="importFile" class="modal-btn import-label"><i class="fa-solid fa-file-import"></i> <span data-translate-key="btn_import"></span></label><input type="file" id="importFile" accept=".json" style="display: none;"></div></div></div><div class="modal-actions"><button id="closeSettings" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div></div>
     <div class="modal-overlay" id="dashboardModal"><div class="modal"><div class="modal-header dashboard"><h3 data-translate-key="dashboard_title"></h3></div><div class="modal-body"><div class="chart-container"><h4 data-translate-key="dashboard_weekly_title"></h4><canvas id="completedTasksChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_category_title"></h4><canvas id="categoryDistributionChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_pomodoro_title"></h4><canvas id="pomodoroPerformanceChart"></canvas></div><div class="chart-container"><h4 data-translate-key="dashboard_monthly_title"></h4><canvas id="monthlyTasksChart"></canvas></div></div><div class="modal-actions"><button id="closeDashboard" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div></div>
     <div class="modal-overlay" id="statsModal"><div class="modal"><div class="modal-header stats"><h3 data-translate-key="stats_title"></h3></div><div class="modal-body"><div class="goals-section"><h4><i class="fa-solid fa-bullseye"></i> <span data-translate-key="stats_goals_title"></span></h4><div class="form-row"><div class="form-group"><label for="dailyTasksGoal" data-translate-key="stats_daily_task_goal"></label><input type="number" id="dailyTasksGoal" min="1"></div><div class="form-group"><label for="dailyPomosGoal" data-translate-key="stats_daily_pomo_goal"></label><input type="number" id="dailyPomosGoal" min="1"></div></div><div id="goalsProgress"></div></div><div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 20px;"><h4><i class="fa-solid fa-magnifying-glass-chart"></i> <span data-translate-key="stats_details_title"></span></h4><div id="detailedStats" class="detailed-stats-grid"></div></div></div><div class="modal-actions"><button id="closeStats" class="modal-btn btn-primary" data-translate-key="btn_close"></button></div></div></div>
-    
-    <!-- Command Palette -->
-    <div id="commandPaletteOverlay" class="modal-overlay">
-        <div id="commandPalette" class="modal">
-            <div class="command-palette-header">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="commandInput" placeholder="Escribe un comando (ej: 'tema oscuro', 'nueva tarea'...)">
-            </div>
-            <ul id="commandList"></ul>
-        </div>
-    </div>
+    <div id="commandPaletteOverlay" class="modal-overlay"><div id="commandPalette" class="modal"><div class="command-palette-header"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="commandInput" placeholder="Escribe un comando..."></div><ul id="commandList"></ul></div></div>
 
     <div id="toast" class="toast"></div>
-    <audio id="notificationSound-classic" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-notification-951.mp3" preload="auto"></audio>
-    <audio id="achievementSound-classic" src="https://assets.mixkit.co/sfx/preview/mixkit-video-game-win-2016.mp3" preload="auto"></audio>
-    <audio id="notificationSound-digital" src="https://cdn.freesound.org/previews/391/391659_5121236-lq.mp3" preload="auto"></audio>
-    <audio id="achievementSound-digital" src="https://cdn.freesound.org/previews/387/387212_5121236-lq.mp3" preload="auto"></audio>
-    <audio id="notificationSound-relaxing" src="https://cdn.freesound.org/previews/423/423429_5121236-lq.mp3" preload="auto"></audio>
-    <audio id="achievementSound-relaxing" src="https://cdn.freesound.org/previews/258/258020_4432924-lq.mp3" preload="auto"></audio>
+    <audio id="notificationSound-classic" src="./audio/notification-classic.mp3" preload="auto"></audio>
+    <audio id="achievementSound-classic" src="./audio/achievement-classic.mp3" preload="auto"></audio>
+    <audio id="notificationSound-digital" src="./audio/notification-digital.mp3" preload="auto"></audio>
+    <audio id="achievementSound-digital" src="./audio/achievement-digital.mp3" preload="auto"></audio>
+    <audio id="notificationSound-relaxing" src="./audio/notification-relaxing.mp3" preload="auto"></audio>
+    <audio id="achievementSound-relaxing" src="./audio/achievement-relaxing.mp3" preload="auto"></audio>
     
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="main.js"></script>
