@@ -1,0 +1,21 @@
+{
+  "name": "TaskMaster Pro",
+  "short_name": "TaskMaster",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#2d3748",
+  "theme_color": "#667eea",
+  "description": "Una aplicación de gestión de tareas con Pomodoro, logros y estadísticas.",
+  "icons": [
+    {
+      "src": "./icons/android-launchericon-192-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./icons/android-launchericon-512-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
