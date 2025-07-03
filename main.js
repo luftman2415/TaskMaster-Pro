@@ -1,17 +1,19 @@
+// main.js - VERSIÓN CON LÓGICA DE RECURRENCIA AVANZADA
 const translations = {
-    es: { title: "🎯 TaskMaster Pro", subtitle: "Organiza tu día con inteligencia", stat_total: "Total", stat_completed: "Completadas", stat_pending: "Pendientes", stat_overdue: "Vencidas", form_title: "¿Qué necesitas hacer hoy?", label_task: "Tarea", placeholder_task: "Ej: Diseñar el nuevo logo (Atajo: N)", label_category: "Categoría", cat_work: "💼 Trabajo", cat_personal: "👤 Personal", cat_health: "🏃 Salud", cat_study: "📚 Estudio", cat_other: "📋 Otros", label_priority: "Prioridad", prio_low: "🟢 Baja", prio_medium: "🟡 Media", prio_high: "🔴 Alta", label_date: "Fecha Límite", label_time: "Hora", btn_add_task: "➕ Agregar Tarea", placeholder_search: "Buscar tareas...", filter_all: "Todas las categorías", empty_state_title: "¡Todo despejado!", empty_state_text: "Añade una nueva tarea para empezar.", empty_search_title: "Sin resultados", empty_search_text: "No se encontraron tareas con ese filtro.", title_notifications: "🔔 Notificaciones", welcome_notification: "¡Bienvenido! Define tu primera tarea.", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirmar eliminación", delete_modal_text: "¿Estás seguro de que quieres eliminar esta tarea?", btn_delete: "Eliminar", btn_cancel: "Cancelar", btn_reset: "Restaurar", edit_modal_title: "✏️ Editar Tarea", label_subtasks: "Sub-tareas", placeholder_subtask: "Añadir sub-tarea y presionar Enter", settings_title: "⚙️ Configuración", settings_theme: "Tema", theme_light: "Claro", theme_dark: "Oscuro", theme_ocean: "Océano", theme_forest: "Bosque", settings_language: "Idioma", settings_data: "Datos", btn_export: "Exportar", btn_import: "Importar", btn_save_changes: "Guardar", btn_close: "Cerrar", feedback_imported: "¡Datos importados con éxito!", feedback_error_import: "Error al importar el archivo.", toast_task_added: "Tarea agregada con éxito", toast_task_deleted: "Tarea eliminada", toast_task_updated: "Tarea actualizada", toast_task_rescheduled: "Tarea reprogramada", toast_achievement_unlocked: "🏆 ¡Logro Desbloqueado!", settings_pomodoro: "Pomodoro", pomo_work_duration: "Trabajo (min)", pomo_short_break_duration: "Descanso Corto (min)", pomo_long_break_duration: "Descanso Largo (min)", pomo_cycle_work: "¡A trabajar!", pomo_cycle_short: "Descanso corto", pomo_cycle_long: "Descanso largo", notification_title: "¡Tiempo!", notification_work_end: "¡Buen trabajo! Es hora de un descanso.", notification_break_end: "El descanso terminó. ¡De vuelta al trabajo!", label_recurrence: "Recurrencia", recur_none: "Ninguna", recur_daily: "Diaria", recur_weekly: "Semanal", recur_fortnightly: "Quincenal", recur_monthly: "Mensual", recur_business_days: "Días Hábiles (L-V)", pomo_task_title_prefix: "Enfocado en: ", label_notes: "Notas Adicionales", placeholder_notes: "Añade detalles, enlaces, etc.", dashboard_title: "📊 Dashboard de Productividad", dashboard_weekly_title: "Tareas Completadas (Últimos 7 Días)", dashboard_category_title: "Distribución por Categoría", dashboard_pomodoro_title: "Rendimiento de Pomodoros", dashboard_monthly_title: "Tareas Completadas (Últimos 30 Días)", day_sun: "Dom", day_mon: "Lun", day_tue: "Mar", day_wed: "Mié", day_thu: "Jue", day_fri: "Vie", day_sat: "Sáb", settings_achievements_title: "Logros", streak_days: "Días", settings_sound_theme: "Tema de Sonido", sound_classic: "Clásico", sound_digital: "Digital", sound_relaxing: "Relajante",
+    es: { title: "🎯 TaskMaster Pro", subtitle: "Organiza tu día con inteligencia", stat_total: "Total", stat_completed: "Completadas", stat_pending: "Pendientes", stat_overdue: "Vencidas", form_title: "¿Qué necesitas hacer hoy?", label_task: "Tarea", placeholder_task: "Ej: Diseñar el nuevo logo (Atajo: N)", label_category: "Categoría", cat_work: "💼 Trabajo", cat_personal: "👤 Personal", cat_health: "🏃 Salud", cat_study: "📚 Estudio", cat_other: "📋 Otros", label_priority: "Prioridad", prio_low: "🟢 Baja", prio_medium: "🟡 Media", prio_high: "🔴 Alta", label_date: "Fecha Límite", label_time: "Hora", btn_add_task: "➕ Agregar Tarea", placeholder_search: "Buscar tareas...", filter_all: "Todas las categorías", empty_state_title: "¡Todo despejado!", empty_state_text: "Añade una nueva tarea para empezar.", empty_search_title: "Sin resultados", empty_search_text: "No se encontraron tareas con ese filtro.", title_notifications: "🔔 Notificaciones", welcome_notification: "¡Bienvenido! Define tu primera tarea.", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirmar eliminación", delete_modal_text: "¿Estás seguro de que quieres eliminar esta tarea?", btn_delete: "Eliminar", btn_cancel: "Cancelar", btn_reset: "Restaurar", edit_modal_title: "✏️ Editar Tarea", label_subtasks: "Sub-tareas", placeholder_subtask: "Añadir sub-tarea y presionar Enter", settings_title: "⚙️ Configuración", settings_theme: "Tema", theme_light: "Claro", theme_dark: "Oscuro", theme_ocean: "Océano", theme_forest: "Bosque", settings_language: "Idioma", settings_data: "Datos", btn_export: "Exportar", btn_import: "Importar", btn_save_changes: "Guardar", btn_close: "Cerrar", feedback_imported: "¡Datos importados con éxito!", feedback_error_import: "Error al importar el archivo.", toast_task_added: "Tarea agregada con éxito", toast_task_deleted: "Tarea eliminada", toast_task_updated: "Tarea actualizada", toast_task_rescheduled: "Tarea reprogramada", toast_achievement_unlocked: "🏆 ¡Logro Desbloqueado!", settings_pomodoro: "Pomodoro", pomo_work_duration: "Trabajo (min)", pomo_short_break_duration: "Descanso Corto (min)", pomo_long_break_duration: "Descanso Largo (min)", pomo_cycle_work: "¡A trabajar!", pomo_cycle_short: "Descanso corto", pomo_cycle_long: "Descanso largo", notification_title: "¡Tiempo!", notification_work_end: "¡Buen trabajo! Es hora de un descanso.", notification_break_end: "El descanso terminó. ¡De vuelta al trabajo!", label_recurrence: "Recurrencia", recur_none: "Ninguna", recur_daily: "Diaria", recur_weekly: "Semanal", recur_fortnightly: "Quincenal (15 y 30)", recur_monthly: "Mensual", recur_business_days: "Días Hábiles (L-V)", pomo_task_title_prefix: "Enfocado en: ", label_notes: "Notas Adicionales", placeholder_notes: "Añade detalles, enlaces, etc.", dashboard_title: "📊 Dashboard de Productividad", dashboard_weekly_title: "Tareas Completadas (Últimos 7 Días)", dashboard_category_title: "Distribución por Categoría", dashboard_pomodoro_title: "Rendimiento de Pomodoros", dashboard_monthly_title: "Tareas Completadas (Últimos 30 Días)", day_sun: "Dom", day_mon: "Lun", day_tue: "Mar", day_wed: "Mié", day_thu: "Jue", day_fri: "Vie", day_sat: "Sáb", settings_achievements_title: "Logros", streak_days: "Días", settings_sound_theme: "Tema de Sonido", sound_classic: "Clásico", sound_digital: "Digital", sound_relaxing: "Relajante",
         settings_ui_customization: "Personalización de Interfaz", settings_font: "Fuente", font_sans_serif: "Moderna (Sans-Serif)", font_serif: "Clásica (Serif)", font_mono: "Técnica (Monoespaciada)", settings_accent_color: "Color de Acento", settings_general: "Configuración General",
         stats_title: "🏆 Metas y Estadísticas", stats_goals_title: "Metas Diarias", stats_daily_task_goal: "Meta de Tareas", stats_daily_pomo_goal: "Meta de Pomodoros", stats_details_title: "Estadísticas Detalladas", stat_streak: "Racha Actual", stat_today_tasks: "Tareas Hoy", stat_today_pomos: "Pomodoros Hoy", stat_avg_focus: "Foco Promedio", stat_top_category: "Categoría Top",
-        notif_overdue: "Tienes {count} tarea(s) vencida(s).", notif_due_today: "Tienes {count} tarea(s) para hoy.", notif_due_tomorrow: "Hay {count} tarea(s) para mañana.", notif_all_clear: "¡Todo en orden! Sigue así. 👍", notif_streak: "¡Sigue así! Llevas una racha de {count} día(s).", notif_achievement: "¡Último logro: {achievement}!",
-        ach_first_task_title: "Primer Paso", ach_first_task_desc: "Completa tu primera tarea.",
-        ach_ten_tasks_title: "Imparable", ach_ten_tasks_desc: "Completa 10 tareas.",
-        ach_first_pomo_title: "Maestro del Foco", ach_first_pomo_desc: "Completa un ciclo Pomodoro.",
-        ach_perfectionist_title: "Perfeccionista", ach_perfectionist_desc: "Completa una tarea con sub-tareas.",
-        ach_streak_3_title: "En Racha", ach_streak_3_desc: "Mantén una racha de 3 días.",
-        ach_night_owl_title: "Ave Nocturna", ach_night_owl_desc: "Completa una tarea de madrugada.",
+        notif_overdue: "Tienes {count} tarea(s) vencida(s).", notif_due_today: "Tienes {count} tarea(s) para hoy.", notif_due_tomorrow: "Hay {count} tarea(s) para mañana.", notif_all_clear: "¡Todo en orden! Sigue así. 👍", notif_streak: "¡Sigue así! Llevas una racha de {count} día(s).", notif_achievement: "¡Último logro: {achievement}!", notif_due_now: "¡Es la hora de tu tarea: {taskTitle}!",
+        ach_first_task_title: "Primer Paso", ach_first_task_desc: "Completa tu primera tarea.", ach_ten_tasks_title: "Imparable", ach_ten_tasks_desc: "Completa 10 tareas.", ach_first_pomo_title: "Maestro del Foco", ach_first_pomo_desc: "Completa un ciclo Pomodoro.", ach_perfectionist_title: "Perfeccionista", ach_perfectionist_desc: "Completa una tarea con sub-tareas.", ach_streak_3_title: "En Racha", ach_streak_3_desc: "Mantén una racha de 3 días.", ach_night_owl_title: "Ave Nocturna", ach_night_owl_desc: "Completa una tarea de madrugada.",
         calendar_today: "Hoy", calendar_month: "Mes", calendar_week: "Semana", calendar_list: "Lista"
     },
-    en: { /* ... (sección en inglés omitida por brevedad) ... */ }
+    en: { title: "🎯 TaskMaster Pro", subtitle: "Organize your day with intelligence", stat_total: "Total", stat_completed: "Completed", stat_pending: "Pending", stat_overdue: "Overdue", form_title: "What do you need to do today?", label_task: "Task", placeholder_task: "e.g., Design the new logo (Shortcut: N)", label_category: "Category", cat_work: "💼 Work", cat_personal: "👤 Personal", cat_health: "🏃 Health", cat_study: "📚 Study", cat_other: "📋 Other", label_priority: "Priority", prio_low: "🟢 Low", prio_medium: "🟡 Medium", prio_high: "🔴 High", label_date: "Due Date", label_time: "Time", btn_add_task: "➕ Add Task", placeholder_search: "Search tasks...", filter_all: "All categories", empty_state_title: "All clear!", empty_state_text: "Add a new task to get started.", empty_search_title: "No results", empty_search_text: "No tasks were found with that filter.", title_notifications: "🔔 Notifications", welcome_notification: "Welcome! Define your first task.", title_pomodoro: "🍅 Pomodoro", delete_modal_title: "⚠️ Confirm deletion", delete_modal_text: "Are you sure you want to delete this task?", btn_delete: "Delete", btn_cancel: "Cancel", btn_reset: "Reset", edit_modal_title: "✏️ Edit Task", label_subtasks: "Sub-tasks", placeholder_subtask: "Add sub-task and press Enter", settings_title: "⚙️ Settings", settings_theme: "Theme", theme_light: "Light", theme_dark: "Dark", theme_ocean: "Ocean", theme_forest: "Forest", settings_language: "Language", settings_data: "Data", btn_export: "Export", btn_import: "Import", btn_save_changes: "Save", btn_close: "Close", feedback_imported: "Data imported successfully!", feedback_error_import: "Error importing the file.", toast_task_added: "Task added successfully", toast_task_deleted: "Task deleted", toast_task_updated: "Task updated", toast_task_rescheduled: "Task rescheduled", toast_achievement_unlocked: "🏆 Achievement Unlocked!", settings_pomodoro: "Pomodoro", pomo_work_duration: "Work (min)", pomo_short_break_duration: "Short Break (min)", pomo_long_break_duration: "Long Break (min)", pomo_cycle_work: "Time to work!", pomo_cycle_short: "Short break", pomo_cycle_long: "Long break", notification_title: "Time's up!", notification_work_end: "Good job! It's time for a break.", notification_break_end: "Break is over. Back to work!", label_recurrence: "Recurrence", recur_none: "None", recur_daily: "Daily", recur_weekly: "Weekly", recur_fortnightly: "Fortnightly (15th & 30th)", recur_monthly: "Monthly", recur_business_days: "Business Days (Mon-Fri)", pomo_task_title_prefix: "Focused on: ", label_notes: "Additional Notes", placeholder_notes: "Add details, links, etc.", dashboard_title: "📊 Productivity Dashboard", dashboard_weekly_title: "Completed Tasks (Last 7 Days)", dashboard_category_title: "Distribution by Category", dashboard_pomodoro_title: "Pomodoro Performance", dashboard_monthly_title: "Completed Tasks (Last 30 Days)", day_sun: "Sun", day_mon: "Mon", day_tue: "Tue", day_wed: "Wed", day_thu: "Thu", day_fri: "Fri", day_sat: "Sat", settings_achievements_title: "Achievements", streak_days: "Days", settings_sound_theme: "Sound Theme", sound_classic: "Classic", sound_digital: "Digital", sound_relaxing: "Relaxing",
+        settings_ui_customization: "UI Customization", settings_font: "Font", font_sans_serif: "Modern (Sans-Serif)", font_serif: "Classic (Serif)", font_mono: "Technical (Monospace)", settings_accent_color: "Accent Color", settings_general: "General Settings",
+        stats_title: "🏆 Goals & Statistics", stats_goals_title: "Daily Goals", stats_daily_task_goal: "Task Goal", stats_daily_pomo_goal: "Pomodoro Goal", stats_details_title: "Detailed Statistics", stat_streak: "Current Streak", stat_today_tasks: "Tasks Today", stat_today_pomos: "Pomos Today", stat_avg_focus: "Avg. Focus", stat_top_category: "Top Category",
+        notif_overdue: "You have {count} overdue task(s).", notif_due_today: "You have {count} task(s) for today.", notif_due_tomorrow: "There are {count} task(s) for tomorrow.", notif_all_clear: "All in order! Keep it up. 👍", notif_streak: "Keep it up! You're on a {count} day streak.", notif_achievement: "Last achievement: {achievement}!", notif_due_now: "It's time for your task: {taskTitle}!",
+        ach_first_task_title: "First Step", ach_first_task_desc: "Complete your first task.", ach_ten_tasks_title: "Unstoppable", ach_ten_tasks_desc: "Complete 10 tasks.", ach_first_pomo_title: "Focus Master", ach_first_pomo_desc: "Complete a Pomodoro cycle.", ach_perfectionist_title: "Perfectionist", ach_perfectionist_desc: "Complete a task with sub-tasks.", ach_streak_3_title: "On a Roll", ach_streak_3_desc: "Maintain a 3-day streak.", ach_night_owl_title: "Night Owl", ach_night_owl_desc: "Complete a task in the early hours.",
+        calendar_today: "Today", calendar_month: "Month", calendar_week: "Week", calendar_list: "List"
+    }
 };
 
 const SVGs = {
@@ -26,7 +28,7 @@ const ACHIEVEMENT_DEFINITIONS = {
     FIRST_POMO: { id: 'ach_first_pomo', icon: 'fa-brain', check: (app) => app.tasks.some(t => (t.pomodorosCompleted || 0) > 0) },
     PERFECTIONIST: { id: 'ach_perfectionist', icon: 'fa-check-double', check: (app) => app.tasks.some(t => t.completed && t.subtasks.length > 0 && t.subtasks.every(st => st.completed)) },
     STREAK_3: { id: 'ach_streak_3', icon: 'fa-fire', check: (app) => app.gamificationData.streak.current >= 3 },
-    NIGHT_OWL: { id: 'ach_night_owl', icon: 'fa-moon', check: (app, task) => { const hour = new Date(task.completedAt).getHours(); return hour >= 0 && hour < 4; } }
+    NIGHT_OWL: { id: 'ach_night_owl', icon: 'fa-moon', check: (app, task) => { if (!task || !task.completedAt) return false; const hour = new Date(task.completedAt).getHours(); return hour >= 0 && hour < 4; } }
 };
 
 class TaskMaster {
@@ -45,9 +47,9 @@ class TaskMaster {
         this.settings = {
             ...defaultSettings,
             ...loadedSettings,
-            pomodoro: { ...defaultSettings.pomodoro, ...loadedSettings.pomodoro },
-            goals: { ...defaultSettings.goals, ...loadedSettings.goals },
-            customization: { ...defaultSettings.customization, ...loadedSettings.customization },
+            pomodoro: { ...defaultSettings.pomodoro, ...(loadedSettings.pomodoro || {}) },
+            goals: { ...defaultSettings.goals, ...(loadedSettings.goals || {}) },
+            customization: { ...defaultSettings.customization, ...(loadedSettings.customization || {}) },
         };
         this.gamificationData = { ...{ streak: { current: 0, lastCompletedDate: null }, unlockedAchievements: [] }, ...this.loadData('gamification', {}) };
         
@@ -56,10 +58,24 @@ class TaskMaster {
         this.currentEditingTask = null; this.draggedTaskElement = null;
         this.charts = {}; this.calendar = null; this.currentView = 'list';
         this.commandPaletteIndex = -1;
+        this.notifiedTaskIds = new Set(); 
 
-        this.applySettings();
+        this.initializeUI();
         this.initializeEventListeners();
         this.initializeCommands();
+        this.initializeNotificationScheduler(); 
+    }
+    
+    initializeUI() {
+        document.getElementById('themeSelector').value = this.settings.theme;
+        document.getElementById('languageSelector').value = this.settings.language;
+        document.getElementById('soundThemeSelector').value = this.settings.soundTheme;
+        document.getElementById('fontSelector').value = this.settings.customization.fontFamily;
+        document.getElementById('accentColorPicker').value = this.settings.customization.accentColor;
+        document.getElementById('pomodoroWork').value = this.settings.pomodoro.work;
+        document.getElementById('pomodoroShortBreak').value = this.settings.pomodoro.short;
+        document.getElementById('pomodoroLongBreak').value = this.settings.pomodoro.long;
+        this.applySettings();
     }
 
     loadData(key, defaultValue) { try { const data = localStorage.getItem(`taskmaster-${key}`); return data ? JSON.parse(data) : defaultValue; } catch (e) { console.error(`Error loading data for key: ${key}`, e); return defaultValue; } }
@@ -73,16 +89,37 @@ class TaskMaster {
         document.documentElement.style.setProperty('--accent-color', accentColor);
         document.body.style.fontFamily = `var(--font-family-${this.settings.customization.fontFamily})`;
         
-        document.getElementById('themeSelector').value = this.settings.theme;
-        document.getElementById('languageSelector').value = this.settings.language;
-        document.getElementById('soundThemeSelector').value = this.settings.soundTheme;
-        document.getElementById('fontSelector').value = this.settings.customization.fontFamily;
-        document.getElementById('accentColorPicker').value = accentColor;
         document.getElementById('accentColorValue').textContent = accentColor.toUpperCase();
-        document.getElementById('pomodoroWork').value = this.settings.pomodoro.work;
-        document.getElementById('pomodoroShortBreak').value = this.settings.pomodoro.short;
-        document.getElementById('pomodoroLongBreak').value = this.settings.pomodoro.long;
-        this.renderAll();
+        document.getElementById('accentColorPicker').value = accentColor;
+        
+        this.renderAllUI();
+    }
+    
+    renderAllUI() {
+        this.translateAllElements();
+        this.renderTaskForm();
+        this.renderAll(); 
+    }
+
+    translateAllElements() {
+        const lang = this.settings.language;
+        document.querySelectorAll('[data-translate-key]').forEach(el => {
+            const key = el.getAttribute('data-translate-key');
+            const translation = translations[lang]?.[key];
+            if(translation) {
+                const icon = el.querySelector('i.fa-solid');
+                if (icon) {
+                    el.innerHTML = ` ${translation}`;
+                    el.prepend(icon);
+                } else {
+                    el.innerHTML = translation;
+                }
+            }
+        });
+        document.querySelectorAll('[data-translate-key-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-translate-key-placeholder');
+            if (translations[lang]?.[key]) el.placeholder = translations[lang][key];
+        });
     }
 
     getDefaultAccentColor() {
@@ -91,40 +128,42 @@ class TaskMaster {
 
     showToast(messageKey, type = 'success', extra = '') {
         const toast = document.getElementById('toast');
-        toast.innerHTML = `${translations[this.settings.language][messageKey] || messageKey} ${extra}`;
+        const lang = this.settings.language;
+        toast.innerHTML = `${translations[lang]?.[messageKey] || messageKey} ${extra}`;
         toast.className = `toast ${type} show`;
         if(type === 'achievement') this.playSound('achievement');
         setTimeout(() => { toast.className = 'toast'; }, 4000);
     }
     playSound(type) {
-        const soundId = `${type}Sound-${this.settings.soundTheme}`;
-        const sound = document.getElementById(soundId);
-        if (sound) sound.play().catch(e => console.error("Error playing sound:", e));
+        try {
+            const soundId = `${type}Sound-${this.settings.soundTheme}`;
+            const sound = document.getElementById(soundId);
+            if (sound && sound.src) {
+                sound.currentTime = 0;
+                sound.play();
+            }
+        } catch(e) {
+            console.error("Error playing sound:", e);
+        }
     }
     showModal(id) { document.getElementById(id).style.display = 'block'; }
     hideModal(id) { document.getElementById(id).style.display = 'none'; }
     hideAllModals() { document.querySelectorAll('.modal-overlay').forEach(modal => modal.style.display = 'none'); }
 
     renderAll() {
-        const lang = this.settings.language;
-        document.querySelectorAll('[data-translate-key]').forEach(el => {
-            const key = el.getAttribute('data-translate-key'); const translation = translations[lang]?.[key];
-            if (translation) {
-                const container = el.tagName === 'SPAN' || el.parentElement?.tagName === 'LABEL' || el.parentElement?.tagName === 'BUTTON' ? el : el;
-                container.innerHTML = translation;
-            }
-        });
-        document.querySelectorAll('[data-translate-key-placeholder]').forEach(el => {
-            const key = el.getAttribute('data-translate-key-placeholder');
-            if (translations[lang]?.[key]) el.placeholder = translations[lang][key];
-        });
-        this.renderStreakCounter(); this.renderStats(); this.renderTaskForm(); this.renderFilterOptions(); this.renderTasks(); this.renderNotifications(); this.updatePomodoroDisplay();
+        this.renderStreakCounter(); 
+        this.renderStats(); 
+        this.renderFilterOptions(); 
+        this.renderTasks(); 
+        this.renderNotifications(); 
+        this.updatePomodoroDisplay();
     }
 
     renderStreakCounter() {
         const streakCounterEl = document.getElementById('streakCounter');
+        const lang = this.settings.language;
         if (this.gamificationData.streak.current > 0) {
-            streakCounterEl.innerHTML = `🔥 ${this.gamificationData.streak.current} <span data-translate-key="streak_days">${translations[this.settings.language].streak_days}</span>`;
+            streakCounterEl.innerHTML = `🔥 ${this.gamificationData.streak.current} <span data-translate-key="streak_days">${translations[lang].streak_days}</span>`;
             streakCounterEl.style.display = 'flex';
         } else {
             streakCounterEl.style.display = 'none';
@@ -137,17 +176,37 @@ class TaskMaster {
         const total = this.tasks.length;
         const completed = this.tasks.filter(t => t.completed).length;
         const pending = total - completed;
-        const overdue = this.tasks.filter(t => !t.completed && t.date && new Date(t.date + 'T00:00:00') < new Date().setHours(0,0,0,0)).length;
-
-        statsContainer.innerHTML = `<div class="stat-card"><div class="stat-number">${total}</div><div class="stat-label" data-translate-key="stat_total">${translations[lang].stat_total}</div></div><div class="stat-card"><div class="stat-number">${completed}</div><div class="stat-label" data-translate-key="stat_completed">${translations[lang].stat_completed}</div></div><div class="stat-card"><div class="stat-number">${pending}</div><div class="stat-label" data-translate-key="stat_pending">${translations[lang].stat_pending}</div></div><div class="stat-card"><div class="stat-number">${overdue}</div><div class="stat-label" data-translate-key="stat_overdue">${translations[lang].stat_overdue}</div></div>`;
+        const overdue = this.tasks.filter(t => !t.completed && t.date && new Date(t.date + (t.time ? `T${t.time}` : 'T23:59:59')) < new Date()).length;
+        
+        statsContainer.innerHTML = `
+            <div class="stat-card"><div class="stat-number">${total}</div><div class="stat-label" data-translate-key="stat_total">${translations[lang].stat_total}</div></div>
+            <div class="stat-card"><div class="stat-number">${completed}</div><div class="stat-label" data-translate-key="stat_completed">${translations[lang].stat_completed}</div></div>
+            <div class="stat-card"><div class="stat-number">${pending}</div><div class="stat-label" data-translate-key="stat_pending">${translations[lang].stat_pending}</div></div>
+            <div class="stat-card"><div class="stat-number">${overdue}</div><div class="stat-label" data-translate-key="stat_overdue">${translations[lang].stat_overdue}</div></div>`;
     }
 
     renderTaskForm() {
         const container = document.getElementById('taskFormContainer');
         const lang = this.settings.language;
-        if(container.querySelector('#taskForm')) return;
+        const oldForm = document.getElementById('taskForm');
+        if (oldForm) oldForm.remove();
+
         const recurrenceOptions = ['none', 'daily', 'weekly', 'fortnightly', 'monthly', 'business_days'];
-        container.innerHTML = `<h2 class="section-title" data-translate-key="form_title">${translations[lang].form_title}</h2><form id="taskForm" class="task-form"><div class="form-group full-width"><label data-translate-key="label_task">${translations[lang].label_task}</label><input type="text" name="title" required placeholder="${translations[lang].placeholder_task}"></div><div class="form-row"><div class="form-group"><label data-translate-key="label_category">${translations[lang].label_category}</label><select name="category">${Object.keys(translations.es).filter(k=>k.startsWith('cat_')).map(k=>`<option value="${k.replace('cat_','')}">${translations[lang][k]}</option>`).join('')}</select></div><div class="form-group"><label data-translate-key="label_priority">${translations[lang].label_priority}</label><select name="priority">${Object.keys(translations.es).filter(k=>k.startsWith('prio_')).map(k=>`<option value="${k.replace('prio_','')}">${translations[lang][k]}</option>`).join('')}</select></div></div><div class="form-row"><div class="form-group"><label data-translate-key="label_date">${translations[lang].label_date}</label><input type="date" name="date"></div><div class="form-group"><label data-translate-key="label_recurrence">${translations[lang].label_recurrence}</label><select name="recurrence">${recurrenceOptions.map(r => `<option value="${r}">${translations[lang]['recur_' + r]}</option>`).join('')}</select></div></div><button type="submit" class="btn btn-primary full-width" data-translate-key="btn_add_task">${translations[lang].btn_add_task}</button></form>`;
+        const formHTML = `<h2 class="section-title" data-translate-key="form_title">${translations[lang].form_title}</h2>
+                          <form id="taskForm" class="task-form">
+                              <div class="form-group full-width"><label data-translate-key="label_task">${translations[lang].label_task}</label><input type="text" name="title" required placeholder="${translations[lang].placeholder_task}"></div>
+                              <div class="form-row">
+                                  <div class="form-group"><label data-translate-key="label_category">${translations[lang].label_category}</label><select name="category">${Object.keys(translations.es).filter(k=>k.startsWith('cat_')).map(k=>`<option value="${k.replace('cat_','')}">${translations[lang][k]}</option>`).join('')}</select></div>
+                                  <div class="form-group"><label data-translate-key="label_priority">${translations[lang].label_priority}</label><select name="priority">${Object.keys(translations.es).filter(k=>k.startsWith('prio_')).map(k=>`<option value="${k.replace('prio_','')}">${translations[lang][k]}</option>`).join('')}</select></div>
+                              </div>
+                              <div class="form-row">
+                                  <div class="form-group"><label data-translate-key="label_date">${translations[lang].label_date}</label><input type="date" name="date"></div>
+                                  <div class="form-group"><label data-translate-key="label_time">${translations[lang].label_time}</label><input type="time" name="time"></div>
+                              </div>
+                              <div class="form-group full-width"><label data-translate-key="label_recurrence">${translations[lang].label_recurrence}</label><select name="recurrence">${recurrenceOptions.map(r => `<option value="${r}">${translations[lang]['recur_' + r]}</option>`).join('')}</select></div>
+                              <button type="submit" class="btn btn-primary full-width" data-translate-key="btn_add_task">${translations[lang].btn_add_task}</button>
+                          </form>`;
+        container.innerHTML = formHTML;
         document.getElementById('taskForm').addEventListener('submit', this.handleAddTask.bind(this));
     }
 
@@ -156,7 +215,7 @@ class TaskMaster {
         const lang = this.settings.language;
         const currentFilterValue = filter.value;
         const categories = ['all', ...new Set(this.tasks.map(t => t.category))];
-        filter.innerHTML = categories.map(cat => `<option value="${cat}">${translations[lang][cat === 'all' ? 'filter_all' : `cat_${cat}`] || cat}</option>`).join('');
+        filter.innerHTML = categories.map(cat => `<option value="${cat}">${translations[lang]?.[cat === 'all' ? 'filter_all' : `cat_${cat}`] || cat}</option>`).join('');
         filter.value = currentFilterValue || 'all';
     }
     
@@ -168,8 +227,8 @@ class TaskMaster {
         
         const taskSorter = (a, b) => {
             if (a.completed !== b.completed) return a.completed ? 1 : -1;
-            const dateA = a.date ? new Date(a.date) : 0;
-            const dateB = b.date ? new Date(b.date) : 0;
+            const dateA = a.date ? new Date(a.date + (a.time ? `T${a.time}`: '')) : 0;
+            const dateB = b.date ? new Date(b.date + (b.time ? `T${b.time}`: '')) : 0;
             if(dateA && dateB) return dateA - dateB;
             if(dateA) return -1;
             if(dateB) return 1;
@@ -180,8 +239,8 @@ class TaskMaster {
             .filter(task => (task.title.toLowerCase().includes(searchTerm) || (task.notes && task.notes.toLowerCase().includes(searchTerm))) && (filterCat === 'all' || task.category === filterCat))
             .sort(taskSorter);
         
-        if (this.tasks.length === 0) { list.innerHTML = `<div class="empty-state">${SVGs.noTasks}<h4 data-translate-key="empty_state_title">${translations[lang].empty_state_title}</h4><p data-translate-key="empty_state_text">${translations[lang].empty_state_text}</p></div>`; return; }
-        if (filteredTasks.length === 0) { list.innerHTML = `<div class="empty-state">${SVGs.noSearchResults}<h4 data-translate-key="empty_search_title">${translations[lang].empty_search_title}</h4><p data-translate-key="empty_search_text">${translations[lang].empty_search_text}</p></div>`; return; }
+        if (this.tasks.length === 0) { list.innerHTML = `<div class="empty-state">${SVGs.noTasks}<h4>${translations[lang].empty_state_title}</h4><p>${translations[lang].empty_state_text}</p></div>`; return; }
+        if (filteredTasks.length === 0) { list.innerHTML = `<div class="empty-state">${SVGs.noSearchResults}<h4>${translations[lang].empty_search_title}</h4><p>${translations[lang].empty_search_text}</p></div>`; return; }
         
         list.innerHTML = '';
         filteredTasks.forEach(task => list.appendChild(this.createTaskElement(task)));
@@ -190,21 +249,36 @@ class TaskMaster {
     createTaskElement(task) {
         const taskEl = document.createElement('div');
         const lang = this.settings.language;
-        const today = new Date().setHours(0, 0, 0, 0); const taskDate = task.date ? new Date(task.date+'T00:00:00').getTime() : null; let dateClass = '';
-        if (!task.completed && taskDate) { if (taskDate < today) dateClass = 'task-overdue'; else if (taskDate === today) dateClass = 'task-due-today'; }
+        const today = new Date().setHours(0, 0, 0, 0); 
+        let taskDateTime = null;
+        if (task.date) {
+            taskDateTime = new Date(task.date + (task.time ? `T${task.time}` : 'T23:59:59')).getTime();
+        }
+        let dateClass = '';
+        if (!task.completed && taskDateTime) { 
+            if (taskDateTime < Date.now()) dateClass = 'task-overdue'; 
+            else if (new Date(taskDateTime).setHours(0,0,0,0) === today) dateClass = 'task-due-today'; 
+        }
+
         taskEl.className = `task-item ${task.completed ? 'completed' : ''} ${this.currentPomodoroTask === task.id ? 'pomodoro-active' : ''} ${dateClass}`;
         taskEl.dataset.id = task.id; taskEl.draggable = true;
         const priorityColors = { low: 'var(--prio-low)', medium: 'var(--prio-medium)', high: 'var(--prio-high)'};
         if (!dateClass) { taskEl.style.borderLeftColor = priorityColors[task.priority] || '#cbd5e0'; }
+        
         const subtasksDone = task.subtasks.filter(st => st.completed).length; const progress = task.subtasks.length > 0 ? (subtasksDone / task.subtasks.length) * 100 : (task.completed ? 100 : 0);
         const recurrenceText = task.recurrence && task.recurrence !== 'none' ? `<span><i class="fa-solid fa-repeat"></i> ${translations[lang]['recur_'+task.recurrence] || ''}</span>` : '';
+        
+        const dateString = task.date ? new Date(task.date + 'T00:00:00').toLocaleDateString(lang) : '';
+        const timeString = task.time ? new Date('1970-01-01T' + task.time).toLocaleTimeString(lang, {hour: '2-digit', minute:'2-digit', hour12: true}) : '';
+
         const completeBtnClass = task.completed ? 'is-completed' : 'is-pending';
         const subtasksHTML = task.subtasks.length > 0 ? `<div class="task-subtasks">${task.subtasks.map(st => `
             <div class="task-subtask-item ${st.completed ? 'completed' : ''}" data-subtask-id="${st.id}">
                 <input type="checkbox" id="subtask-${st.id}" data-task-id="${task.id}" ${st.completed ? 'checked' : ''} />
                 <label for="subtask-${st.id}">${st.title}</label>
             </div>`).join('')}</div>` : '';
-        taskEl.innerHTML = `<div class="task-header"><div class="task-info"><h4 class="task-title">${task.title}</h4><div class="task-meta">${task.notes ? '<span><i class="fa-solid fa-note-sticky"></i></span>' : ''}<span><i class="fa-solid fa-tag"></i> ${translations[lang]['cat_'+task.category] || task.category}</span>${task.date ? `<span><i class="fa-solid fa-calendar-days"></i> ${new Date(task.date + 'T00:00:00').toLocaleDateString(lang)}</span>` : ''}${recurrenceText}</div></div><div class="task-actions"><button class="btn-icon pomodoro-start-btn" aria-label="Iniciar Pomodoro para esta tarea" title="Iniciar Pomodoro"><i class="fa-solid fa-clock"></i></button><button class="btn-icon edit-btn" aria-label="Editar tarea" title="Editar"><i class="fa-solid fa-pencil"></i></button><button class="btn-icon delete-btn" aria-label="Eliminar tarea" title="Eliminar"><i class="fa-solid fa-trash-can"></i></button><button class="btn-icon complete-btn ${completeBtnClass}" aria-label="Marcar como completada" title="Completar"><i class="fa-solid fa-circle-check"></i></button></div></div>${subtasksHTML}${(task.subtasks.length > 0 || task.completed) ? `<div class="task-progress"><div class="progress-bar" style="width: ${progress}%"></div></div>` : ''}`;
+
+        taskEl.innerHTML = `<div class="task-header"><div class="task-info"><h4 class="task-title">${task.title}</h4><div class="task-meta">${task.notes ? '<span><i class="fa-solid fa-note-sticky"></i></span>' : ''}<span><i class="fa-solid fa-tag"></i> ${translations[lang]['cat_'+task.category] || task.category}</span>${dateString ? `<span><i class="fa-solid fa-calendar-days"></i> ${dateString}</span>` : ''}${timeString ? `<span><i class="fa-solid fa-clock"></i> ${timeString}</span>` : ''}${recurrenceText}</div></div><div class="task-actions"><button class="btn-icon pomodoro-start-btn" aria-label="Iniciar Pomodoro para esta tarea" title="Iniciar Pomodoro"><i class="fa-solid fa-clock"></i></button><button class="btn-icon edit-btn" aria-label="Editar tarea" title="Editar"><i class="fa-solid fa-pencil"></i></button><button class="btn-icon delete-btn" aria-label="Eliminar tarea" title="Eliminar"><i class="fa-solid fa-trash-can"></i></button><button class="btn-icon complete-btn ${completeBtnClass}" aria-label="Marcar como completada" title="Completar"><i class="fa-solid fa-circle-check"></i></button></div></div>${subtasksHTML}${(task.subtasks.length > 0 || task.completed) ? `<div class="task-progress"><div class="progress-bar" style="width: ${progress}%"></div></div>` : ''}`;
         return taskEl;
     }
 
@@ -223,7 +297,7 @@ class TaskMaster {
             return;
         }
 
-        const overdueTasks = this.tasks.filter(t => !t.completed && t.date && new Date(t.date+'T00:00:00') < today);
+        const overdueTasks = this.tasks.filter(t => !t.completed && t.date && new Date(t.date+'T23:59:59') < today);
         if (overdueTasks.length > 0) {
             notificationsHTML += `<div class="notification"><i class="fa-solid fa-triangle-exclamation" style="color:var(--prio-high);"></i> ${translations[lang].notif_overdue.replace('{count}', overdueTasks.length)}</div>`;
         }
@@ -268,7 +342,7 @@ class TaskMaster {
         
         document.getElementById('closeDashboard').addEventListener('click', () => this.hideModal('dashboardModal'));
         document.getElementById('closeStats').addEventListener('click', () => this.hideModal('statsModal'));
-        document.getElementById('closeSettings').addEventListener('click', () => { this.hideModal('settingsModal'); this.applySettings(); });
+        document.getElementById('closeSettings').addEventListener('click', () => { this.hideModal('settingsModal'); });
         
         document.getElementById('themeSelector').addEventListener('change', (e) => { this.settings.theme = e.target.value; this.saveData('settings', this.settings); this.applySettings(); });
         document.getElementById('languageSelector').addEventListener('change', (e) => { this.settings.language = e.target.value; this.saveData('settings', this.settings); this.applySettings(); if(this.calendar) {this.calendar.setOption('locale', e.target.value); this.calendar.setOption('buttonText', this.getCalendarButtonTranslations());} });
@@ -276,7 +350,11 @@ class TaskMaster {
 
         document.getElementById('fontSelector').addEventListener('change', (e) => { this.settings.customization.fontFamily = e.target.value; this.saveData('settings', this.settings); this.applySettings(); });
         document.getElementById('accentColorPicker').addEventListener('input', (e) => { this.settings.customization.accentColor = e.target.value; this.saveData('settings', this.settings); this.applySettings(); });
-        document.getElementById('resetAccentColor').addEventListener('click', () => { this.settings.customization.accentColor = this.getDefaultAccentColor(); this.saveData('settings', this.settings); this.applySettings(); });
+        document.getElementById('resetAccentColor').addEventListener('click', () => {
+            this.settings.customization.accentColor = this.getDefaultAccentColor();
+            this.saveData('settings', this.settings);
+            this.applySettings();
+        });
         
         document.getElementById('dailyTasksGoal').addEventListener('change', (e) => { this.settings.goals.dailyTasks = parseInt(e.target.value, 10) || 5; this.saveData('settings', this.settings); this.renderGoalsProgress(); });
         document.getElementById('dailyPomosGoal').addEventListener('change', (e) => { this.settings.goals.dailyPomos = parseInt(e.target.value, 10) || 4; this.saveData('settings', this.settings); this.renderGoalsProgress(); });
@@ -334,35 +412,82 @@ class TaskMaster {
     
     handleAddTask(e) {
         e.preventDefault(); const form = e.target; const formData = new FormData(form); const title = formData.get('title').trim(); if (!title) return;
-        const newTask = { id: Date.now(), title, category: formData.get('category'), priority: formData.get('priority'), recurrence: formData.get('recurrence'), date: formData.get('date') || null, completed: false, completedAt: null, pomodorosCompleted: 0, subtasks: [], notes: '' };
+        const newTask = { id: Date.now(), title, category: formData.get('category'), priority: formData.get('priority'), recurrence: formData.get('recurrence'), date: formData.get('date') || null, time: formData.get('time') || null, completed: false, completedAt: null, pomodorosCompleted: 0, subtasks: [], notes: '' };
         this.tasks.unshift(newTask); this.saveData('tasks', this.tasks); document.getElementById('filterCategory').value = 'all'; this.renderAll(); if(this.calendar) this.calendar.refetchEvents(); form.reset(); this.showToast('toast_task_added'); this.checkAchievements();
     }
+    
+    // =================================================================
+    // NUEVA LÓGICA DE RECURRENCIA
+    // =================================================================
 
-    getNextBusinessDay(date) {
-        const newDate = new Date(date);
-        newDate.setDate(newDate.getDate() + 1);
-        if (newDate.getDay() === 6) { newDate.setDate(newDate.getDate() + 2); } 
-        else if (newDate.getDay() === 0) { newDate.setDate(newDate.getDate() + 1); }
-        return newDate;
+    calculateNextRecurrenceDate(task) {
+        const baseDate = new Date(task.date + (task.time ? `T${task.time}` : 'T00:00:00'));
+        let nextDate = new Date(baseDate);
+
+        switch (task.recurrence) {
+            case 'daily':
+                nextDate.setDate(baseDate.getDate() + 1);
+                break;
+            case 'weekly':
+                nextDate.setDate(baseDate.getDate() + 7);
+                break;
+            case 'monthly':
+                nextDate.setMonth(baseDate.getMonth() + 1);
+                break;
+            case 'fortnightly': // Lógica para el 15 y 30
+                const day = baseDate.getDate();
+                if (day < 15) {
+                    nextDate.setDate(15);
+                } else if (day < 30) {
+                    // Cuidado con Febrero, que tiene menos de 30 días
+                    const tempDate = new Date(nextDate);
+                    tempDate.setDate(30);
+                    if (tempDate.getMonth() !== nextDate.getMonth()) { // Si al poner 30 salta de mes
+                        nextDate.setMonth(nextDate.getMonth() + 1);
+                        nextDate.setDate(15);
+                    } else {
+                        nextDate.setDate(30);
+                    }
+                } else {
+                    nextDate.setMonth(baseDate.getMonth() + 1);
+                    nextDate.setDate(15);
+                }
+                break;
+            case 'business_days':
+                nextDate.setDate(baseDate.getDate() + 1);
+                if (nextDate.getDay() === 6) { // Sábado
+                    nextDate.setDate(nextDate.getDate() + 2);
+                } else if (nextDate.getDay() === 0) { // Domingo
+                    nextDate.setDate(nextDate.getDate() + 1);
+                }
+                break;
+            default:
+                return null; // No es recurrente
+        }
+        return nextDate;
     }
 
     toggleTaskCompletion(taskId) {
         const taskEl = document.querySelector(`.task-item[data-id="${taskId}"]`);
-        const task = this.tasks.find(t => t.id === taskId); if(!task) return;
-        const wasCompleted = task.completed; task.completed = !task.completed; task.completedAt = task.completed ? Date.now() : null;
-        if (task.completed && !wasCompleted) { this.updateStreak(); this.checkAchievements(task); }
-        if (task.completed && task.recurrence !== 'none' && task.date) { 
-            const newTask = { ...task, id: Date.now(), completed: false, completedAt: null, subtasks: task.subtasks.map(st => ({...st, completed: false})) }; 
-            const newDate = new Date(task.date + 'T00:00:00'); 
-            switch(task.recurrence) {
-                case 'daily': newDate.setDate(newDate.getDate() + 1); break;
-                case 'weekly': newDate.setDate(newDate.getDate() + 7); break;
-                case 'fortnightly': newDate.setDate(newDate.getDate() + 14); break;
-                case 'monthly': newDate.setMonth(newDate.getMonth() + 1); break;
-                case 'business_days': Object.assign(newDate, this.getNextBusinessDay(newDate)); break;
+        const task = this.tasks.find(t => t.id === taskId); 
+        if(!task) return;
+
+        const wasCompleted = task.completed; 
+        task.completed = !task.completed; 
+        task.completedAt = task.completed ? new Date().toISOString() : null;
+
+        if (task.completed && !wasCompleted) { 
+            this.updateStreak(); 
+            this.checkAchievements(task); 
+
+            if (task.recurrence && task.recurrence !== 'none' && task.date) {
+                const nextDate = this.calculateNextRecurrenceDate(task);
+                if (nextDate) {
+                    const newTask = { ...task, id: Date.now(), completed: false, completedAt: null, subtasks: task.subtasks.map(st => ({...st, completed: false})) }; 
+                    newTask.date = nextDate.toISOString().split('T')[0];
+                    this.tasks.push(newTask);
+                }
             }
-            newTask.date = newDate.toISOString().split('T')[0]; 
-            this.tasks.push(newTask); 
         }
         
         if (taskEl) {
@@ -376,13 +501,13 @@ class TaskMaster {
     }
     
     showDeleteModal(taskId) { const lang = this.settings.language; const modal = document.getElementById('deleteModal'); modal.querySelector('h3').textContent = translations[lang].delete_modal_title; modal.querySelector('p').textContent = translations[lang].delete_modal_text; modal.querySelector('#cancelDelete').textContent = translations[lang].btn_cancel; modal.querySelector('#confirmDelete').textContent = translations[lang].btn_delete; this.showModal('deleteModal'); document.getElementById('confirmDelete').onclick = () => { const taskEl = document.querySelector(`.task-item[data-id="${taskId}"]`); if (taskEl) { taskEl.classList.add('slide-out'); } setTimeout(() => { this.tasks = this.tasks.filter(t => t.id !== taskId); if (this.currentPomodoroTask === taskId) this.resetPomodoro(true); this.saveData('tasks', this.tasks); this.renderAll(); if(this.calendar) this.calendar.refetchEvents(); this.hideModal('deleteModal'); this.showToast('toast_task_deleted', 'error');}, 500); }; }
-    showEditModal(taskId) { this.currentEditingTask = this.tasks.find(t => t.id === taskId); if (!this.currentEditingTask) return; const lang = this.settings.language; const modal = document.getElementById('editTaskModal'); modal.querySelector('h3').textContent = translations[lang].edit_modal_title; modal.querySelector('label[data-translate-key="label_task"]').textContent = translations[lang].label_task; modal.querySelector('label[data-translate-key="label_notes"]').textContent = translations[lang].label_notes; modal.querySelector('label[data-translate-key="label_subtasks"]').textContent = translations[lang].label_subtasks; modal.querySelector('#newSubtaskInput').placeholder = translations[lang].placeholder_subtask; modal.querySelector('#editTaskNotes').placeholder = translations[lang].placeholder_notes; modal.querySelector('#cancelEdit').textContent = translations[lang].btn_cancel; modal.querySelector('#saveEdit').textContent = translations[lang].btn_save_changes; document.getElementById('editTaskTitle').value = this.currentEditingTask.title; document.getElementById('editTaskNotes').value = this.currentEditingTask.notes || ''; this.renderSubtasks(); this.showModal('editTaskModal'); }
-    saveEditedTask() { if (!this.currentEditingTask) return; this.currentEditingTask.title = document.getElementById('editTaskTitle').value.trim(); this.currentEditingTask.notes = document.getElementById('editTaskNotes').value.trim(); this.saveData('tasks', this.tasks); this.hideModal('editTaskModal'); this.renderAll(); if(this.calendar) this.calendar.refetchEvents(); this.showToast('toast_task_updated'); this.currentEditingTask = null; }
+    showEditModal(taskId) { this.currentEditingTask = this.tasks.find(t => t.id === taskId); if (!this.currentEditingTask) return; const lang = this.settings.language; const modal = document.getElementById('editTaskModal'); modal.querySelector('h3').textContent = translations[lang].edit_modal_title; modal.querySelector('label[data-translate-key="label_task"]').textContent = translations[lang].label_task; modal.querySelector('label[data-translate-key="label_time"]').textContent = translations[lang].label_time; modal.querySelector('label[data-translate-key="label_notes"]').textContent = translations[lang].label_notes; modal.querySelector('label[data-translate-key="label_subtasks"]').textContent = translations[lang].label_subtasks; modal.querySelector('#newSubtaskInput').placeholder = translations[lang].placeholder_subtask; modal.querySelector('#editTaskNotes').placeholder = translations[lang].placeholder_notes; modal.querySelector('#cancelEdit').textContent = translations[lang].btn_cancel; modal.querySelector('#saveEdit').textContent = translations[lang].btn_save_changes; document.getElementById('editTaskTitle').value = this.currentEditingTask.title; document.getElementById('editTaskTime').value = this.currentEditingTask.time || ''; document.getElementById('editTaskNotes').value = this.currentEditingTask.notes || ''; this.renderSubtasks(); this.showModal('editTaskModal'); }
+    saveEditedTask() { if (!this.currentEditingTask) return; this.currentEditingTask.title = document.getElementById('editTaskTitle').value.trim(); this.currentEditingTask.time = document.getElementById('editTaskTime').value || null; this.currentEditingTask.notes = document.getElementById('editTaskNotes').value.trim(); this.saveData('tasks', this.tasks); this.hideModal('editTaskModal'); this.renderAll(); if(this.calendar) this.calendar.refetchEvents(); this.showToast('toast_task_updated'); this.currentEditingTask = null; }
     renderSubtasks() { const list = document.getElementById('editSubtaskList'); list.innerHTML = this.currentEditingTask.subtasks.map(subtask => `<div class="subtask-item" data-subtask-id="${subtask.id}"><label class="${subtask.completed ? 'completed' : ''}"><input type="checkbox" ${subtask.completed ? 'checked' : ''} onchange="app.toggleSubtask('${subtask.id}')"><span>${subtask.title}</span></label><button class="btn-icon delete-subtask-btn" data-subtask-id="${subtask.id}"><i class="fa-solid fa-times"></i></button></div>`).join(''); }
     addSubtask() { const input = document.getElementById('newSubtaskInput'); const title = input.value.trim(); if (title && this.currentEditingTask) { this.currentEditingTask.subtasks.push({ id: `sub-${Date.now()}`, title, completed: false }); input.value = ''; this.renderSubtasks(); } }
     toggleSubtask(subtaskId) { const subtask = this.currentEditingTask.subtasks.find(st => st.id === subtaskId); if (subtask) subtask.completed = !subtask.completed; this.renderSubtasks(); }
     deleteSubtask(subtaskId) { this.currentEditingTask.subtasks = this.currentEditingTask.subtasks.filter(st => st.id !== subtaskId); this.renderSubtasks(); }
-    toggleInlineSubtask(taskId, subtaskId) { const task = this.tasks.find(t => t.id === taskId); const subtask = task.subtasks.find(st => st.id === subtaskId); if (subtask) { subtask.completed = !subtask.completed; this.saveData('tasks', this.tasks); this.renderAll(); this.checkAchievements(); } }
+    toggleInlineSubtask(taskId, subtaskId) { const task = this.tasks.find(t => t.id === taskId); const subtask = task.subtasks.find(st => st.id === subtaskId); if (subtask) { subtask.completed = !subtask.completed; this.saveData('tasks', this.tasks); this.renderAll(); this.checkAchievements(task); } }
     
     handleDragStart(e) { if(e.target.classList.contains('task-item')) { this.draggedTaskElement = e.target; e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', e.target.dataset.id); setTimeout(() => { e.target.classList.add('dragging'); }, 0); } }
     handleDragOver(e) { e.preventDefault(); }
@@ -395,7 +520,7 @@ class TaskMaster {
     finishPomodoroCycle() {
         this.playSound('notification');
         const timerEl = document.getElementById('pomodoroTimer'); timerEl.classList.add('finished');
-        if(this.pomodoroState.type === 'work' && this.currentPomodoroTask) { const task = this.tasks.find(t => t.id === this.currentPomodoroTask); if(task) { task.pomodorosCompleted = (task.pomodorosCompleted || 0) + 1; this.saveData('tasks', this.tasks); this.checkAchievements(); } }
+        if(this.pomodoroState.type === 'work' && this.currentPomodoroTask) { const task = this.tasks.find(t => t.id === this.currentPomodoroTask); if(task) { task.pomodorosCompleted = (task.pomodorosCompleted || 0) + 1; this.saveData('tasks', this.tasks); this.checkAchievements(task); } }
         const lang = this.settings.language; this.showPushNotification(translations[lang].notification_title, this.pomodoroState.type === 'work' ? translations[lang].notification_work_end : translations[lang].notification_break_end);
         setTimeout(() => { timerEl.classList.remove('finished'); this.nextPomodoroCycle(false); }, 3000);
     }
@@ -429,25 +554,27 @@ class TaskMaster {
             headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,listWeek' },
             events: (fetchInfo, successCallback, failureCallback) => {
                 const events = this.tasks
-                    .filter(t => t.date && !t.completed)
+                    .filter(t => t.date)
                     .map(t => ({ 
                         id: t.id, 
                         title: t.title, 
-                        start: t.date, 
-                        color: priorityColors[t.priority] || 'var(--accent-color)', 
-                        allDay: true 
+                        start: t.time ? `${t.date}T${t.time}` : t.date,
+                        color: t.completed ? 'grey' : (priorityColors[t.priority] || 'var(--accent-color)'), 
+                        allDay: !t.time
                     }));
                 successCallback(events);
             },
             editable: true,
             eventDrop: (info) => {
                 const taskId = parseInt(info.event.id, 10);
-                const newDate = info.event.start.toISOString().split('T')[0];
                 const task = this.tasks.find(t => t.id === taskId);
                 if (task) {
-                    task.date = newDate;
+                    const newStart = info.event.start;
+                    const dateParts = newStart.toISOString().split('T');
+                    task.date = dateParts[0];
+                    task.time = newStart.toTimeString().substring(0,5);
                     this.saveData('tasks', this.tasks);
-                    this.renderTasks();
+                    this.renderAll();
                     this.showToast('toast_task_rescheduled');
                 }
             }
@@ -473,9 +600,9 @@ class TaskMaster {
     renderGoalsProgress() {
         const lang = this.settings.language;
         const today = new Date().toISOString().split('T')[0];
-        const tasksToday = this.tasks.filter(t => t.completed && new Date(t.completedAt).toISOString().startsWith(today)).length;
+        const tasksToday = this.tasks.filter(t => t.completed && t.completedAt && new Date(t.completedAt).toISOString().startsWith(today)).length;
         const pomosToday = this.tasks.reduce((acc, task) => {
-            if (task.completed && new Date(task.completedAt).toISOString().startsWith(today)) {
+            if (task.completed && task.completedAt && new Date(task.completedAt).toISOString().startsWith(today)) {
                 return acc + (task.pomodorosCompleted || 0);
             }
             return acc;
@@ -504,9 +631,9 @@ class TaskMaster {
         const container = document.getElementById('detailedStats');
         const today = new Date().toISOString().split('T')[0];
 
-        const tasksTodayCount = this.tasks.filter(t => t.completed && new Date(t.completedAt).toISOString().startsWith(today)).length;
+        const tasksTodayCount = this.tasks.filter(t => t.completed && t.completedAt && new Date(t.completedAt).toISOString().startsWith(today)).length;
         const pomosTodayCount = this.tasks.reduce((acc, t) => {
-            if (t.completed && new Date(t.completedAt).toISOString().startsWith(today)) {
+            if (t.completed && t.completedAt && new Date(t.completedAt).toISOString().startsWith(today)) {
                 return acc + (t.pomodorosCompleted || 0);
             } return acc;
         }, 0);
@@ -622,8 +749,40 @@ class TaskMaster {
         }
     }
 
-    async requestNotificationPermission() { if (this.settings.notificationPermission === 'default') { this.settings.notificationPermission = await Notification.requestPermission(); this.saveData('settings', this.settings); }}
-    showPushNotification(title, body) { if (this.settings.notificationPermission === 'granted') { const options = { body: body, icon: './icons/android-launchericon-192-192.png', requireInteraction: true }; try { navigator.serviceWorker.getRegistration().then(reg => { if (reg) reg.showNotification(title, options); else new Notification(title, options); }); } catch (e) { new Notification(title, options); } }}
+    async requestNotificationPermission() { if (this.settings.notificationPermission === 'default' && 'Notification' in window) { this.settings.notificationPermission = await Notification.requestPermission(); this.saveData('settings', this.settings); }}
+    showPushNotification(title, body, tag = '') { if (this.settings.notificationPermission === 'granted') { const options = { body: body, icon: './icons/android-launchericon-192-192.png', requireInteraction: true, tag: tag || 'taskmaster-notification' }; try { navigator.serviceWorker.getRegistration().then(reg => { if (reg) reg.showNotification(title, options); }); } catch (e) { console.error("Error showing push notification:", e); } }}
+    
+    initializeNotificationScheduler() {
+        this.notificationInterval = setInterval(() => {
+            this.checkDueTasks();
+        }, 30000); 
+    }
+
+    checkDueTasks() {
+        const now = Date.now();
+        const lang = this.settings.language;
+        
+        this.tasks.forEach(task => {
+            if (task.completed || !task.date || !task.time || this.notifiedTaskIds.has(task.id)) {
+                return;
+            }
+            
+            const dueTime = new Date(`${task.date}T${task.time}`).getTime();
+            
+            if (dueTime <= now && dueTime > (now - 60000)) { 
+                console.log(`Scheduling notification for task: ${task.title}`);
+                const title = translations[lang].notification_title;
+                const body = translations[lang].notif_due_now.replace('{taskTitle}', task.title);
+                
+                this.showPushNotification(title, body, `task-${task.id}`);
+                this.playSound('notification');
+                
+                this.notifiedTaskIds.add(task.id);
+            }
+        });
+    }
+
+
     exportData() { const data = JSON.stringify({ tasks: this.tasks, settings: this.settings, gamification: this.gamificationData }); const blob = new Blob([data], {type: 'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'taskmaster_backup.json'; a.click(); URL.revokeObjectURL(url); }
     importData(event) { const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = (e) => { try { const data = JSON.parse(e.target.result); if (data.tasks && data.settings) { this.tasks = data.tasks; this.settings = data.settings; if(data.gamification) this.gamificationData = data.gamification; this.saveData('tasks', this.tasks); this.saveData('settings', this.settings); this.saveData('gamification', this.gamificationData); this.applySettings(); this.showToast('feedback_imported'); } else { throw new Error('Invalid file format'); } } catch (error) { this.showToast('feedback_error_import', 'error'); console.error(error); } }; reader.readAsText(file); }
 }
