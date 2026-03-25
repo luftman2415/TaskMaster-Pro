@@ -69,9 +69,9 @@ body { font-family: var(--font-family-sans-serif); background: linear-gradient(1
     box-shadow: none !important;
 }
 
-/* Ajuste de la racha para que no flote sobre el texto */
+/* Ajuste de la racha centrado y con espacio */
 .streak-counter {
-    display: flex;
+    display: inline-flex; /* Cambiado de flex a inline-flex */
     align-items: center;
     gap: 8px;
     font-weight: 600;
@@ -80,7 +80,7 @@ body { font-family: var(--font-family-sans-serif); background: linear-gradient(1
     border-radius: 20px;
     color: white;
     font-size: 0.9rem;
-    order: -1; /* Pone la racha al principio de los botones */
+    margin: 10px auto; /* Centra el div */
 }
 
 /* Responsive para móvil: Título más pequeño y racha visible */
