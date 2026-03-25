@@ -33,7 +33,7 @@
     --accent-color: #34e89e; --accent-color-default: #34e89e;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; overflow: hidden; }
+html, body { min-height: 100vh; overflow-x: hidden; }
 body { font-family: var(--font-family-sans-serif); background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%); color: var(--text-dark); min-height: 100vh; transition: background 0.3s ease, color 0.3s ease, font-family 0.3s ease; }
 .app-wrapper { display: flex; flex-direction: column; height: 100%; }
 .app-content { flex-grow: 1; overflow-y: auto; }
