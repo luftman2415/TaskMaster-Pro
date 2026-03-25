@@ -72,8 +72,22 @@ self.addEventListener('fetch', event => {
 // Gestionar clics en notificaciones
 self.addEventListener('notificationclick', event => {
   event.notification.close();
-  // Abre la aplicación al hacer clic en la notificación
   event.waitUntil(
     clients.openWindow('./index.html')
   );
+});
+
+// Escuchar mensajes para hacer vibrar el dispositivo (NUEVO)
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'VIBRATE') {
+    // Patrón de vibración: vibra 500ms, pausa 200ms, vibra 500ms
+    if (self.registration.showNotification) {
+        self.registration.showNotification('TaskMaster Pro', {
+            body: event.data.body || '¡Es hora de tu tarea!',
+            icon: './icons/android-launchericon-192-192.png',
+            vibrate: [500, 200, 500],
+            tag: 'task-reminder'
+        });
+    }
+  }
 });
