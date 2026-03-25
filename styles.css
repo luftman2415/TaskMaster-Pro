@@ -332,3 +332,15 @@ h1{font-size:2.5rem}label{font-weight:600;color:var(--text-muted);margin-bottom:
     height: 14px;
     border-radius: 50%;
 }
+
+
+#historyList .task-item {
+    filter: grayscale(0.5);
+    border-left-style: dashed;
+    opacity: 0.8;
+}
+
+#historyList .task-item:hover {
+    filter: grayscale(0);
+    opacity: 1;
+}
