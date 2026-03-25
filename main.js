@@ -172,7 +172,20 @@ class TaskMaster {
         this.renderNotifications(); 
         this.updatePomodoroDisplay();
     }
-
+renderCategoryManager() {
+        const list = document.getElementById('categoryManagerList');
+        if(!list) return;
+        const lang = this.settings.language;
+        list.innerHTML = this.categories.map(cat => `
+            <div class="cat-manage-item">
+                <div class="cat-manage-info">
+                    <div class="cat-color-dot" style="background:${cat.color}"></div>
+                    <span>${translations[lang][cat.name] || cat.name}</span>
+                </div>
+                <button class="btn-icon" style="color:red; background:none; border:none; cursor:pointer;" onclick="app.deleteCategory('${cat.id}')"><i class="fa-solid fa-trash-can"></i></button>
+            </div>
+        `).join('');
+    }
   renderStreakCounter() {
         const streakCounterEl = document.getElementById('streakCounter');
         const lang = this.settings.language;
@@ -841,6 +854,17 @@ class TaskMaster {
 
     exportData() { const data = JSON.stringify({ tasks: this.tasks, settings: this.settings, gamification: this.gamificationData }); const blob = new Blob([data], {type: 'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'taskmaster_backup.json'; a.click(); URL.revokeObjectURL(url); }
     importData(event) { const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = (e) => { try { const data = JSON.parse(e.target.result); if (data.tasks && data.settings) { this.tasks = data.tasks; this.settings = data.settings; if(data.gamification) this.gamificationData = data.gamification; this.saveData('tasks', this.tasks); this.saveData('settings', this.settings); this.saveData('gamification', this.gamificationData); this.applySettings(); this.showToast('feedback_imported'); } else { throw new Error('Invalid file format'); } } catch (error) { this.showToast('feedback_error_import', 'error'); console.error(error); } }; reader.readAsText(file); }
+    deleteCategory(id) {
+        if (this.categories.length <= 1) {
+            this.showToast('Debes tener al menos una categoría', 'error');
+            return;
+        }
+        this.categories = this.categories.filter(c => c.id !== id);
+        this.saveData('categories', this.categories);
+        this.renderAll();
+        this.renderCategoryManager();
+        this.renderTaskForm();
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
