@@ -372,14 +372,13 @@ renderCategoryManager() {
             const colorInput = document.getElementById('newCatColor');
             const name = nameInput.value.trim();
             if (name) {
-                const newId = 'cat_' + Date.now();
-                // Añadir a las traducciones para que no salga error
-                translations[this.settings.language][newId] = name;
-                // Como no podemos editar el objeto translations fijo fácilmente, 
-                // guardaremos la categoría con su nombre directo
-                this.tasks.push({ id: Date.now(), title: "Test", category: name }); // Solo para prueba
-                this.showToast('Categoría añadida: ' + name);
+                this.categories.push({ id: 'cat_' + Date.now(), name: name, color: colorInput.value });
+                this.saveData('categories', this.categories);
                 nameInput.value = '';
+                this.renderAll();
+                this.renderCategoryManager();
+                this.renderTaskForm();
+                this.showToast('Categoría añadida: ' + name);
             }
         });
 
