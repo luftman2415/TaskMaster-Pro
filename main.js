@@ -51,6 +51,14 @@ class TaskMaster {
             goals: { ...defaultSettings.goals, ...(loadedSettings.goals || {}) },
             customization: { ...defaultSettings.customization, ...(loadedSettings.customization || {}) },
         };
+        const defaultCategories = [
+            { id: 'work', name: 'cat_work', color: '#f56565' },
+            { id: 'personal', name: 'cat_personal', color: '#4facfe' },
+            { id: 'health', name: 'cat_health', color: '#48bb78' },
+            { id: 'study', name: 'cat_study', color: '#ed8936' },
+            { id: 'other', name: 'cat_other', color: '#a0aec0' }
+        ];
+        this.categories = this.loadData('categories', defaultCategories);
         this.gamificationData = { ...{ streak: { current: 0, lastCompletedDate: null }, unlockedAchievements: [] }, ...this.loadData('gamification', {}) };
         
         this.currentPomodoroTask = null; this.pomodoroInterval = null; this.isPomodoroRunning = false;
