@@ -196,7 +196,7 @@ class TaskMaster {
                           <form id="taskForm" class="task-form">
                               <div class="form-group full-width"><label data-translate-key="label_task">${translations[lang].label_task}</label><input type="text" name="title" required placeholder="${translations[lang].placeholder_task}"></div>
                               <div class="form-row">
-                                  <div class="form-group"><label data-translate-key="label_category">${translations[lang].label_category}</label><select name="category">${this.categories ? this.categories.map(c => `<option value="${c.id}">${translations[lang][c.name] || c.name}</option>`).join('') : '<option value="work">Trabajo</option>'}</select>
+                                  <div class="form-group"><label data-translate-key="label_category">${translations[lang].label_category}</label><select name="category">${this.categories.map(c => `<option value="${c.id}">${translations[lang][c.name] || c.name}</option>`).join('')}</select>
                                   <div class="form-group"><label data-translate-key="label_priority">${translations[lang].label_priority}</label><select name="priority">${Object.keys(translations.es).filter(k=>k.startsWith('prio_')).map(k=>`<option value="${k.replace('prio_','')}">${translations[lang][k]}</option>`).join('')}</select></div>
                               </div>
                               <div class="form-row">
