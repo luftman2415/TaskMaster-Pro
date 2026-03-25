@@ -71,16 +71,18 @@ body { font-family: var(--font-family-sans-serif); background: linear-gradient(1
 
 /* Ajuste de la racha centrado y con espacio */
 .streak-counter {
-    display: inline-flex; /* Cambiado de flex a inline-flex */
+    display: none; /* Se activa por JS */
     align-items: center;
+    justify-content: center;
     gap: 8px;
     font-weight: 600;
     background: rgba(255,255,255,.2);
-    padding: 5px 15px;
+    padding: 8px 15px;
     border-radius: 20px;
     color: white;
-    font-size: 0.9rem;
-    margin: 10px auto; /* Centra el div */
+    font-size: 1rem;
+    margin: 5px auto 15px auto;
+    width: fit-content;
 }
 
 /* Responsive para móvil: Título más pequeño y racha visible */
