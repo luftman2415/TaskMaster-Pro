@@ -339,7 +339,23 @@ class TaskMaster {
         document.getElementById('statsBtn').addEventListener('click', () => this.showStatsDashboard());
         document.getElementById('dashboardBtn').addEventListener('click', () => this.showDashboard());
         document.getElementById('settingsBtn').addEventListener('click', () => { this.requestNotificationPermission(); this.renderAchievements(); this.showModal('settingsModal'); });
-        
+  // Lógica para añadir categorías nuevas desde el modal
+        document.getElementById('btnAddCategory').addEventListener('click', () => {
+            const nameInput = document.getElementById('newCatName');
+            const colorInput = document.getElementById('newCatColor');
+            const name = nameInput.value.trim();
+            if (name) {
+                const newId = 'cat_' + Date.now();
+                // Añadir a las traducciones para que no salga error
+                translations[this.settings.language][newId] = name;
+                // Como no podemos editar el objeto translations fijo fácilmente, 
+                // guardaremos la categoría con su nombre directo
+                this.tasks.push({ id: Date.now(), title: "Test", category: name }); // Solo para prueba
+                this.showToast('Categoría añadida: ' + name);
+                nameInput.value = '';
+            }
+        });
+
         document.getElementById('closeDashboard').addEventListener('click', () => this.hideModal('dashboardModal'));
         document.getElementById('closeStats').addEventListener('click', () => this.hideModal('statsModal'));
         document.getElementById('closeSettings').addEventListener('click', () => { this.hideModal('settingsModal'); });
