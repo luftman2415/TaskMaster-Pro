@@ -159,12 +159,12 @@ class TaskMaster {
         this.updatePomodoroDisplay();
     }
 
-    renderStreakCounter() {
+  renderStreakCounter() {
         const streakCounterEl = document.getElementById('streakCounter');
         const lang = this.settings.language;
         if (this.gamificationData.streak.current > 0) {
             streakCounterEl.innerHTML = `🔥 ${this.gamificationData.streak.current} <span data-translate-key="streak_days">${translations[lang].streak_days}</span>`;
-            streakCounterEl.style.display = 'flex';
+            streakCounterEl.style.display = 'flex'; // Aquí forzamos que se vea
         } else {
             streakCounterEl.style.display = 'none';
         }
