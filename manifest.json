@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "#2d3748",
   "theme_color": "#667eea",
-  "description": "Una aplicación de gestión de tareas con Pomodoro, logros y estadísticas.",
+  "description": "Gestión de tareas con Pomodoro, historial y categorías personalizadas.",
   "icons": [
     {
       "src": "./icons/android-launchericon-192-192.png",
@@ -16,6 +16,21 @@
       "src": "./icons/android-launchericon-512-512.png",
       "type": "image/png",
       "sizes": "512x512"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nueva Tarea",
+      "short_name": "Tarea",
+      "description": "Añadir una tarea rápidamente",
+      "url": "/index.html?action=new",
+      "icons": [{ "src": "./icons/android-launchericon-192-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Ver Calendario",
+      "short_name": "Calendario",
+      "url": "/index.html?view=calendar",
+      "icons": [{ "src": "./icons/android-launchericon-192-192.png", "sizes": "192x192" }]
     }
   ]
 }
