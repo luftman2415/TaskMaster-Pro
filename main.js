@@ -214,8 +214,8 @@ class TaskMaster {
         const filter = document.getElementById('filterCategory');
         const lang = this.settings.language;
         const currentFilterValue = filter.value;
-        const categories = ['all', ...new Set(this.tasks.map(t => t.category))];
-        filter.innerHTML = categories.map(cat => `<option value="${cat}">${translations[lang]?.[cat === 'all' ? 'filter_all' : `cat_${cat}`] || cat}</option>`).join('');
+        filter.innerHTML = `<option value="all">${translations[lang].filter_all}</option>` + 
+            this.categories.map(cat => `<option value="${cat.id}">${translations[lang][cat.name] || cat.name}</option>`).join('');
         filter.value = currentFilterValue || 'all';
     }
     
