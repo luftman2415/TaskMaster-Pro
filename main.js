@@ -84,6 +84,12 @@ class TaskMaster {
         document.getElementById('pomodoroShortBreak').value = this.settings.pomodoro.short;
         document.getElementById('pomodoroLongBreak').value = this.settings.pomodoro.long;
         this.applySettings();
+        if (Notification.permission !== 'granted') {
+            setTimeout(() => {
+                const banner = document.getElementById('notifPermissionBanner');
+                if (banner) banner.classList.add('show');
+            }, 2000);
+        }
     }
 
     loadData(key, defaultValue) { try { const data = localStorage.getItem(`taskmaster-${key}`); return data ? JSON.parse(data) : defaultValue; } catch (e) { console.error(`Error loading data for key: ${key}`, e); return defaultValue; } }
@@ -218,7 +224,7 @@ class TaskMaster {
         document.getElementById('taskForm').addEventListener('submit', this.handleAddTask.bind(this));
     }
 
-    renderFilterOptions() {
+  renderFilterOptions() {
         const filter = document.getElementById('filterCategory');
         const lang = this.settings.language;
         const currentFilterValue = filter.value;
