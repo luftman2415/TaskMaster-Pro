@@ -176,3 +176,103 @@ h1{font-size:2.5rem}label{font-weight:600;color:var(--text-muted);margin-bottom:
     .modal { width: 95vw; }
     #commandPaletteOverlay .modal { width: 95vw; top: 20%; }
 }
+
+/* ============================================================
+   NUEVOS AJUSTES: NOTIFICACIONES, HISTORIAL Y CATEGORÍAS
+   ============================================================ */
+
+/* Estilo para el Banner de Notificaciones (se verá bien y centrado) */
+.notif-banner {
+    position: fixed;
+    top: -250px; /* Empezará oculto arriba */
+    left: 0;
+    width: 100%;
+    background: var(--bg-card);
+    z-index: 9999;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: top 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-bottom: 3px solid var(--accent-color);
+}
+
+.notif-banner.show {
+    top: 0; /* Aparecerá cuando la app lo llame */
+}
+
+.notif-banner-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.notif-banner-content div h4 {
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.notif-banner-content div p {
+    margin: 5px 0 0 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.notif-banner-content i {
+    font-size: 2rem;
+    color: var(--accent-color);
+}
+
+/* Arreglo para que el Calendario no se corte en el celular (Sábado visible) */
+#calendar {
+    max-width: 100% !important;
+}
+
+@media (max-width: 600px) {
+    .fc .fc-toolbar {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .fc {
+        font-size: 0.75rem;
+    }
+    .fc .fc-button {
+        padding: 4px 6px !important;
+        font-size: 0.7rem !important;
+    }
+    .fc-toolbar-title {
+        font-size: 1rem !important;
+    }
+}
+
+/* Diseño de la lista de categorías dentro de Configuración */
+.category-manager-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.cat-manage-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.cat-manage-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+}
+
+.cat-color-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
