@@ -796,23 +796,17 @@ renderCategoryManager() {
     }
 
     async requestNotificationPermission() { if (this.settings.notificationPermission === 'default' && 'Notification' in window) { this.settings.notificationPermission = await Notification.requestPermission(); this.saveData('settings', this.settings); }}
-    showPushNotification(title, body, tag = '') {
+showPushNotification(title, body, tag = '') {
         if (this.settings.notificationPermission === 'granted') {
-            const options = {
-                body: body,
-                icon: './icons/android-launchericon-192-192.png',
-                vibrate: [300, 100, 300],
-                requireInteraction: true,
-                tag: tag || 'taskmaster-notification'
-            };
-            
-            // Enviamos señal al Service Worker para asegurar que vibre en segundo plano
             if (navigator.serviceWorker.controller) {
                 navigator.serviceWorker.controller.postMessage({
                     type: 'VIBRATE',
+                    title: title,
                     body: body
                 });
             }
+        }
+    }
 
             try {
                 navigator.serviceWorker.getRegistration().then(reg => {
