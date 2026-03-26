@@ -795,26 +795,28 @@ renderCategoryManager() {
         }
     }
 
-    async requestNotificationPermission() { if (this.settings.notificationPermission === 'default' && 'Notification' in window) { this.settings.notificationPermission = await Notification.requestPermission(); this.saveData('settings', this.settings); }}
-showPushNotification(title, body, tag = '') {
-        if (this.settings.notificationPermission === 'granted') {
-            if (navigator.serviceWorker.controller) {
-                navigator.serviceWorker.controller.postMessage({
-                    type: 'VIBRATE',
-                    title: title,
-                    body: body
-                });
+async requestNotificationPermission() {
+        if ('Notification' in window) {
+            const permission = await Notification.requestPermission();
+            this.settings.notificationPermission = permission;
+            this.saveData('settings', this.settings);
+            if (permission === 'granted') {
+                this.playSound('notification');
+                const banner = document.getElementById('notifPermissionBanner');
+                if (banner) banner.classList.add('hidden-fade'); // Esto lo oculta suavemente
+                setTimeout(() => { if(banner) banner.classList.remove('show'); }, 500);
+                this.showToast('¡Notificaciones activadas!');
             }
         }
     }
 
-            try {
-                navigator.serviceWorker.getRegistration().then(reg => {
-                    if (reg) reg.showNotification(title, options);
-                });
-            } catch (e) {
-                console.error("Error showing push notification:", e);
-            }
+    showPushNotification(title, body, tag = '') {
+        if (this.settings.notificationPermission === 'granted' && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({
+                type: 'VIBRATE',
+                title: title,
+                body: body
+            });
         }
     }
     
