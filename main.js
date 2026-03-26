@@ -366,7 +366,11 @@ renderCategoryManager() {
         document.getElementById('statsBtn').addEventListener('click', () => this.showStatsDashboard());
         document.getElementById('dashboardBtn').addEventListener('click', () => this.showDashboard());
         document.getElementById('settingsBtn').addEventListener('click', () => { this.requestNotificationPermission(); this.renderAchievements(); this.showModal('settingsModal'); });
-  // Lógica para añadir categorías nuevas desde el modal
+  const btnAllow = document.getElementById('btnAllowNotif');
+        const btnClose = document.getElementById('btnCloseNotifBanner');
+        if (btnAllow) btnAllow.addEventListener('click', () => this.requestNotificationPermission());
+        if (btnClose) btnClose.addEventListener('click', () => document.getElementById('notifPermissionBanner').classList.remove('show'));
+        // Lógica para añadir categorías nuevas desde el modal
         document.getElementById('btnAddCategory').addEventListener('click', () => {
             const nameInput = document.getElementById('newCatName');
             const colorInput = document.getElementById('newCatColor');
