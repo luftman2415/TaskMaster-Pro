@@ -1,5 +1,5 @@
 // service-worker.js
-const CACHE_NAME = 'taskmaster-pro-cache-v12'; // Incrementamos la versión para forzar la actualización
+const CACHE_NAME = 'taskmaster-pro-cache-v13'; // Incrementamos la versión para forzar la actualización
 const urlsToCache = [
   './',
   './index.html',
@@ -77,14 +77,14 @@ self.addEventListener('notificationclick', event => {
   );
 });
 
-// Escuchar mensajes para vibrar y mostrar alertas en segundo plano
+// Escuchar mensajes para mostrar la notificación única con el icono correcto
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'VIBRATE') {
-    self.registration.showNotification('TaskMaster Pro', {
+    self.registration.showNotification(event.data.title || 'TaskMaster Pro', {
         body: event.data.body || '¡Tienes una tarea pendiente!',
         icon: './icons/android-launchericon-192-192.png',
         badge: './icons/android-launchericon-192-192.png',
-        vibrate: [500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40],
+        vibrate: [500, 100, 500],
         tag: 'task-reminder',
         renotify: true
     });
