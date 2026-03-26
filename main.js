@@ -804,8 +804,7 @@ async requestNotificationPermission() {
             if (permission === 'granted') {
                 this.playSound('notification');
                 const banner = document.getElementById('notifPermissionBanner');
-                if (banner) banner.classList.add('hidden-fade'); // Esto lo oculta suavemente
-                setTimeout(() => { if(banner) banner.classList.remove('show'); }, 500);
+                if (banner) banner.style.display = 'none';
                 this.showToast('¡Notificaciones activadas!');
             }
         }
