@@ -366,10 +366,11 @@ renderCategoryManager() {
         document.getElementById('statsBtn').addEventListener('click', () => this.showStatsDashboard());
         document.getElementById('dashboardBtn').addEventListener('click', () => this.showDashboard());
         document.getElementById('settingsBtn').addEventListener('click', () => { this.requestNotificationPermission(); this.renderAchievements(); this.showModal('settingsModal'); });
-  const btnAllow = document.getElementById('btnAllowNotif');
+ const btnAllow = document.getElementById('btnAllowNotif');
         const btnClose = document.getElementById('btnCloseNotifBanner');
+        const bannerEl = document.getElementById('notifPermissionBanner');
         if (btnAllow) btnAllow.addEventListener('click', () => this.requestNotificationPermission());
-        if (btnClose) btnClose.addEventListener('click', () => document.getElementById('notifPermissionBanner').classList.remove('show'));
+        if (btnClose) btnClose.addEventListener('click', () => { if(bannerEl) bannerEl.style.display = 'none'; });
         // Lógica para añadir categorías nuevas desde el modal
         document.getElementById('btnAddCategory').addEventListener('click', () => {
             const nameInput = document.getElementById('newCatName');
