@@ -568,7 +568,7 @@ renderCategoryManager() {
     renderAchievements() { const grid = document.getElementById('achievementsGrid'); const lang = this.settings.language; grid.innerHTML = Object.values(ACHIEVEMENT_DEFINITIONS).map(ach => { const unlocked = this.gamificationData.unlockedAchievements.includes(ach.id); return `<div class="achievement-item ${unlocked ? 'unlocked' : ''}" title="${translations[lang][`${ach.id}_desc`]}"><i class="fa-solid ${ach.icon} achievement-icon"></i><span class="ach-title">${translations[lang][`${ach.id}_title`]}</span></div>`; }).join(''); }
     
     finishPomodoroCycle() {
-        this.playSound('notification');
+        
         const timerEl = document.getElementById('pomodoroTimer'); timerEl.classList.add('finished');
         if(this.pomodoroState.type === 'work' && this.currentPomodoroTask) { const task = this.tasks.find(t => t.id === this.currentPomodoroTask); if(task) { task.pomodorosCompleted = (task.pomodorosCompleted || 0) + 1; this.saveData('tasks', this.tasks); this.checkAchievements(task); } }
         const lang = this.settings.language; this.showPushNotification(translations[lang].notification_title, this.pomodoroState.type === 'work' ? translations[lang].notification_work_end : translations[lang].notification_break_end);
@@ -805,7 +805,7 @@ async requestNotificationPermission() {
             this.settings.notificationPermission = permission;
             this.saveData('settings', this.settings);
             if (permission === 'granted') {
-                this.playSound('notification');
+              
                 const banner = document.getElementById('notifPermissionBanner');
                 if (banner) banner.style.display = 'none';
                 this.showToast('¡Notificaciones activadas!');
@@ -834,15 +834,16 @@ async requestNotificationPermission() {
         const lang = this.settings.language;
         
         this.tasks.forEach(task => {
+            // No avisar si ya está completada o si ya enviamos esta notificación
             if (task.completed || !task.date || !task.time || this.notifiedTaskIds.has(task.id)) {
                 return;
             }
             
             const dueTime = new Date(`${task.date}T${task.time}`).getTime();
             
-            if (dueTime <= now && dueTime > (now - 60000)) { 
-                console.log(`Scheduling notification for task: ${task.title}`);
-                const title = translations[lang].notification_title;
+            // Si la hora de la tarea ya pasó (hasta 10 minutos atrás) y no hemos avisado:
+            if (dueTime <= now && dueTime > (now - 600000)) { 
+                const title = translations[lang].notification_title || "¡Tiempo!";
                 const body = translations[lang].notif_due_now.replace('{taskTitle}', task.title);
                 
                 this.showPushNotification(title, body, `task-${task.id}`);
@@ -852,7 +853,6 @@ async requestNotificationPermission() {
             }
         });
     }
-
 
     exportData() { const data = JSON.stringify({ tasks: this.tasks, settings: this.settings, gamification: this.gamificationData }); const blob = new Blob([data], {type: 'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'taskmaster_backup.json'; a.click(); URL.revokeObjectURL(url); }
     importData(event) { const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = (e) => { try { const data = JSON.parse(e.target.result); if (data.tasks && data.settings) { this.tasks = data.tasks; this.settings = data.settings; if(data.gamification) this.gamificationData = data.gamification; this.saveData('tasks', this.tasks); this.saveData('settings', this.settings); this.saveData('gamification', this.gamificationData); this.applySettings(); this.showToast('feedback_imported'); } else { throw new Error('Invalid file format'); } } catch (error) { this.showToast('feedback_error_import', 'error'); console.error(error); } }; reader.readAsText(file); }
