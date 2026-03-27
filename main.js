@@ -277,10 +277,12 @@ renderCategoryManager() {
         const taskEl = document.createElement('div');
         const lang = this.settings.language;
         const today = new Date().setHours(0, 0, 0, 0); 
+        
         let taskDateTime = null;
         if (task.date) {
             taskDateTime = new Date(task.date + (task.time ? `T${task.time}` : 'T23:59:59')).getTime();
         }
+
         let dateClass = '';
         if (!task.completed && taskDateTime) { 
             if (taskDateTime < Date.now()) dateClass = 'task-overdue'; 
@@ -288,27 +290,42 @@ renderCategoryManager() {
         }
 
         taskEl.className = `task-item ${task.completed ? 'completed' : ''} ${this.currentPomodoroTask === task.id ? 'pomodoro-active' : ''} ${dateClass}`;
-        taskEl.dataset.id = task.id; taskEl.draggable = true;
-        const priorityColors = { low: 'var(--prio-low)', medium: 'var(--prio-medium)', high: 'var(--prio-high)'};
-        if (!dateClass) { taskEl.style.borderLeftColor = priorityColors[task.priority] || '#cbd5e0'; }
-        
-        const subtasksDone = task.subtasks.filter(st => st.completed).length; const progress = task.subtasks.length > 0 ? (subtasksDone / task.subtasks.length) * 100 : (task.completed ? 100 : 0);
+        taskEl.dataset.id = task.id; 
+        taskEl.draggable = true;
+
+        const subtasksDone = task.subtasks ? task.subtasks.filter(st => st.completed).length : 0; 
+        const totalSubtasks = task.subtasks ? task.subtasks.length : 0;
+        const progress = totalSubtasks > 0 ? (subtasksDone / totalSubtasks) * 100 : (task.completed ? 100 : 0);
         const recurrenceText = task.recurrence && task.recurrence !== 'none' ? `<span><i class="fa-solid fa-repeat"></i> ${translations[lang]['recur_'+task.recurrence] || ''}</span>` : '';
         
         const dateString = task.date ? new Date(task.date + 'T00:00:00').toLocaleDateString(lang) : '';
-        const timeString = task.time ? new Date('1970-01-01T' + task.time).toLocaleTimeString(lang, {hour: '2-digit', minute:'2-digit', hour12: true}) : '';
-
+        const timeString = task.time ? task.time : '';
         const completeBtnClass = task.completed ? 'is-completed' : 'is-pending';
-        const subtasksHTML = task.subtasks.length > 0 ? `<div class="task-subtasks">${task.subtasks.map(st => `
-            <div class="task-subtask-item ${st.completed ? 'completed' : ''}" data-subtask-id="${st.id}">
-                <input type="checkbox" id="subtask-${st.id}" data-task-id="${task.id}" ${st.completed ? 'checked' : ''} />
-                <label for="subtask-${st.id}">${st.title}</label>
-            </div>`).join('')}</div>` : '';
 
-        taskEl.innerHTML = `<div class="task-header"><div class="task-info"><h4 class="task-title">${task.title}</h4><div class="task-meta">${task.notes ? '<span><i class="fa-solid fa-note-sticky"></i></span>' : ''}const catObj = this.categories.find(c => c.id === task.category);
-            const catDisplayName = catObj ? (translations[lang][catObj.name] || catObj.name) : task.category;
-            
-            taskEl.innerHTML = `<div class="task-header"><div class="task-info"><h4 class="task-title">${task.title}</h4><div class="task-meta"><span><i class="fa-solid fa-tag"></i> ${catDisplayName}</span>${dateString ? `<span><i class="fa-solid fa-calendar-days"></i> ${dateString}</span>` : ''}${timeString ? `<span><i class="fa-solid fa-clock"></i> ${timeString}</span>` : ''}${recurrenceText}</div></div><div class="task-actions"><button class="btn-icon pomodoro-start-btn" aria-label="Iniciar Pomodoro" title="Iniciar Pomodoro"><i class="fa-solid fa-clock"></i></button><button class="btn-icon edit-btn" aria-label="Editar" title="Editar"><i class="fa-solid fa-pencil"></i></button><button class="btn-icon delete-btn" aria-label="Eliminar" title="Eliminar"><i class="fa-solid fa-trash-can"></i></button><button class="btn-icon complete-btn ${completeBtnClass}" aria-label="Completar" title="Completar"><i class="fa-solid fa-circle-check"></i></button></div></div>${subtasksHTML}${(task.subtasks.length > 0 || task.completed) ? `<div class="task-progress"><div class="progress-bar" style="width: ${progress}%"></div></div>` : ''}`;${dateString ? `<span><i class="fa-solid fa-calendar-days"></i> ${dateString}</span>` : ''}${timeString ? `<span><i class="fa-solid fa-clock"></i> ${timeString}</span>` : ''}${recurrenceText}</div></div><div class="task-actions"><button class="btn-icon pomodoro-start-btn" aria-label="Iniciar Pomodoro para esta tarea" title="Iniciar Pomodoro"><i class="fa-solid fa-clock"></i></button><button class="btn-icon edit-btn" aria-label="Editar tarea" title="Editar"><i class="fa-solid fa-pencil"></i></button><button class="btn-icon delete-btn" aria-label="Eliminar tarea" title="Eliminar"><i class="fa-solid fa-trash-can"></i></button><button class="btn-icon complete-btn ${completeBtnClass}" aria-label="Marcar como completada" title="Completar"><i class="fa-solid fa-circle-check"></i></button></div></div>${subtasksHTML}${(task.subtasks.length > 0 || task.completed) ? `<div class="task-progress"><div class="progress-bar" style="width: ${progress}%"></div></div>` : ''}`;
+        // Lógica para el nombre de la categoría en español
+        const catObj = this.categories.find(c => c.id === task.category);
+        const catDisplayName = catObj ? (translations[lang][catObj.name] || catObj.name) : task.category;
+
+        taskEl.innerHTML = `
+            <div class="task-header">
+                <div class="task-info">
+                    <h4 class="task-title">${task.title}</h4>
+                    <div class="task-meta">
+                        <span><i class="fa-solid fa-tag"></i> ${catDisplayName}</span>
+                        ${dateString ? `<span><i class="fa-solid fa-calendar-days"></i> ${dateString}</span>` : ''}
+                        ${timeString ? `<span><i class="fa-solid fa-clock"></i> ${timeString}</span>` : ''}
+                        ${recurrenceText}
+                    </div>
+                </div>
+                <div class="task-actions">
+                    <button class="btn-icon pomodoro-start-btn" title="Pomodoro"><i class="fa-solid fa-clock"></i></button>
+                    <button class="btn-icon edit-btn" title="Editar"><i class="fa-solid fa-pencil"></i></button>
+                    <button class="btn-icon delete-btn" title="Eliminar"><i class="fa-solid fa-trash-can"></i></button>
+                    <button class="btn-icon complete-btn ${completeBtnClass}" title="Completar"><i class="fa-solid fa-circle-check"></i></button>
+                </div>
+            </div>
+            ${(totalSubtasks > 0 || task.completed) ? `<div class="task-progress"><div class="progress-bar" style="width: ${progress}%"></div></div>` : ''}
+        `;
         return taskEl;
     }
 
