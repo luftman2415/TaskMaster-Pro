@@ -1,5 +1,5 @@
 // service-worker.js
-const CACHE_NAME = 'taskmaster-pro-cache-v13'; // Incrementamos la versión para forzar la actualización
+const CACHE_NAME = 'taskmaster-pro-cache-v14'; // Incrementamos la versión para forzar la actualización
 const urlsToCache = [
   './',
   './index.html',
