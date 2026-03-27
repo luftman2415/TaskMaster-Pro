@@ -80,13 +80,17 @@ self.addEventListener('notificationclick', event => {
 // Escuchar mensajes para mostrar la notificación única con el icono correcto
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'VIBRATE') {
+    // Usamos una ruta absoluta para el icono para evitar la letra "L"
+    const iconPath = './icons/android-launchericon-192-192.png';
+    
     self.registration.showNotification(event.data.title || 'TaskMaster Pro', {
         body: event.data.body || '¡Tienes una tarea pendiente!',
-        icon: './icons/android-launchericon-192-192.png',
-        badge: './icons/android-launchericon-192-192.png',
-        vibrate: [500, 100, 500],
-        tag: 'task-reminder',
-        renotify: true
+        icon: iconPath,
+        badge: iconPath,
+        vibrate: [500, 110, 500],
+        tag: event.data.tag || 'task-reminder',
+        renotify: true,
+        requireInteraction: true // Mantiene la notificación visible hasta que la toques
     });
   }
 });
